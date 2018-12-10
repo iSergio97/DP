@@ -1,0 +1,21 @@
+-Añadida anotación @OneToOne(mappedBy = "handyWorker") en getCurriculum de HandyWorker
+-Añadida anotación @OneToOne(optional = false) en getHandyworker de Curriculum
+-Añadidas anotaciones @Entity y @Access(AccessType.PROPERTY) a Curriculum, PersonalRecord, ProfessionalRecord, EducationalRecord, EndorserRecord y MiscellaneousRecord
+-Cambiados todos los Set en Curriculum a Collection
+-Añadida anotación @OneToMany(mappedBy = "curriculum",cascade = CascadeType.ALL) a todos los métodos getXRecord en Curriculum
+-Añadidas anotaciones @ManyToOne(optional = false) en getCurriculum de PersonalRecord, ProfessionalRecord, EducationalRecord, EndorserRecord y MiscellaneousRecord
+-Añadida anotación @Temporal(TemporalType.DATE) a getStartingTime y getEndingTime de ProfessionalRecord y EducationalRecord
+-Añadida anotación @Temporal(TemporalType.DATE) a getMinimumDate y getMaximumDate en Finder
+-Añadida anotación @OneToOne(mappedBy = "handyWorker",optional=false) a getFinder de HandyWorker
+-Añadida anotacion @OneToOne(optional = false) a getHandyWorker y getWarranty de Finder
+-Añadida anotación @OneToOne(optional = true) a FixUpCategory de Finder
+-Añadida anotación @OneToMany(mappedBy = "fixUpTask") a getComplaints de FixUpTask
+-Añadida anotación @ManyToOne(optional = false) a getFixUpTask de Complaints
+-Añadida anotación @Temporal(TemporalType.DATE) a getMoment de FixUpTask,Complaint,Report y Note
+-Cambiado atributos de List a Collection en Note, Report, Complaint y Referee y añadidas anotaciones @ElementCollection
+-Añadida anotación @OneToMany(cascade = CascadeType.ALL, mappedBy ="complaint") a getReports de Complaint
+-Añadida anotación @ManyToOne(optional = false) a getComplaint y getReferee de Report
+-Añadida anotación @OneToMany(mappedBy = "referee") a getReports de Referee
+-Añadida anotación @OneToMany(cascade = CascadeType.ALL, mappedBy="report")
+-Añadida anotación @ManyToOne(optional = false) a getReport y getActor de Note
+-Añadida anotación @OneToMany(mappedBy = "actor") a getNotes de Actor

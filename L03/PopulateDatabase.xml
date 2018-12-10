@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * PopulateDatabase.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="customer" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="super" />
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="customer1" />
+		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="handyWorker1" />
+		<property name="password" value="78da4cd657c85d3cf54ae4497ed223f2" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDY_WORKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>	
+	
+	<!-- CUSTOMERS -->
+	
+	<bean id="customer1" class="domain.Customer">
+	<property name="name" value="Carlos"/>
+	<property name="middleName" value=""/>
+	<property name="surname" value="Ruiz"/>
+	<property name="photo" value="https://gyazo.com/bc9a07f806b4b8222308e38e48c6ff04"/>
+	<property name="email" value="carlosrb96@gmail.com"/>
+	<property name="phoneNumber" value="+34687245678"/>
+	<property name="address" value="Avenida Reina Mercedes s/n"/>
+	<property name="userAccount" ref="userAccount4"/>
+	<property name="boxes">
+	<list>
+		<ref bean="inBox"/>
+		<ref bean="outBox"/>
+		<ref bean="spamBox"/>
+		<ref bean="trashBox"/>
+	</list>
+	</property>
+	<property name="socialProfiles">
+	<list>
+		<ref bean="socialProfile2"/>
+	</list>
+	</property>
+	<property name="messagesSent"/>
+	<property name="messagesReceived"/>
+	<property name="fixUpTasks">
+	<list>
+		<ref bean="fixUpTask1"/>
+	</list>
+	</property>
+	</bean>
+	
+	<!-- HANDY WORKERS -->
+	
+	<bean id="handyWorker1" class="domain.HandyWorker">
+	<property name="name" value="Sara"/>
+	<property name="middleName" value=""/>
+	<property name="surname" value="Fernandez"/>
+	<property name="photo" value="https://gyazo.com/673df2f21880d6c7e568ec54cb8dc53b"/>
+	<property name="email" value="sarafdez@gmail.com"/>
+	<property name="phoneNumber" value="+34630681378"/>
+	<property name="address" value="Calle Alta 8"/>
+	<property name="userAccount" ref="userAccount5"/>
+	<property name="boxes">
+	<list>
+		<ref bean="inBox"/>
+		<ref bean="outBox"/>
+		<ref bean="spamBox"/>
+		<ref bean="trashBox"/>
+	</list>
+	</property>
+	<property name="socialProfiles">
+	<list>
+		<ref bean="socialProfile1"/>
+	</list>
+	</property>
+	<property name="messagesSent"/>
+	<property name="messagesReceived"/>
+	<property name="make" value="Sara Fernandez"/>
+	</bean>
+	
+	<!-- SOCIAL PROFILES -->
+	
+	<bean id="socialProfile1" class="domain.SocialProfile">
+	<property name="nickName" value="carlosrb96"/>
+	<property name="socialNetworkName" value="Twitter"/>
+	<property name="link" value="https://twitter.com/carlosRB96"/>
+	<property name="actor" ref="customer1"/>
+	</bean>
+	
+	<bean id="socialProfile2" class="domain.SocialProfile">
+	<property name="nickName" value="saraFdez"/>
+	<property name="socialNetworkName" value="Twitter"/>
+	<property name="link" value="https://twitter.com/saraFdez84"/>
+	<property name="actor" ref="handyWorker1"/>
+	</bean>
+	
+	<!-- MESSAGE BOXES -->
+	
+	<bean id="inBox1" class="domain.MessageBox">
+	<property name="name" value="InBox"/>
+	<property name="isSystem" value="1"/>
+	<property name="actor" ref="customer1"/>
+	<property name="messages"/>
+	</bean>
+	
+	<bean id="outBox1" class="domain.MessageBox">
+	<property name="name" value="OutBox"/>
+	<property name="isSystem" value="1"/>
+	<property name="actor" ref="customer1"/>
+	<property name="messages"/>
+	</bean>
+	
+	<bean id="spamBox1" class="domain.MessageBox">
+	<property name="name" value="SpamBox"/>
+	<property name="isSystem" value="1"/>
+	<property name="actor" ref="customer1"/>
+	<property name="messages"/>
+	</bean>
+	
+	<bean id="trashBox1" class="domain.MessageBox">
+	<property name="name" value="TrashBox"/>
+	<property name="isSystem" value="1"/>
+	<property name="actor" ref="customer1"/>
+	<property name="messages"/>
+	</bean>
+	
+	
+	
+	<bean id="inBox2" class="domain.MessageBox">
+	<property name="name" value="InBox"/>
+	<property name="isSystem" value="1"/>
+	<property name="actor" ref="handyWorker1"/>
+	<property name="messages"/>
+	</bean>
+	
+	<bean id="outBox2" class="domain.MessageBox">
+	<property name="name" value="OutBox"/>
+	<property name="isSystem" value="1"/>
+	<property name="actor" ref="handyWorker1"/>
+	<property name="messages"/>
+	</bean>
+	
+	<bean id="spamBox2" class="domain.MessageBox">
+	<property name="name" value="SpamBox"/>
+	<property name="isSystem" value="1"/>
+	<property name="actor" ref="handyWorker1"/>
+	<property name="messages"/>
+	</bean>
+	
+	<bean id="trashBox2" class="domain.MessageBox">
+	<property name="name" value="TrashBox"/>
+	<property name="isSystem" value="1"/>
+	<property name="actor" ref="handyWorker1"/>
+	<property name="messages"/>
+	</bean>
+	
+	<!-- MESSAGES -->
+	
+	<bean id="message1" class="domain.Message">
+	<property name="date" value="2018/08/24 09:47"/>
+	<property name="subject" value="Prueba"/>
+	<property name="body" value="Este mensaje es una prueba para comprobar que todo va bien"/>
+	<property name="priority" value="NEUTRAL"/>
+	<property name="tags"/>
+	<property name="recipients">
+	<list>
+		<ref bean="handyWorker1"/>
+	</list>
+	</property>
+	<property name="sender" ref="customer1"/>
+	<property name="messageBoxes">
+	<list>
+		<ref bean="inBox2"/>
+		<ref bean="outBox1"/>
+	</list>
+	</property>
+	</bean>
+	
+	<!-- FIX UP TASKS -->
+	
+	<bean id="fixUpTask1" class="domain.FixUpTask">
+	<property name="ticker" value="180612AAA000"/>
+	<property name="moment" value="2018/06/12 08:30"/>
+	<property name="description" value="Esta es una descripción para la fixUpTask1"/>
+	<property name="address" value="Calle Monzón 30, 1ºA"/>
+	<property name="maximumPrice" value="100"/>
+	<property name="timeLimit" value="2"/>
+	<property name="customer" ref="customer1"/>
+	<property name="fixUpTaskCategory" ref="fixUpTaskCategory2"/>
+	<property name="applications">
+	<list>
+		<ref bean="application1"/>
+		<ref bean="application2"/>
+	</list>
+	</property>
+	<property name="warranty" ref="warranty1"/>
+	<property name="workPlan" ref="workPlan1"/>
+	</bean>
+	
+	<!-- FIX UP TASK CATEGORIES -->
+	
+	<bean id="fixUpTaskCategoryRoot" class="domain.FixUpTaskCategory">
+	<property name="name" value="CATEGORY"/>
+	<property name="fixUpTasks"/>
+	<property name="fixUpTaskCategoryParent"/>
+	<property name="fixUpTaskCategoryChildren">
+	<list>
+		<ref bean="fixUpTaskCategory1"/>
+	</list>
+	</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory1" class="domain.FixUpTaskCategory">
+	<property name="name" value="Doors"/>
+	<property name="fixUpTasks">
+	<list>
+		<ref bean="fixUpTask1"/>
+	</list>
+	</property>
+	<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot"/>
+	<property name="fixUpTaskCategoryChildren"/>
+	</bean>
+	
+	<!-- APPLICATIONS -->
+	
+		<bean id="application2" class="domain.Application">
+	<property name="moment" value="2018/06/12 09:00"/>
+	<property name="status" value="ACCEPTED"/>
+	<property name="offeredPrice" value="80"/>
+	<property name="handyWorker" ref="handyWorker1"/>
+	<property name="fixUpTask" ref="fixUpTask1"/>
+	</bean>
+	
+	
+	<!-- WORKPLANS -->
+	
+	<bean id="workPlan1" class="domain.WorkPlan">
+	<property name="fixUpTask" ref="fixUpTask1"/>
+	<property name="phases">
+	<list>
+		<ref bean="phase1"/>
+	</list>
+	</property>
+	</bean>
+	
+	<!-- PHASES -->
+	
+	<bean id="phase1" class="domain.Phase">
+	<property name="title" value="FixUpTask 1.1: Comenzando"/>
+	<property name="description" value="Fase de prueba para comprobar que todo va bien"/>
+	<property name="startMoment" value="2018/06/12 10:00"/>
+	<property name="endMoment" value="2018/06/13 10:00"/>
+	<property name="workPlan" ref="workPlan1"/>
+	</bean>
+	
+	<!-- WARRANTIES -->
+	
+	<bean id="warranty1" class="domain.Warranty">
+	<property name="title" value="Garantía 1"/>
+	<property name="terms" value="Términos y Condiciones para la Garantía 1"/>
+	<property name="applicableLaws"/>
+	</bean>
+</beans>

@@ -1,0 +1,9 @@
+Cambios
+
+Relación 1..* Entre Actor (1) y Profile (*)
+Relacion 4..* - * Entre Actor (*) y Message Box
+Eliminada composición de WorkPlan y FixUp-Task
+Eliminación agregación Report con complaint y con note y añadida navegabilidad entre Complaint y Report 
+y no navegabilidad de Note a report
+
+

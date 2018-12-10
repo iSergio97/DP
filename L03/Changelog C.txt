@@ -1,0 +1,20 @@
+-Añadida anotacion @ManyToOne en clase Application, método getFixUpTask
+-Añadidas anotaciones @Entity y demás al principio de la clase MessageBox
+-Eliminacion de mappedBy en getMessages de la clase MessageBox
+-Añadida anotacion @OneToOne en método getFixUpTask de la clase WorkPlan
+-Añadida anotación OneToMany en método getFixUpTasks de la clase FixUpTaskCategory
+-cambiado a Collection el atributo applicableLaws de la clase Warranty, añadida anotacion @ElementCollection a su getter
+-añadida anotación ManyToOne(optional = false) en metodo getActor de la clase SocialProfile
+-añadida anotación ManyToOne(optional = true) en método getFixUpTask de la clase Application
+-añadida anotación OneToMany(mappedBy = "fixUpTask") en método getApplications de la clase FixUpTask
+-Eliminado publisher y sus métodos de la clase FixUpTask
+-añadida anotacion ManyToOne(optional = true) en el metodo getCustomer de la clase FixUpTask
+-añadida anotacion OneToMany(mappedBy = "fixUpTask") en el metodo getFixUpTask de la clase Customer
+-añadida anotacion OneToOne(optional = false) en el metodo getWorkPlan de la clase FixUpTask y la misma en el metodo getFixUpTask de la clase WorkPlan
+-añadida anotacion ManyToMany en el metodo getRecipients de la clase Message (puede que haya que cambiar la navegabilidad de los mensajes en el modelo de dominio, no me cuadra mucho cómo está ahora mismo)
+-añadida anotacion ElementCollection en el metodo getTags de la clase Message
+-cambiado el metodo getFixUpTaskCategoryParent de tipo Collection a tipo FixUpTaskCategory
+
+-He comentado todo lo que daba error por ser del apartado B donde no estaba trabajando
+
+

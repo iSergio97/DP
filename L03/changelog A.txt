@@ -1,0 +1,7 @@
+-Corregido un fallo en el nombre de un getter (getFixUpTask en vez de getFixUpTasks para un campo llamado fixUpTasks)
+-Corregido unos fallos ortográficos (minimun en vez de minimum en Finder)
+-Eliminación del método superfluo setFixUpTaskCategoryChildren(FixUpTaskCategory) en la clase FixUpTaskCategory
+-Eliminación de una anotación inútil (un @Temporal en Finder.getMinimumPrice())
+-Cambiados algunos Set y List a Collection
+-Añadidos OneToOne, OneToMany, ManyToOne y ManyToMany a las clases que lo necesitaban
+-Cambiados el org.joda.Date y el java.sql.Date a java.util.Date
