@@ -1,0 +1,2 @@
+se ha añadido un atributo isBanned a Actor
+se ha añadido un atributo comments : String[0..*] a Application
