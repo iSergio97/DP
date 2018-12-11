@@ -57,7 +57,7 @@ public class MessageBoxService {
 		spamBox.setMessages(new ArrayList<Message>());
 		mbls.add(spamBox);
 
-		return this.messageBoxRepository.save(mbls);
+		return mbls;
 	}
 
 	public MessageBox createNormalBoxes() {
