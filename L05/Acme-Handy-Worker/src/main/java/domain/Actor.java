@@ -35,6 +35,7 @@ public abstract class Actor extends DomainEntity {
 	private String						email;
 	private String						phoneNumber;
 	private String						address;
+	private boolean						isBanned;
 
 	// Relationships ----------------------------------------------------------
 
@@ -117,6 +118,14 @@ public abstract class Actor extends DomainEntity {
 
 	public void setAddress(final String address) {
 		this.address = address;
+	}
+
+	public boolean getIsBanned() {
+		return this.isBanned;
+	}
+
+	public void setIsBanned(final boolean isBanned) {
+		this.isBanned = isBanned;
 	}
 
 	// Relationship access methods --------------------------------------------

@@ -14,15 +14,15 @@
 </p>
 
 <jstl:if test="${error}">
-	<div class="alert alert-danger" role="alert">
+	<p>
 		<spring:message code="systemconfiguration.error" />
-	</div>
+	</p>
 </jstl:if>
 
-<jstl:if test="${changed}">
-	<div class="alert alert-success" role="alert">
+<jstl:if test="${success}">
+	<p>
 		<spring:message code="systemconfiguration.success" />
-	</div>
+	</p>
 </jstl:if>
 
 <form method="POST">

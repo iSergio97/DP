@@ -2,9 +2,11 @@
 package domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
@@ -16,14 +18,15 @@ public class Application extends DomainEntity {
 
 	// Fields -----------------------------------------------------------------
 
-	private Date		moment;
-	private String		status;
-	private int			offeredPrice;
+	private Date			moment;
+	private String			status;
+	private int				offeredPrice;
+	private List<String>	comments;
 
 	// Relationships ----------------------------------------------------------
 
-	private HandyWorker	handyWorker;
-	private FixUpTask	fixUpTask;
+	private HandyWorker		handyWorker;
+	private FixUpTask		fixUpTask;
 
 
 	// Field access methods ---------------------------------------------------
@@ -51,6 +54,15 @@ public class Application extends DomainEntity {
 
 	public void setOfferedPrice(final int offeredPrice) {
 		this.offeredPrice = offeredPrice;
+	}
+
+	@ElementCollection
+	public List<String> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(final List<String> comments) {
+		this.comments = comments;
 	}
 
 	// Relationship access methods --------------------------------------------
