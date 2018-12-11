@@ -16,9 +16,24 @@
        
 <tiles-definitions>
 
-	<definition name="security/login" extends="master.page">
-		<put-attribute name="title" value="Login" />
-		<put-attribute name="body" value="/views/security/login.jsp" />
+	<definition name="fix-up-task/browse" extends="master.page">
+		<put-attribute name="title" value="My Fix-Up Tasks" />
+		<put-attribute name="body" value="/views/fix-up-task/browse.jsp" />
+	</definition>
+	
+	<definition name="fix-up-task/browse-handy-worker" extends="master.page">
+		<put-attribute name="title" value="Fix-Up Tasks" />
+		<put-attribute name="body" value="/views/fix-up-task/browse-handy-worker.jsp" />
+	</definition>
+	
+	<definition name="fix-up-task/edit" extends="master.page">
+		<put-attribute name="title" value="Edit Fix-Up Task" />
+		<put-attribute name="body" value="/views/fix-up-task/edit.jsp" />
+	</definition>
+	
+	<definition name="fix-up-task/show" extends="master.page">
+		<put-attribute name="title" value="Fix-Up Task" />
+		<put-attribute name="body" value="/views/fix-up-task/show.jsp" />
 	</definition>
 
 </tiles-definitions>

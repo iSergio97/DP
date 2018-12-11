@@ -8,17 +8,12 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="actors" id="row"
-	requestURI="fix-up-task/browse.do" pagesize="5"
-	class="displaytag">
+<a href="customer/browse.do">Back</a>
 
-	<display:column property="customer" titleKey="fixUpTask.customer" />
-	<display:column> <a href="customer.show.do?customerId=${row.id}"> <jstl:out value="fixUpTask.customer.surname"/></a> </display:column>
-	<display:column property="category" titleKey="fixUpTask.fixUpTaskCategory.name" />
-	<display:column property="address" titleKey="fixUpTask.address" />
-	<display:column property="timeLimit" titleKey="fixUpTask.timeLimit" />
-	<display:column property="maximumPrice" titleKey="fixUpTask.maximumPrice" />
+<jstl:out value="Address: ${fixUpTask.address}"/><br/>
+<jstl:out value="Maximum Price: ${fixUpTask.maximumPrice}"/>
+<jstl:out value="Time Limit: ${fixUpTask.timeLimit}"/>
+<jstl:out value="Description: ${fixUpTask.description}"/>
 
-
-
-</display:table>
+<a href="fix-up-task/edit.do">Edit</a>
+<a href="fix-up-task/delete.do">Delete</a>
