@@ -12,7 +12,7 @@
 	<spring:message code="handyWorker.finder.list" />
 </p>
 
-<display:table name="fixuptasks" id="fixuptask" requestURI="/handy-worker/finderfixuptasklist.do" pagesize="5" class="displaytag">
+<display:table name="fixuptasks" id="fixuptask" requestURI="/finder/handy-worker/fixuptasklist.do" pagesize="5" class="displaytag">
 	<display:column property="ticker" titleKey="handyWorker.fixUpTask.ticker" />
 	<display:column property="date" titleKey="handyWorker.fixUpTask.date" />
 	<display:column property="description" titleKey="handyWorker.fixUpTask.description" />

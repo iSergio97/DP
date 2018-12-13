@@ -14,7 +14,7 @@
 	<spring:message code="handyWorker.finder.edit" />
 </p>
 
-<form:form modelAttribute="finder" action="handy-worker/finder/edit.do">
+<form:form modelAttribute="finder" action="finder/handy-worker/edit.do">
 
 	<!-- Hidden fields -->
 	<form:hidden path="id"/>
