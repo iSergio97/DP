@@ -1,0 +1,1 @@
+Domain Model is continually evolving, so we will change it in every deliverable we need and in the last deliverable we will update Conceptual Model, so it not attached here but in its original version, unmodified. It has been decided so that as it is very similar to Domain Model, which is very useful for us.
