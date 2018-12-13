@@ -35,5 +35,10 @@
 		<put-attribute name="title" value="Ver Fix-Up Task" />
 		<put-attribute name="body" value="/views/fix-up-task/show.jsp" />
 	</definition>
+	
+	<definition name="fix-up-task/create" extends="master.page">
+		<put-attribute name="title" value="Nueva Fix-Up Task" />
+		<put-attribute name="body" value="/views/fix-up-task/create.ftl" />
+	</definition>
 
 </tiles-definitions>
