@@ -6,6 +6,7 @@ import java.util.List;
 
 import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 import repositories.SponsorRepository;
 import security.Authority;
 import security.UserAccount;
+import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -29,6 +31,9 @@ public class SponsorService {
 	@Autowired
 	private MessageBoxService messageBoxService;
 
+	@Autowired
+	private UserAccountRepository userAccountRepository;
+
 	// Constructors -----------------------------------------------------------
 
 	public SponsorService() {
@@ -39,32 +44,18 @@ public class SponsorService {
 
 	public Sponsor create() {
 		Sponsor sponsor = new Sponsor();
-		sponsor.setName("");
-		sponsor.setMiddleName("");
-		sponsor.setSurname("");
-		sponsor.setSocialProfiles(new ArrayList<SocialProfile>());
-		sponsor.setPhoto("");
-		sponsor.setEmail("");
-		sponsor.setPhoneNumber("");
-		sponsor.setAddress("");
-		final UserAccount cuenta = new UserAccount();
-		final List<Authority> ls = new ArrayList<>();
-		final Authority authority = new Authority();
+		List<Authority> ls = new ArrayList<>();
+		Authority authority = new Authority();
 		authority.setAuthority(Authority.SPONSOR);
 		ls.add(authority);
-		cuenta.setAuthorities(ls);
-		cuenta.setPassword("");
-		cuenta.setUsername("");
-		sponsor.setUserAccount(cuenta);
-		sponsor.setMessageBoxes(this.messageBoxService.createSystemBoxes());
-		sponsor.setEndorsedBy(new ArrayList<Endorsement>());
-		sponsor.setEndorses(new ArrayList<Endorsement>());
-		sponsor.setMessagesSent(new ArrayList<Message>());
-		sponsor.setMessagesReceived(new ArrayList<Message>());
-		sponsor.setNotes(new ArrayList<Note>());
-		sponsor.setSponsorships(new ArrayList<Sponsorship>());
+		UserAccount userAccount = new UserAccount();
+		userAccount.setAuthorities(ls);
+		sponsor.setMessageBoxes(messageBoxService.createSystemBoxes());
+		UserAccount saved = userAccountRepository.save(userAccount);
+		sponsor.setUserAccount(saved);
 
-		return this.sponsorRepository.save(sponsor);
+
+		return sponsor;
 	}
 
 	public Sponsor save(final Sponsor sponsor) {

@@ -35,6 +35,7 @@ public class AdminService {
 	private MessageBoxService	messageBoxService;
 
 
+
 	// Constructors -----------------------------------------------------------
 
 	public AdminService() {
@@ -55,21 +56,9 @@ public class AdminService {
 		authorities.add(authority);
 		userAccount.setAuthorities(authorities);
 
-		admin.setName("");
-		admin.setMiddleName("");
-		admin.setSurname("");
-		admin.setEmail("");
-		admin.setPhoneNumber("");
-		admin.setAddress("");
+
 
 		admin.setUserAccount(userAccount);
-		admin.setMessageBoxes(messageBoxes);
-		admin.setSocialProfiles(new ArrayList<SocialProfile>());
-		admin.setEndorsedBy(new ArrayList<Endorsement>());
-		admin.setEndorses(new ArrayList<Endorsement>());
-		admin.setMessagesSent(new ArrayList<Message>());
-		admin.setMessagesReceived(new ArrayList<Message>());
-		admin.setNotes(new ArrayList<Note>());
 
 		return admin;
 	}

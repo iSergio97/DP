@@ -47,38 +47,20 @@ public class HandyWorkerService {
 
     //Methods
 
-    public HandyWorker create() {
-        final HandyWorker handyWorker = new HandyWorker();
-        handyWorker.setName("");
-        handyWorker.setMiddleName("");
-        handyWorker.setSurname("");
-        handyWorker.setSocialProfiles(new ArrayList<SocialProfile>());
-        handyWorker.setPhoto("");
-        handyWorker.setEmail("");
-        handyWorker.setPhoneNumber("");
-        handyWorker.setAddress("");
-        UserAccount cuenta = new UserAccount();
-        List<Authority> ls = new ArrayList<>();
-        Authority authority = new Authority();
-        authority.setAuthority(Authority.HANDY_WORKER);
-        ls.add(authority);
-        cuenta.setAuthorities(ls);
-        UserAccount cuentaSaved = userAccountRepository.save(cuenta);
-        handyWorker.setUserAccount(cuentaSaved);
-        handyWorker.setMessageBoxes(this.messageBoxService.createSystemBoxes());
-        handyWorker.setEndorsedBy(new ArrayList<Endorsement>());
-        handyWorker.setEndorses(new ArrayList<Endorsement>());
-        handyWorker.setMessagesSent(new ArrayList<Message>());
-        handyWorker.setMessagesReceived(new ArrayList<Message>());
-        handyWorker.setNotes(new ArrayList<Note>());
-        List<Application> applications = new ArrayList<>();
-        handyWorker.setApplications(applications);
-        handyWorker.setFinder(new Finder());
-        handyWorker.setCurriculum(new Curriculum());
-        handyWorker.setTutorials(new ArrayList<Tutorial>());
-        handyWorker.setMake("");
-        return handyWorker;
-    }
+	public HandyWorker create() {
+		HandyWorker handyWorker = new HandyWorker();
+		List<Authority> ls = new ArrayList<>();
+		Authority authority = new Authority();
+		authority.setAuthority(Authority.HANDY_WORKER);
+		ls.add(authority);
+		UserAccount ua = new UserAccount();
+		ua.setAuthorities(ls);
+		UserAccount saved = userAccountRepository.save(ua);
+		handyWorker.setUserAccount(saved);
+		handyWorker.setMessageBoxes(messageBoxService.createSystemBoxes());
+
+		return handyWorker;
+	}
 
     public HandyWorker save(final HandyWorker handyWorker) {
 		Assert.isTrue(handyWorker != null);

@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import repositories.RefereeRepository;
 import security.Authority;
 import security.UserAccount;
+import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -28,6 +29,9 @@ public class RefereeService {
 
 	@Autowired
 	private MessageBoxService messageBoxService;
+
+	 @Autowired
+	 private UserAccountRepository userAccountRepository;
 	// Constructors -----------------------------------------------------------
 
 	public RefereeService() {
@@ -36,34 +40,19 @@ public class RefereeService {
 
 	// Methods ----------------------------------------------------------------
 
-	public Referee create() {
+	public Referee create(){
 		Referee referee = new Referee();
-		referee.setName("");
-		referee.setMiddleName("");
-		referee.setSurname("");
-		referee.setSocialProfiles(new ArrayList<SocialProfile>());
-		referee.setPhoto("");
-		referee.setEmail("");
-		referee.setPhoneNumber("");
-		referee.setAddress("");
-		final UserAccount cuenta = new UserAccount();
-		final List<Authority> ls = new ArrayList<>();
-		final Authority authority = new Authority();
-		authority.setAuthority(Authority.REFEREE);
-		ls.add(authority);
-		cuenta.setAuthorities(ls);
-		cuenta.setPassword("");
-		cuenta.setUsername("");
-		referee.setUserAccount(cuenta);
-		referee.setMessageBoxes(this.messageBoxService.createSystemBoxes());
-		referee.setEndorsedBy(new ArrayList<Endorsement>());
-		referee.setEndorses(new ArrayList<Endorsement>());
-		referee.setMessagesSent(new ArrayList<Message>());
-		referee.setMessagesReceived(new ArrayList<Message>());
-		referee.setNotes(new ArrayList<Note>());
-		referee.setReports(new ArrayList<Report>());
+		referee.setMessageBoxes(messageBoxService.createSystemBoxes());
+		UserAccount userAccount = new UserAccount();
+		List<Authority> ls = new ArrayList<>();
+		Authority a = new Authority();
+		a.setAuthority(Authority.REFEREE);
+		ls.add(a);
+		userAccount.setAuthorities(ls);
+		UserAccount saved = userAccountRepository.save(userAccount);
+		referee.setUserAccount(saved);
 
-		return this.refereeRepository.save(referee);
+		return referee;
 	}
 
 	public Referee save(final Referee referee) {

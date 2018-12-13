@@ -64,62 +64,10 @@ public class CustomerService {
 		UserAccount cuentaSaved;
 		cuentaSaved = this.userAccountRepository.save(cuenta);
 		customer.setUserAccount(cuentaSaved);
-		Customer customerSaved;
-		customerSaved = this.save(customer);
-		customerSaved.setName("");
-		customerSaved.setMiddleName("");
-		customerSaved.setSurname("");
-		customerSaved.setSocialProfiles(new ArrayList<SocialProfile>());
-		customerSaved.setPhoto("");
-		customerSaved.setEmail("");
-		customerSaved.setPhoneNumber("");
-		customerSaved.setAddress("");
-		customerSaved.setMessageBoxes(this.messageBoxService.createSystemBoxes());
-		customerSaved.setEndorsedBy(new ArrayList<Endorsement>());
-		customerSaved.setEndorses(new ArrayList<Endorsement>());
-		customerSaved.setMessagesSent(new ArrayList<Message>());
-		customerSaved.setMessagesReceived(new ArrayList<Message>());
-		customerSaved.setNotes(new ArrayList<Note>());
-		customerSaved.setFixUpTasks(new ArrayList<FixUpTask>());
-
-		return customerSaved;
+		customer.setMessageBoxes(messageBoxService.createSystemBoxes());
+		return customer;
 	}
 
-//	public Customer update(final Customer customer) {
-//		int id;
-//		id = customer.getId();
-//		Customer customer1;
-//		customer1 = this.create();
-//		customer1.setId(id);
-//		customer1.setName(customer.getName());
-//		customer1.setMiddleName(customer.getMiddleName());
-//		final UserAccount userAccount = new UserAccount();
-//		userAccount.setUsername(customer.getUserAccount().getUsername());
-//		userAccount.setPassword(customer.getUserAccount().getPassword());
-//		Authority authority;
-//		authority = new Authority();
-//		authority.setAuthority(Authority.CUSTOMER);
-//		List<Authority> ls;
-//		ls = new ArrayList<>();
-//		ls.add(authority);
-//		userAccount.setAuthorities(ls);
-//		customer1.setUserAccount(userAccount);
-//		customer1.setSurname(customer.getSurname());
-//		customer1.setSocialProfiles(customer.getSocialProfiles());
-//		customer1.setPhoto(customer.getPhoto());
-//		customer1.setEmail(customer.getEmail());
-//		customer1.setPhoneNumber(customer.getPhoneNumber());
-//		customer1.setAddress(customer.getAddress());
-//		customer1.setMessageBoxes(customer.getMessageBoxes());
-//		customer1.setEndorsedBy(customer.getEndorsedBy());
-//		customer1.setEndorses(customer.getEndorses());
-//		customer1.setMessagesSent(customer.getMessagesSent());
-//		customer1.setMessagesReceived(customer.getMessagesReceived());
-//		customer1.setNotes(customer.getNotes());
-//		customer1.setFixUpTasks(customer.getFixUpTasks());
-//
-//		return this.customerRepository.save(customer1);
-//	}
 
 	public Customer save(final Customer customer) {
 		Assert.isTrue(customer != null);
