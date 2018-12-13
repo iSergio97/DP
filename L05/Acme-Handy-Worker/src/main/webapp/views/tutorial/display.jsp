@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="application.display" />
+	<spring:message code="tutorial.display" />
 </p>
 
 <p>
@@ -28,19 +28,9 @@
 <p>
 	<spring:message code="application.status" />
 	<br>
-	<jstl:choose>
-		<jstl:when test = "${application.status == 'PENDING'}">
-			<spring:message code="application.status.pending" />
-		</jstl:when>
-		<jstl:when test = "${application.status == 'ACCEPTED'}">
-			<spring:message code="application.status.accepted" />
-		</jstl:when>
-		<jstl:when test = "${application.status == 'REJECTED'}">
-			<spring:message code="application.status.rejected" />
-		</jstl:when>
-		<jstl:otherwise>
-		</jstl:otherwise>
-	</jstl:choose>
+	<jstl:if test = "${application.status == 'PENDING'}">
+		<spring:message code="application.status.pending" />
+	</jstl:if>
 </p>
 <p>
 	<spring:message code="application.offeredprice" />
@@ -71,10 +61,10 @@
 </p>
 
 <form action="application/addcomment.do" method="POST">
-	<input type="hidden" name="applicationid" value="<jstl:out value='${application.id}' />" />
+	<input type="hidden" name="applicationid" value="<jstl:out value="${application.id}" />">
 	<p>
 		<spring:message code="application.addcomment" />
-		<br><input type="text" name="applicationcomment" />
+		<br><input type="text" name="applicationcomment">
 	</p>
-	<input type="submit" name="addcomment" value="<spring:message code='application.save' />" />
+	<input type="submit" name="save" value="<spring:message code="application.save" />" />
 </form>

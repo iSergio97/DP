@@ -54,12 +54,11 @@
 				<spring:message code="application.open" />
 			</a>
 			<jstl:if test = "${application.status == 'PENDING'}">
-				<a href="application/accept.do?id=${application.id}">
-					<spring:message code="application.accept" />
-				</a>
-				<a href="application/reject.do?id=${application.id}">
-					<spring:message code="application.reject" />
-				</a>
+				<form action="application/customer.do" method="POST">
+					<input type="hidden" name="applicationid" value="<jstl:out value="${application.id}" />">
+					<input type="submit" name="accept" value='<spring:message code="application.accept" />' />
+					<input type="submit" name="reject" value='<spring:message code="application.reject" />' />
+				</form>
 			</jstl:if>
 		</div>
 	</display:column>
