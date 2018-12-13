@@ -21,50 +21,62 @@
 </p>
 
 <p>
-	<spring:message code="application.moment" />
+	<spring:message code="tutorial.title" />
 	<br>
-	<jstl:out value="${application.moment}" />
+	<jstl:out value="${tutorial.title}" />
 </p>
 <p>
-	<spring:message code="application.status" />
+	<spring:message code="tutorial.lastUpdated" />
 	<br>
-	<jstl:if test = "${application.status == 'PENDING'}">
-		<spring:message code="application.status.pending" />
-	</jstl:if>
+	<jstl:out value="${tutorial.lastUpdated}" />
 </p>
 <p>
-	<spring:message code="application.offeredprice" />
+	<spring:message code="tutorial.summary" />
 	<br>
-	<jstl:out value="${application.offeredPrice}" />
+	<jstl:out value="${tutorial.summary}" />
 </p>
 <p>
-	<spring:message code="application.customer" />
-	<br>
-	<jstl:out value="${application.fixUpTask.customer.name}" />
-</p>
-<p>
-	<spring:message code="application.handyworker" />
-	<br>
-	<jstl:out value="${application.handyWorker.name}" />
-</p>
-<p>
-	<spring:message code="application.fixuptask" />
-	<br>
-	<jstl:out value="${application.fixUpTask.description}" />
-</p>
-<p>
-	<spring:message code="application.comments" />
-	<jstl:forEach items="${application.comments}" var="comment">
+	<spring:message code="tutorial.pictures" />
+	<jstl:forEach items="${tutorial.pictures}" var="picture">
 		<br>
-		<jstl:out value="${comment}" />
+		<a href="<jstl:out value='${picture}' />">
+			<jstl:out value='${picture}' />
+		</a>
 	</jstl:forEach>
 </p>
+<display:table name="tutorial.sections" id="section">
+	<display:column property="title" titleKey="section.title" />
+	<display:column property="text" titleKey="section.text" />
+	<display:column titleKey="section.pictures">
+		<div>
+			<jstl:forEach items="${section.pictures}" var="picture">
+				<br>
+				<a href="<jstl:out value='${picture}' />">
+					<jstl:out value='${picture}' />
+				</a>
+			</jstl:forEach>
+		</div>
+	</display:column>
+	<jstl:if test = "${tutorial.handyWorker.id == principalId}">
+		<display:column titleKey="section.options">
+			<div>
+				<a href="section/edit.do?sectionId=${section.id}">
+					<spring:message code="section.edit" />
+				</a>
+				<form action="section/delete.do" method="POST">
+					<input type="hidden" name="sectionid" value="<jstl:out value='${section.id}' />" />
+					<input type="submit" name="delete" value="<spring:message code='section.delete' />" />
+				</form>
+			</div>
+		</display:column>
+	</jstl:if>
+</display:table>
 
-<form action="application/addcomment.do" method="POST">
-	<input type="hidden" name="applicationid" value="<jstl:out value="${application.id}" />">
-	<p>
-		<spring:message code="application.addcomment" />
-		<br><input type="text" name="applicationcomment">
-	</p>
-	<input type="submit" name="save" value="<spring:message code="application.save" />" />
-</form>
+<jstl:if test = "${tutorial.handyWorker.id == principalId}">
+	<a href="tutorial/edit.do?tutorialId=${tutorial.id}">
+		<spring:message code="tutorial.edit" />
+	</a>
+	<a href="section/edit.do?tutorialId=${tutorial.id}">
+		<spring:message code="section.create" />
+	</a>
+</jstl:if>
