@@ -38,7 +38,7 @@ public class FixUpTaskCategoryService {
 
 		futCategory.setName("");
 		futCategory.setFixUpTaskCategoryChildren(new ArrayList<FixUpTaskCategory>());
-		futCategory.setFixUpTaskCategoryParent(new FixUpTaskCategory());
+
 		futCategory.setFixUpTasks(new ArrayList<FixUpTask>());
 		return futCategory;
 	}
