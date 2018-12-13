@@ -1,0 +1,5 @@
+﻿se ha añadido un atributo isBanned a Actor
+se ha añadido un atributo comments : String[0..*] a Application
+se han actualizado algunos tests y sus servicios de la entrega anterior, ahora el CustomerServiceTest,
+FixUpTaskCategoryServiceTest y FixUpTaskServiceTest funcionan correctamente.
+
