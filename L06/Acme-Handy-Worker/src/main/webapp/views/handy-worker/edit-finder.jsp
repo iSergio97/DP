@@ -23,7 +23,7 @@
     <form:label path="minDate" placeholder= "<spring:message code='handyWorker.minDate'/>"/>
         <form:input path="${handyWorker.finder.minDate}" />
     <form:label path="maxDate" placeholder= "<spring:message code='handyWorker.maxDate'/>"/>
-        <form:input path="${handyWorker.finder.maxDate}" />
+        <form:input path="${handyWorker.finder.maxDate}"/>
 
             <input type="submit" name="editFinder" value="<spring:message code='handyWorker.save'/>" />
 
