@@ -54,14 +54,6 @@ public class LoginController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping("/register")
-	public ModelAndView register() {
-		ModelAndView result;
-		result = new ModelAndView("security/register");
-
-		return result;
-	}
-
 	// LoginFailure -----------------------------------------------------------
 
 	@RequestMapping("/loginFailure")

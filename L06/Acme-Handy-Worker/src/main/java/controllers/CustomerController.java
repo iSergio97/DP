@@ -10,9 +10,16 @@
 
 package controllers;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import services.CustomerService;
+import domain.Customer;
 
 @Controller
 @RequestMapping("/customer")
@@ -23,6 +30,11 @@ public class CustomerController extends AbstractController {
 	public CustomerController() {
 		super();
 	}
+
+
+	@Autowired
+	private CustomerService	customerService;
+
 
 	// Action-1 ---------------------------------------------------------------		
 
@@ -40,9 +52,22 @@ public class CustomerController extends AbstractController {
 	@RequestMapping("/action-2")
 	public ModelAndView action2() {
 		ModelAndView result;
-
 		result = new ModelAndView("customer/action-2");
 
+		return result;
+	}
+
+	@RequestMapping("/register")
+	public ModelAndView register(@Valid final Customer customer, final BindingResult binding) {
+		ModelAndView result;
+
+		if (!binding.hasErrors()) {
+			this.customerService.save(customer);
+			result = new ModelAndView("redirect:index.jsp");
+		} else {
+			result = new ModelAndView("customer/register");
+			result.addObject("customer", customer);
+		}
 		return result;
 	}
 }

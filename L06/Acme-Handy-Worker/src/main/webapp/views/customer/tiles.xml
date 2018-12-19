@@ -30,4 +30,9 @@
 		<put-attribute name="title" value="Cliente" />
 		<put-attribute name="body" value="/views/customer/show.jsp" />
 	</definition>
+	
+		<definition name="customer/register" extends="master.page">
+		<put-attribute name="title" value="Register" />
+		<put-attribute name="body" value="/views/customer/registerAsCustomer.jsp" />
+	</definition>
 </tiles-definitions>

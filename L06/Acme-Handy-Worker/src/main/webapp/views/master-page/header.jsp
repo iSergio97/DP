@@ -51,7 +51,7 @@
 		</security:authorize>
 
 		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="security/register.do"><spring:message
+			<li><a class="fNiv" href="customer/register.do"><spring:message
 						code="master.page.register" /></a></li>
 		</security:authorize>
 
