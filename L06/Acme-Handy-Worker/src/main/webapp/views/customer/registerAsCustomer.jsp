@@ -17,7 +17,9 @@
 	</header>
 
 	<div class="content">
-		<form action="customer/register.do?register=true" method="post">
+		<form action="customer/register.do?register=true" method="POST">
+		<input type="hidden" id="id"/>
+		<input type="hidden" id="version"/>
 			<div>
 				<label for="name"> <spring:message code="security.name" /></label>
 				<input type="text" id="name" />
@@ -55,9 +57,28 @@
 			</div>
 			<br>
 
-		</form>
+			<div>
+				<label for="photo"> <spring:message
+						code="security.photo" /></label> <input type="URL" id="photo">
+			</div>
+			<br>
+			
+			<div>
+				<label for="username"> <spring:message
+						code="security.username" /></label> <input type="text" id="username">
+			</div>
+			<br>
+			
+			<div>
+				<label for="password"> <spring:message
+						code="security.password" /></label> <input type="password" id="password">
+			</div>
+			<br> <input type="submit"
+				value="<spring:message code='security.send'/>" /> <br> <input
+				type="button" name="cancel"
+				value="<spring:message code='security.cancel' />"
+				onclick="javascript: relativeRedir('security/login.do');" />
 
-		<input type="submit" value="<spring:message code='security.send'/>" />
-		<br>
+		</form>
 	</div>
 </article>

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CustomerService;
@@ -57,13 +58,25 @@ public class CustomerController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping("/register")
-	public ModelAndView register(@Valid final Customer customer, final BindingResult binding) {
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ModelAndView registerGet() {
+		ModelAndView result;
+		Customer customer;
+		customer = this.customerService.create();
+
+		result = new ModelAndView("customer/register");
+		result.addObject("customer", customer);
+		return result;
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ModelAndView registerPost(@Valid final Customer customer, final BindingResult bindingResult) {
+
 		ModelAndView result;
 
-		if (!binding.hasErrors()) {
+		if (!bindingResult.hasErrors()) {
 			this.customerService.save(customer);
-			result = new ModelAndView("redirect:index.jsp");
+			result = new ModelAndView("redirect:login.do");
 		} else {
 			result = new ModelAndView("customer/register");
 			result.addObject("customer", customer);

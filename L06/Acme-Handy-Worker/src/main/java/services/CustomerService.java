@@ -16,11 +16,6 @@ import security.LoginService;
 import security.UserAccount;
 import security.UserAccountRepository;
 import domain.Customer;
-import domain.Endorsement;
-import domain.FixUpTask;
-import domain.Message;
-import domain.Note;
-import domain.SocialProfile;
 
 @Service
 @Transactional
@@ -64,10 +59,9 @@ public class CustomerService {
 		UserAccount cuentaSaved;
 		cuentaSaved = this.userAccountRepository.save(cuenta);
 		customer.setUserAccount(cuentaSaved);
-		customer.setMessageBoxes(messageBoxService.createSystemBoxes());
+		customer.setMessageBoxes(this.messageBoxService.createSystemBoxes());
 		return customer;
 	}
-
 
 	public Customer save(final Customer customer) {
 		Assert.isTrue(customer != null);
