@@ -72,6 +72,18 @@
 								code="master.page.logout" /> </a></li>
 				</ul></li>
 		</security:authorize>
+		
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv"> <spring:message
+						code="master.page.messages" />
+			</a><ul>
+					<li class="arrow"></li>
+					<li><a href="actor/send-message.do"><spring:message
+								code="master.page.messages.send" /></a></li>
+					<li><a href="actor/box.do"><spring:message
+								code="master.page.messages.box" /></a></li>
+				</ul></li>
+		</security:authorize>
 	</ul>
 </div>
 

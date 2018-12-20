@@ -26,4 +26,19 @@
 		<put-attribute name="body" value="/views/actor/sendMessage.jsp" />
 	</definition>
 
+	<definition name="actor/send-message" extends="master.page">
+		<put-attribute name="title" value="Enviar mensaje" />
+		<put-attribute name="body" value="/views/actor/send-message.jsp" />
+	</definition>
+	
+	<definition name="actor/view-message" extends="master.page">
+		<put-attribute name="title" value="Ver mensaje" />
+		<put-attribute name="body" value="/views/actor/view-message.jsp" />
+	</definition>
+	
+	<definition name="actor/box" extends="master.page">
+		<put-attribute name="title" value="Bandeja" />
+		<put-attribute name="body" value="/views/actor/inbox.jsp" />
+	</definition>
+
 </tiles-definitions>

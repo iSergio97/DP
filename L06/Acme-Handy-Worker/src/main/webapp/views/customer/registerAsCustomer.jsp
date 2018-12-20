@@ -21,8 +21,9 @@
 		<input type="hidden" id="id"/>
 		<input type="hidden" id="version"/>
 			<div>
-				<label for="name"> <spring:message code="security.name" /></label>
-				<input type="text" id="name" />
+				<label for="name"> <spring:message
+						code="security.name" /><spring:message
+						code="security.required" /></label> <input type="text" id="name" />
 			</div>
 			<br>
 
@@ -34,13 +35,15 @@
 
 			<div>
 				<label for="surname"> <spring:message
-						code="security.surname" /></label> <input type="text" id="surname">
+						code="security.surname" /><spring:message
+						code="security.required" /></label> <input type="text" id="surname">
 			</div>
 			<br>
 
 			<div>
-				<label for="email"> <spring:message code="security.email" /></label>
-				<input type="email" id="email">
+				<label for="email"> <spring:message
+						code="security.email" /><spring:message
+						code="security.required" /></label> <input type="email" id="email">
 			</div>
 			<br>
 
@@ -65,13 +68,15 @@
 			
 			<div>
 				<label for="username"> <spring:message
-						code="security.username" /></label> <input type="text" id="username">
+						code="security.username" /><spring:message
+						code="security.required" /></label> <input type="text" id="username">
 			</div>
 			<br>
 			
 			<div>
 				<label for="password"> <spring:message
-						code="security.password" /></label> <input type="password" id="password">
+						code="security.password" /><spring:message
+						code="security.required" /></label> <input type="password" id="password">
 			</div>
 			<br> <input type="submit"
 				value="<spring:message code='security.send'/>" /> <br> <input

@@ -15,16 +15,29 @@
 		<put-attribute name="body" value="/views/actor/list.jsp" />
 	</definition>
 
-
 	<definition name="actor/edit" extends="master.page">
 		<put-attribute name="title" value="Actor edit" />
 		<put-attribute name="body" value="/views/actor/edit.jsp" />
 	</definition>
 
-
 	<definition name="actor/sendMessage" extends="master.page">
 		<put-attribute name="title" value="Enviar mensaje" />
 		<put-attribute name="body" value="/views/actor/sendMessage.jsp" />
+	</definition>
+	
+	<definition name="actor/send-message" extends="master.page">
+		<put-attribute name="title" value="Send Message" />
+		<put-attribute name="body" value="/views/actor/send-message.jsp" />
+	</definition>
+	
+	<definition name="actor/view-message" extends="master.page">
+		<put-attribute name="title" value="View message" />
+		<put-attribute name="body" value="/views/actor/view-message.jsp" />
+	</definition>
+	
+	<definition name="actor/box" extends="master.page">
+		<put-attribute name="title" value="Box" />
+		<put-attribute name="body" value="/views/actor/inbox.jsp" />
 	</definition>
 
 </tiles-definitions>

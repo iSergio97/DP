@@ -29,4 +29,5 @@
 		<put-attribute name="title" value="Registro" />
 		<put-attribute name="body" value="/views/customer/registerAsCustomer.jsp" />
 	</definition>
+	
 </tiles-definitions>
