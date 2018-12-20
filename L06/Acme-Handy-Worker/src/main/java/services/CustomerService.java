@@ -60,6 +60,8 @@ public class CustomerService {
 		cuentaSaved = this.userAccountRepository.save(cuenta);
 		customer.setUserAccount(cuentaSaved);
 		customer.setMessageBoxes(this.messageBoxService.createSystemBoxes());
+		customer.setFixUpTasks(new ArrayList<FixUpTask>());
+		customer.setCreditCard(null);
 		return customer;
 	}
 
