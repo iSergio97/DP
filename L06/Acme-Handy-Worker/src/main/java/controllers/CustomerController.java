@@ -10,15 +10,14 @@
 
 package controllers;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.UserAccount;
 import services.CustomerService;
 import domain.Customer;
 
@@ -26,37 +25,19 @@ import domain.Customer;
 @RequestMapping("/customer")
 public class CustomerController extends AbstractController {
 
+	// Services ---------------------------------------------------------------
+
+	@Autowired
+	private CustomerService	customerService;
+
+
 	// Constructors -----------------------------------------------------------
 
 	public CustomerController() {
 		super();
 	}
 
-
-	@Autowired
-	private CustomerService	customerService;
-
-
-	// Action-1 ---------------------------------------------------------------		
-
-	@RequestMapping("/action-1")
-	public ModelAndView action1() {
-		ModelAndView result;
-
-		result = new ModelAndView("customer/action-1");
-
-		return result;
-	}
-
-	// Action-2 ---------------------------------------------------------------		
-
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
-		ModelAndView result;
-		result = new ModelAndView("customer/action-2");
-
-		return result;
-	}
+	// Register ---------------------------------------------------------------
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView registerGet() {
@@ -70,11 +51,41 @@ public class CustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView registerPost(@Valid final Customer customer, final BindingResult bindingResult) {
-
+	public ModelAndView registerPost(@RequestParam(value = "id") final int id, @RequestParam(value = "version") final int version, @RequestParam(value = "name") final String name, @RequestParam(value = "middleName") final String middleName, @RequestParam(
+		value = "surname") final String surname, @RequestParam(value = "email") final String email, @RequestParam(value = "phoneNumber") final String phoneNumber, @RequestParam(value = "address") final String address,
+		@RequestParam(value = "photo") final String photo, @RequestParam(value = "username") final String username, @RequestParam(value = "password") final String password) {
 		ModelAndView result;
+		Customer customer;
+		UserAccount userAccount;
+		boolean error;
 
-		if (!bindingResult.hasErrors()) {
+		error = false;
+
+		if (id == 0) {
+			customer = this.customerService.create();
+			userAccount = customer.getUserAccount();
+			userAccount.setUsername(username);
+			if (password.isEmpty())
+				error = true;
+			else
+				userAccount.setPassword(password);
+		} else {
+			customer = this.customerService.findById(id);
+			userAccount = customer.getUserAccount();
+			userAccount.setPassword(password);
+			if (!password.isEmpty())
+				userAccount.setPassword(password);
+		}
+
+		customer.setName(name);
+		customer.setMiddleName(middleName);
+		customer.setSurname(surname);
+		customer.setEmail(email);
+		customer.setPhoneNumber(phoneNumber);
+		customer.setAddress(address);
+		customer.setPhoto(photo);
+
+		if (!error) {
 			this.customerService.save(customer);
 			result = new ModelAndView("redirect:login.do");
 		} else {
@@ -83,4 +94,5 @@ public class CustomerController extends AbstractController {
 		}
 		return result;
 	}
+
 }

@@ -55,7 +55,7 @@
 			</a>
 			<jstl:if test = "${application.status == 'PENDING'}">
 				<form action="application/customer.do" method="POST">
-					<input type="hidden" name="applicationid" value="<jstl:out value="${application.id}" />">
+					<input type="hidden" name="id" value="<jstl:out value="${application.id}" />">
 					<input type="submit" name="accept" value='<spring:message code="application.accept" />' />
 					<input type="submit" name="reject" value='<spring:message code="application.reject" />' />
 				</form>

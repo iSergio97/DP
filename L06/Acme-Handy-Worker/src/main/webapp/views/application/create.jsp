@@ -21,12 +21,12 @@
 </p>
 
 <form method="POST">
-	<input type="hidden" name="fixuptaskid" value="<jstl:out value="${fixUpTaskId}" />">
+	<input type="hidden" name="fixuptaskid" value="<jstl:out value="${fixUpTaskId}" />" />
 	<p>
 		<spring:message code="application.offeredprice" />
-		<br><input type="number" name="applicationofferedprice">
+		<br><input type="number" name="offeredprice">
 		<spring:message code="application.addcomment" />
-		<br><input type="number" name="applicationcomment">
+		<br><input type="number" name="comment">
 	</p>
 	<input type="submit" name="save" value="<spring:message code='application.save' />" />
 </form>

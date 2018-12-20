@@ -70,8 +70,8 @@
 	</jstl:forEach>
 </p>
 
-<form action="application/addcomment.do" method="POST">
-	<input type="hidden" name="applicationid" value="<jstl:out value='${application.id}' />" />
+<form action="application/display.do" method="POST">
+	<input type="hidden" name="id" value="<jstl:out value='${application.id}' />" />
 	<p>
 		<spring:message code="application.addcomment" />
 		<br><input type="text" name="applicationcomment" />
