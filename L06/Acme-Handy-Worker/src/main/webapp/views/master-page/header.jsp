@@ -78,9 +78,9 @@
 						code="master.page.messages" />
 			</a><ul>
 					<li class="arrow"></li>
-					<li><a href="actor/send-message.do"><spring:message
+					<li><a href="customer/send-message.do"><spring:message
 								code="master.page.messages.send" /></a></li>
-					<li><a href="actor/box.do"><spring:message
+					<li><a href="customer/box.do"> <spring:message
 								code="master.page.messages.box" /></a></li>
 				</ul></li>
 		</security:authorize>

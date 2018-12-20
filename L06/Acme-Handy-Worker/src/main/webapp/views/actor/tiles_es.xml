@@ -38,7 +38,7 @@
 	
 	<definition name="actor/box" extends="master.page">
 		<put-attribute name="title" value="Bandeja" />
-		<put-attribute name="body" value="/views/actor/inbox.jsp" />
+		<put-attribute name="body" value="/views/actor/box.jsp" />
 	</definition>
 
 </tiles-definitions>
