@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.UserAccount;
 import services.CustomerService;
 import domain.Customer;
+import domain.MessageBox;
 
 @Controller
 @RequestMapping("/customer")
@@ -95,4 +98,16 @@ public class CustomerController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/box", method = RequestMethod.GET)
+	public ModelAndView boxes(@RequestParam(value = "id") final int id) {
+		final ModelAndView result;
+		Customer customer;
+		customer = this.customerService.findByUserAccountId(id);
+		final Collection<MessageBox> mb = customer.getMessageBoxes();
+		result = new ModelAndView("customer/box");
+
+		result.addObject("messageBoxes", mb);
+
+		return result;
+	}
 }
