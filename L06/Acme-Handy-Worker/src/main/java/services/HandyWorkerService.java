@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.FinderRepository;
 import repositories.HandyWorkerRepository;
 import security.Authority;
 import security.UserAccount;
@@ -43,6 +44,11 @@ public class HandyWorkerService {
     @Autowired
 	private UserAccountRepository userAccountRepository;
 
+    @Autowired
+	private FinderService finderService;
+
+     @Autowired
+	 private CurriculumService curriculumService;
 
 
     //Methods
@@ -58,6 +64,25 @@ public class HandyWorkerService {
 		UserAccount saved = userAccountRepository.save(ua);
 		handyWorker.setUserAccount(saved);
 		handyWorker.setMessageBoxes(messageBoxService.createSystemBoxes());
+		handyWorker.setApplications(new ArrayList<Application>());
+		handyWorker.setFinder(finderService.create());
+		handyWorker.setCurriculum(curriculumService.create());
+		handyWorker.setTutorials(new ArrayList<Tutorial>());
+		handyWorker.setNotes(new ArrayList<Note>());
+		handyWorker.setMessagesSent(new ArrayList<Message>());
+		handyWorker.setMessagesReceived(new ArrayList<Message>());
+		handyWorker.setEndorses(new ArrayList<Endorsement>());
+		handyWorker.setEndorsedBy(new ArrayList<Endorsement>());
+		handyWorker.setSocialProfiles(new ArrayList<SocialProfile>());
+		handyWorker.setIsBanned(false);
+		handyWorker.setAddress("");
+		handyWorker.setPhoneNumber("");
+		handyWorker.setEmail("");
+		handyWorker.setPhoto("");
+		handyWorker.setMiddleName("");
+		handyWorker.setName("");
+		handyWorker.setSurname("");
+		handyWorker.setMake("");
 
 		return handyWorker;
 	}

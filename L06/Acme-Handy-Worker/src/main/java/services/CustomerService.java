@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,6 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountRepository;
-import domain.Customer;
 
 @Service
 @Transactional
@@ -62,6 +62,19 @@ public class CustomerService {
 		customer.setMessageBoxes(this.messageBoxService.createSystemBoxes());
 		customer.setFixUpTasks(new ArrayList<FixUpTask>());
 		customer.setCreditCard(null);
+		customer.setMessagesSent(new ArrayList<Message>());
+		customer.setMessagesReceived(new ArrayList<Message>());
+		customer.setEndorses(new ArrayList<Endorsement>());
+		customer.setEndorsedBy(new ArrayList<Endorsement>());
+		customer.setSocialProfiles(new ArrayList<SocialProfile>());
+		customer.setIsBanned(false);
+		customer.setAddress("");
+		customer.setPhoneNumber("");
+		customer.setEmail("");
+		customer.setPhoto("");
+		customer.setMiddleName("");
+		customer.setName("");
+		customer.setSurname("");
 		return customer;
 	}
 
