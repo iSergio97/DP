@@ -10,37 +10,57 @@
 
 package controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import services.ActorService;
+import domain.Actor;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController extends AbstractController {
 
-	// Action-1 ---------------------------------------------------------------		
+	// Services ---------------------------------------------------------------
 
-	@RequestMapping("/action-1")
-	public ModelAndView action1() {
+	@Autowired
+	private ActorService	actorService;
+
+
+	// Show -------------------------------------------------------------------
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam(value = "id") final int id) {
 		ModelAndView result;
 
-		result = new ModelAndView("profile/action-1");
+		final Actor actor = this.actorService.findByUserAccountId(id);
+
+		result = new ModelAndView("profile/show");
+
+		result.addObject("actor", actor);
 
 		return result;
 	}
 
-	// Action-2 ---------------------------------------------------------------		
+	// Edit -------------------------------------------------------------------
 
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public ModelAndView edit(@RequestParam(value = "id") final int id) {
 		ModelAndView result;
 
-		result = new ModelAndView("profile/action-2");
+		final Actor actor = this.actorService.findByUserAccountId(id);
+
+		result = new ModelAndView("profile/edit");
+
+		result.addObject("actor", actor);
 
 		return result;
 	}
 
-	// Action-2 ---------------------------------------------------------------		
+	// Action-3 ---------------------------------------------------------------		
 
 	@RequestMapping("/action-3")
 	public ModelAndView action3() {

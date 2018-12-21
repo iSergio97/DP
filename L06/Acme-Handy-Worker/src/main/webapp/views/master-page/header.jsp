@@ -62,10 +62,10 @@
 			</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="profile/action-1.do"><spring:message
-								code="master.page.profile.action.1" /></a></li>
-					<li><a href="profile/action-2.do"><spring:message
-								code="master.page.profile.action.2" /></a></li>
+					<li><a href="profile/show.do?id=<security:authentication property="principal.id" />"><spring:message
+								code="master.page.profile.show" /></a></li>
+					<li><a href="profile/edit.do?id=<security:authentication property="principal.id" />"><spring:message
+								code="master.page.profile.edit" /></a></li>
 					<li><a href="profile/action-3.do"><spring:message
 								code="master.page.profile.action.3" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message

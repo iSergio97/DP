@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
+import services.ActorService;
 import services.CustomerService;
+import domain.Actor;
 import domain.Customer;
 import domain.MessageBox;
 
@@ -32,6 +34,9 @@ public class CustomerController extends AbstractController {
 
 	@Autowired
 	private CustomerService	customerService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -63,7 +68,7 @@ public class CustomerController extends AbstractController {
 		boolean error;
 
 		error = false;
-
+		//Pasar @Valid Customer c y BindingErrors
 		if (id == 0) {
 			customer = this.customerService.create();
 			userAccount = customer.getUserAccount();
@@ -98,11 +103,12 @@ public class CustomerController extends AbstractController {
 		return result;
 	}
 
+	// Esto no quedará así... (enviar a ActorController)
 	@RequestMapping(value = "/box", method = RequestMethod.GET)
 	public ModelAndView boxes(@RequestParam(value = "id") final int id) {
 		final ModelAndView result;
-		Customer customer;
-		customer = this.customerService.findByUserAccountId(id);
+		Actor customer;
+		customer = this.actorService.findByUserAccountId(id);
 		final Collection<MessageBox> mb = customer.getMessageBoxes();
 		result = new ModelAndView("customer/box");
 
