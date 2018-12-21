@@ -7,8 +7,6 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
 <spring:message code="security.requiredFields" />
 
 <!--  <article> -->
