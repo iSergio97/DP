@@ -78,7 +78,7 @@ public class ApplicationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.POST, params = "addcomment")
-	public ModelAndView addComment(@RequestParam(value = "id") final int id, @RequestParam(value = "text") final String text) {
+	public ModelAndView addComment(@RequestParam(value = "id") final int id, @RequestParam(value = "applicationcomment") final String applicationComment) {
 		final ModelAndView result;
 		Application application;
 		final Actor actor;
@@ -90,7 +90,7 @@ public class ApplicationController extends AbstractController {
 		Assert.isTrue(application.getHandyWorker().getId() == actor.getId() || application.getFixUpTask().getCustomer().getId() == actor.getId());
 
 		final List<String> comments = application.getComments();
-		comments.add(text);
+		comments.add(applicationComment);
 		application.setComments(comments);
 		application = this.applicationService.save(application);
 

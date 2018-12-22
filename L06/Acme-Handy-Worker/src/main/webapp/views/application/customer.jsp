@@ -20,17 +20,17 @@
 	<spring:message code="application.received" />
 </p>
 
-<display:table name="applications" id="application">
+<display:table name="applications" id="row">
 	<display:column property="moment" titleKey="application.moment" />
 	<display:column titleKey="application.status">
 		<jstl:choose>
-			<jstl:when test = "${application.status == 'PENDING'}">
+			<jstl:when test = "${row.status == 'PENDING'}">
 				<spring:message code="application.status.pending" />
 			</jstl:when>
-			<jstl:when test = "${application.status == 'ACCEPTED'}">
+			<jstl:when test = "${row.status == 'ACCEPTED'}">
 				<spring:message code="application.status.accepted" />
 			</jstl:when>
-			<jstl:when test = "${application.status == 'REJECTED'}">
+			<jstl:when test = "${row.status == 'REJECTED'}">
 				<spring:message code="application.status.rejected" />
 			</jstl:when>
 			<jstl:otherwise>
@@ -40,22 +40,22 @@
 	<display:column property="offeredPrice" titleKey="application.offeredprice" />
 	<display:column titleKey="application.handyworker">
 		<div>
-			<jstl:out value="${application.handyWorker.name}" />
+			<jstl:out value="${row.handyWorker.name}" />
 		</div>
 	</display:column>
 	<display:column titleKey="application.fixuptask">
 		<div>
-			<jstl:out value="${application.fixUpTask.description}" />
+			<jstl:out value="${row.fixUpTask.description}" />
 		</div>
 	</display:column>
 	<display:column titleKey="application.options">
 		<div>
-			<a href="application/display.do?id=${application.id}">
+			<a href="application/display.do?id=${row.id}">
 				<spring:message code="application.open" />
 			</a>
-			<jstl:if test = "${application.status == 'PENDING'}">
+			<jstl:if test = "${row.status == 'PENDING'}">
 				<form action="application/customer.do" method="POST">
-					<input type="hidden" name="id" value="<jstl:out value="${application.id}" />">
+					<input type="hidden" name="id" value="<jstl:out value="${row.id}" />">
 					<input type="submit" name="accept" value='<spring:message code="application.accept" />' />
 					<input type="submit" name="reject" value='<spring:message code="application.reject" />' />
 				</form>
