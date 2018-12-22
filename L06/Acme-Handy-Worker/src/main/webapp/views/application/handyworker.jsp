@@ -20,17 +20,17 @@
 	<spring:message code="application.sent" />
 </p>
 
-<display:table name="applications" id="application">
+<display:table name="applications" id="row">
 	<display:column property="moment" titleKey="application.moment" />
 	<display:column titleKey="application.status">
 		<jstl:choose>
-			<jstl:when test = "${application.status == 'PENDING'}">
+			<jstl:when test = "${row.status == 'PENDING'}">
 				<spring:message code="application.status.pending" />
 			</jstl:when>
-			<jstl:when test = "${application.status == 'ACCEPTED'}">
+			<jstl:when test = "${row.status == 'ACCEPTED'}">
 				<spring:message code="application.status.accepted" />
 			</jstl:when>
-			<jstl:when test = "${application.status == 'REJECTED'}">
+			<jstl:when test = "${row.status == 'REJECTED'}">
 				<spring:message code="application.status.rejected" />
 			</jstl:when>
 			<jstl:otherwise>
@@ -40,17 +40,17 @@
 	<display:column property="offeredPrice" titleKey="application.offeredprice" />
 	<display:column titleKey="application.customer">
 		<div>
-			<jstl:out value="${application.fixUpTask.customer.name}" />
+			<jstl:out value="${row.fixUpTask.customer.name}" />
 		</div>
 	</display:column>
 	<display:column titleKey="application.fixuptask">
 		<div>
-			<jstl:out value="${application.fixUpTask.description}" />
+			<jstl:out value="${row.fixUpTask.description}" />
 		</div>
 	</display:column>
 	<display:column titleKey="application.options">
 		<div>
-			<a href="application/display.do?id=${application.id}">
+			<a href="application/display.do?id=${row.id}">
 				<spring:message code="application.open" />
 			</a>
 		</div>

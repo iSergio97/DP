@@ -26,7 +26,7 @@
 		<spring:message code="application.offeredprice" />
 		<br><input type="number" name="offeredprice">
 		<spring:message code="application.addcomment" />
-		<br><input type="number" name="comment">
+		<br><input type="text" name="comment">
 	</p>
 	<input type="submit" name="save" value="<spring:message code='application.save' />" />
 </form>
