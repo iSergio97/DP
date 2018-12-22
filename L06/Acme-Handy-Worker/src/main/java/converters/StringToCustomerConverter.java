@@ -7,34 +7,31 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.WarrantyRepository;
-import domain.Warranty;
+import repositories.CustomerRepository;
+import domain.Customer;
 
 @Component
 @Transactional
-public class StringToCustomerConverter implements Converter<String, Warranty> {
+public class StringToCustomerConverter implements Converter<String, Customer> {
 
 	@Autowired
-	WarrantyRepository	warrantyRepository;
+	private CustomerRepository	customerRepository;
 
 
 	@Override
-	public Warranty convert(final String text) {
-		Warranty result;
+	public Customer convert(final String text) {
+		Customer result;
 		int id;
 
 		try {
-			if (StringUtils.isEmpty(text)) {
-				System.out.println("Error en StringToCustomerConverter IF: " + text);
+			if (StringUtils.isEmpty(text))
 				result = null;
-			} else {
+			else {
 				id = Integer.valueOf(text);
-				result = this.warrantyRepository.findOne(id);
-				System.out.println("Error en StringToCustomerConverter ELSE: " + result);
+				result = this.customerRepository.findOne(id);
 			}
-		} catch (final Throwable oops) {
-			System.out.println("Error en StringToCustomerConverter CATCH: " + oops);
-			throw new IllegalArgumentException(oops);
+		} catch (final Throwable izipizelemonezcuici) {
+			throw new IllegalArgumentException(izipizelemonezcuici);
 		}
 		return result;
 	}

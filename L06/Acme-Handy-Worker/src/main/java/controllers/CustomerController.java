@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import security.UserAccountRepository;
 import services.ActorService;
 import services.CustomerService;
 import domain.Actor;
@@ -33,10 +34,13 @@ public class CustomerController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private CustomerService	customerService;
+	private CustomerService			customerService;
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
+
+	@Autowired
+	private UserAccountRepository	userAccountRepository;
 
 
 	// Constructors -----------------------------------------------------------
@@ -62,15 +66,24 @@ public class CustomerController extends AbstractController {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
+			//			final UserAccount userAccount = new UserAccount();
+			//			userAccount.setUsername(customer.getName());
+			//			userAccount.setPassword(customer.getName());
+			//			final List<Authority> authority = new ArrayList<>();
+			//			final Authority au = new Authority();
+			//			au.setAuthority(Authority.CUSTOMER);
+			//			authority.add(au);
+			//			userAccount.setAuthorities(authority);
+			//			final UserAccount uaSaved = this.userAccountRepository.save(userAccount);
+			//			customer.setUserAccount(uaSaved);
 			this.customerService.save(customer);
 			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("customer/register");
 			result.addObject("customer", customer);
-			result.addObject("error", binding);
+			result.addObject("showError", binding);
 		}
 
-		//Pasar @Valid Customer c y Binding
 		return result;
 	}
 

@@ -19,7 +19,6 @@ public class CustomerToStringConverter implements Converter<Customer, String> {
 			result = null;
 		else
 			result = String.valueOf(customer.getId());
-		System.out.println("CONVERTIDOR CustomerToStringConverter.java " + result);
 		return result;
 	}
 }
