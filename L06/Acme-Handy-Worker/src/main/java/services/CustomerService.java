@@ -60,8 +60,6 @@ public class CustomerService {
 		authority.setAuthority(Authority.CUSTOMER);
 		ls.add(authority);
 		cuenta.setAuthorities(ls);
-		cuenta.setUsername(customer.getName());
-		cuenta.setPassword(customer.getName());
 		UserAccount cuentaSaved;
 		cuentaSaved = this.userAccountRepository.save(cuenta);
 		customer.setUserAccount(cuentaSaved);
