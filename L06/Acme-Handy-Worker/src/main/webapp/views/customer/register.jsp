@@ -18,7 +18,27 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 
+	<form:hidden path="userAccount"/>
+	<form:hidden path="userAccount.authorities" value="CUSTOMER"/>
+	<form:hidden path="userAccount.id"/>
+	<form:hidden path="userAccount.version"/>
+
 	<!-- Comienzo datos del formulario -->
+
+	<div>
+		<spring:message code="security.username" />
+		<form:input path="userAccount.username" />
+		<form:errors path="userAccount.username" />
+	</div>
+	<br>
+
+	<div>
+		<spring:message code="security.password" />
+		<form:input path="userAccount.password" />
+		<form:errors path="userAccount.password" />
+	</div>
+	<br>
+
 	<div>
 		<spring:message code="security.name" />
 		<form:input path="name" />
@@ -74,4 +94,5 @@
 	<input type="button" name="cancel"
 		value="<spring:message code='security.cancel' />"
 		onclick="javascript: relativeRedir('security/login.do');" />
+
 </form:form>
