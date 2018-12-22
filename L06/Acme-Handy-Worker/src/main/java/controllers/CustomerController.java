@@ -14,12 +14,12 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.UserAccount;
+import security.LoginService;
 import services.ActorService;
 import services.CustomerService;
 import domain.Actor;
@@ -52,61 +52,33 @@ public class CustomerController extends AbstractController {
 		ModelAndView result;
 		Customer customer;
 		customer = this.customerService.create();
-
 		result = new ModelAndView("customer/register");
 		result.addObject("customer", customer);
 		return result;
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView registerPost(@RequestParam(value = "id") final int id, @RequestParam(value = "version") final int version, @RequestParam(value = "name") final String name, @RequestParam(value = "middleName") final String middleName, @RequestParam(
-		value = "surname") final String surname, @RequestParam(value = "email") final String email, @RequestParam(value = "phoneNumber") final String phoneNumber, @RequestParam(value = "address") final String address,
-		@RequestParam(value = "photo") final String photo, @RequestParam(value = "username") final String username, @RequestParam(value = "password") final String password) {
+	public ModelAndView registerPost(final Customer customer, final BindingResult binding) {
 		ModelAndView result;
-		Customer customer;
-		UserAccount userAccount;
-		boolean error;
 
-		error = false;
-		//Pasar @Valid Customer c y BindingErrors
-		if (id == 0) {
-			customer = this.customerService.create();
-			userAccount = customer.getUserAccount();
-			userAccount.setUsername(username);
-			if (password.isEmpty())
-				error = true;
-			else
-				userAccount.setPassword(password);
-		} else {
-			customer = this.customerService.findById(id);
-			userAccount = customer.getUserAccount();
-			userAccount.setPassword(password);
-			if (!password.isEmpty())
-				userAccount.setPassword(password);
-		}
-
-		customer.setName(name);
-		customer.setMiddleName(middleName);
-		customer.setSurname(surname);
-		customer.setEmail(email);
-		customer.setPhoneNumber(phoneNumber);
-		customer.setAddress(address);
-		customer.setPhoto(photo);
-
-		if (!error) {
+		if (!binding.hasErrors()) {
 			this.customerService.save(customer);
-			result = new ModelAndView("redirect:login.do");
+			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("customer/register");
 			result.addObject("customer", customer);
+			result.addObject("error", binding);
 		}
+
+		//Pasar @Valid Customer c y Binding
 		return result;
 	}
 
 	// Esto no quedará así... (enviar a ActorController)
 	@RequestMapping(value = "/box", method = RequestMethod.GET)
-	public ModelAndView boxes(@RequestParam(value = "id") final int id) {
+	public ModelAndView boxes() {
 		final ModelAndView result;
+		final int id = LoginService.getPrincipal().getId();
 		Actor customer;
 		customer = this.actorService.findByUserAccountId(id);
 		final Collection<MessageBox> mb = customer.getMessageBoxes();

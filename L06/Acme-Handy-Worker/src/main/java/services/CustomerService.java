@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +15,11 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountRepository;
+import domain.Customer;
+import domain.Endorsement;
+import domain.FixUpTask;
+import domain.Message;
+import domain.SocialProfile;
 
 @Service
 @Transactional
@@ -56,6 +60,8 @@ public class CustomerService {
 		authority.setAuthority(Authority.CUSTOMER);
 		ls.add(authority);
 		cuenta.setAuthorities(ls);
+		cuenta.setUsername(customer.getName());
+		cuenta.setPassword(customer.getName());
 		UserAccount cuentaSaved;
 		cuentaSaved = this.userAccountRepository.save(cuenta);
 		customer.setUserAccount(cuentaSaved);
