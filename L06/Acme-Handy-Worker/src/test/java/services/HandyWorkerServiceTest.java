@@ -108,25 +108,13 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		handyWorker.setSocialProfiles(ls);
 		handyWorker.setEndorsedBy(new ArrayList<Endorsement>());
 		handyWorker.setEndorses(new ArrayList<Endorsement>());
-		final Message m = this.messageService.create();
-		m.setSubject("Prueba de subjetc");
-		m.setSender(handyWorker);
-		m.setTags(new ArrayList<String>());
-		final List<Actor> listaActores = new ArrayList<>();
-		listaActores.add(handyWorker);
-		m.setRecipients(listaActores);
-		m.setPriority("HIGH");
-		m.setDate(new Date());
-		m.setBody("Prueba de body en mensaje nuevo creado");
-		final Message mSaved = this.messageService.save(m);
 		final List<Message> lsMessage = new ArrayList<>();
-		lsMessage.add(mSaved);
 		handyWorker.setMessagesSent(lsMessage);
 		handyWorker.setNotes(new ArrayList<Note>());
 		handyWorker.setApplications(new ArrayList<Application>());
 		final Curriculum c = this.curriculumService.create();
 
-		// Creaci髇 personal record
+		// Creaci贸n personal record
 		final PersonalRecord pRecord = this.personalRecordService.create();
 		pRecord.setEmail("email@gmail.com");
 		pRecord.setFullName("FullName");
@@ -136,7 +124,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		final PersonalRecord pRecordSaved = this.personalRecordService.save(pRecord);
 		c.setPersonalRecord(pRecordSaved);
 
-		// Creaci髇 MiscellaneousRecord
+		// Creaci贸n MiscellaneousRecord
 		final MiscellaneousRecord mRecord = this.miscellaneousRecordService.create();
 		mRecord.setAttachment("http://www.google.com");
 		mRecord.setComments("Prueba de comments");
@@ -146,7 +134,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		lsMR.add(mRecordSaved);
 		c.setMiscellaneousRecord(lsMR);
 
-		//Creaci髇 EndorserRecord
+		//Creaci贸n EndorserRecord
 		final EndorserRecord eRecord = this.endorserRecordService.create();
 		eRecord.setEndorserLinkedIn("www.google.com");
 		eRecord.setEndorserPhoneNumber("123456789");
@@ -158,7 +146,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		lsRecord.add(eRecordSaved);
 		c.setEndorserRecord(lsRecord);
 
-		//Creaci髇 EducationalRecord
+		//Creaci贸n EducationalRecord
 		final EducationalRecord edRecord = this.educationalRecordService.create();
 		edRecord.setAttachment("https://www.google.com");
 		edRecord.setComments("Comments");
@@ -168,17 +156,17 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		date.setYear(2012);
 		System.out.println("Prueba de fecha: " + date);
 		edRecord.setEndingTime(date);
-		edRecord.setInstitution("Prueba de instituci髇");
+		edRecord.setInstitution("Prueba de instituci贸n");
 		final EducationalRecord edRecordSaved = this.educationalRecordService.save(edRecord);
 		final List<EducationalRecord> lsEdRecord = new ArrayList<>();
 		lsEdRecord.add(edRecordSaved);
 		c.setEducationalRecord(lsEdRecord);
 
-		//Creaci髇 profesional record
+		//Creaci贸n profesional record
 		final ProfessionalRecord professionalRecord = this.professionalRecordService.create();
 		professionalRecord.setAttachment("http://www.google.com");
 		professionalRecord.setComments("Comments");
-		professionalRecord.setCompanyName("Prueba de compa耥a");
+		professionalRecord.setCompanyName("Prueba de compa帽铆a");
 		professionalRecord.setEndingTime(new Date());
 		professionalRecord.setRole("Manager");
 		professionalRecord.setStartingTime(date);
@@ -187,13 +175,13 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		lsProfesionalRecord.add(professionalRecordSaved);
 		c.setProfessionalRecord(lsProfesionalRecord);
 
-		//Creaci髇 tutorial
+		//Creaci贸n tutorial
 		final Tutorial tutorial = this.tutorialService.create();
 		tutorial.setTitle("Title");
 		tutorial.setSummary("Summary");
 		tutorial.setLastUpdated(new Date());
 		tutorial.setPictures(new ArrayList<String>());
-		//Creaci髇 de section para el tutorial;
+		//Creaci贸n de section para el tutorial;
 		final Section section = this.sectionService.create();
 		section.setPictures(new ArrayList<String>());
 		section.setText("Text");
