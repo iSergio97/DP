@@ -37,7 +37,7 @@ public class MiscellaneousRecordService {
 		miscellaneousRecord.setTitle("");
 		miscellaneousRecord.setAttachment("");
 		miscellaneousRecord.setComments("");
-		return this.save(miscellaneousRecord);
+		return miscellaneousRecord;
 	}
 
 	public MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {

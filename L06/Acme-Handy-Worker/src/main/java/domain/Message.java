@@ -32,7 +32,7 @@ public class Message extends DomainEntity {
 	// Relationships ----------------------------------------------------------
 
 	private Actor					sender;
-	private Collection<Actor>		recipients;
+	private Actor					recipient;
 	private Collection<MessageBox>	messageBoxes;
 
 
@@ -101,12 +101,12 @@ public class Message extends DomainEntity {
 	@NotNull
 	@Valid
 	@ManyToMany
-	public Collection<Actor> getRecipients() {
-		return this.recipients;
+	public Actor getRecipient() {
+		return this.recipient;
 	}
 
-	public void setRecipients(final Collection<Actor> recipient) {
-		this.recipients = recipient;
+	public void setRecipient(final Actor recipient) {
+		this.recipient = recipient;
 	}
 
 	@NotNull

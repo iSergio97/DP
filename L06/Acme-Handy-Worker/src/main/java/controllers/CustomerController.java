@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
-import security.UserAccountRepository;
 import services.ActorService;
 import services.CustomerService;
 import domain.Actor;
@@ -34,13 +33,10 @@ public class CustomerController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private CustomerService			customerService;
+	private CustomerService	customerService;
 
 	@Autowired
-	private ActorService			actorService;
-
-	@Autowired
-	private UserAccountRepository	userAccountRepository;
+	private ActorService	actorService;
 
 
 	// Constructors -----------------------------------------------------------

@@ -53,7 +53,7 @@ public class ReportService {
 		report.setComplaint(this.complaintService.create());
 		report.setReferee(this.refereeService.create());
 
-		return this.save(report);
+		return report;
 
 	}
 	public Report save(final Report report) {

@@ -41,7 +41,7 @@ public class ProfessionalRecordService {
 		professionalRecord.setRole("");
 		professionalRecord.setAttachment("");
 		professionalRecord.setComments("");
-		return this.professionalRecordRepository.save(professionalRecord);
+		return professionalRecord;
 	}
 
 	public ProfessionalRecord save(final ProfessionalRecord professionalRecord) {

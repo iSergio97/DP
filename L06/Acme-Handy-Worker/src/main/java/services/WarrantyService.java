@@ -39,7 +39,7 @@ public class WarrantyService {
 		warranty.setTerms("");
 		warranty.setTitle("");
 
-		return this.save(warranty);
+		return warranty;
 	}
 
 	public Warranty save(final Warranty warranty) {

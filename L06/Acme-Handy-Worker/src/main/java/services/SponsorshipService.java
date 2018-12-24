@@ -42,7 +42,7 @@ public class SponsorshipService {
 		sponsorship.setSponsor(sponsorService.findById(login.getId()));
 		sponsorship.setTargetPage("");
 
-		return this.save(sponsorship);
+		return sponsorship;
 	}
 
 	public Sponsorship save(final Sponsorship sponsorship) {

@@ -44,13 +44,11 @@ public class MessageService {
 		m.setBody("");
 		m.setDate(new Date());
 		m.setPriority("");
-		m.setRecipients(new ArrayList<Actor>());
 		m.setTags(new ArrayList<String>());
-		final UserAccount login = LoginService.getPrincipal();
-		m.setSender(this.actorService.findById(login.getId()));
+		m.setSender(this.actorService.findByUserAccountId(LoginService.getPrincipal().getId()));
 		m.setSubject("");
 
-		return this.messageRepository.save(m);
+		return m;
 	}
 
 	public Message save(final Message message) {

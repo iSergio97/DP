@@ -44,7 +44,7 @@ public class SectionService {
 
 		s.setTutorial(this.tutorialService.create());
 
-		return this.sectionRepository.save(s);
+		return s;
 	}
 	public Section save(final Section section) {
 		Assert.isTrue(section != null);

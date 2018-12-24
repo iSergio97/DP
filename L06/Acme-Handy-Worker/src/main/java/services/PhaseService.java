@@ -42,7 +42,7 @@ public class PhaseService {
 		phase.setStartMoment(new Date());
 		phase.setEndMoment(new Date());
 		phase.setWorkPlan(this.workPlanService.create());
-		return this.phaseRepository.save(phase);
+		return phase;
 	}
 
 	public Phase save(final Phase phase) {

@@ -45,7 +45,7 @@ public class SocialProfileService {
 		UserAccount login = LoginService.getPrincipal();
 		socialProfile.setActor(actorService.findById(login.getId()));
 
-		return this.save(socialProfile);
+		return socialProfile;
 	}
 
 	public SocialProfile save(final SocialProfile socialProfile) {

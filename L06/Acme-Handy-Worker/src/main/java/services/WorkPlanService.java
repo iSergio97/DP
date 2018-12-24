@@ -50,7 +50,7 @@ public class WorkPlanService {
 		workPlan.setFixUpTask(fixUpTask);
 		workPlan.setPhases(phases);
 
-		return this.save(workPlan);
+		return workPlan;
 
 	}
 

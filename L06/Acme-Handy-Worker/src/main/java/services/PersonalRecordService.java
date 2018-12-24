@@ -39,7 +39,7 @@ public class PersonalRecordService {
 		personalRecord.setEmail("");
 		personalRecord.setPhoneNumber("");
 		personalRecord.setLinkedIn("");
-		return this.personalRecordRepository.save(personalRecord);
+		return personalRecord;
 	}
 
 	public PersonalRecord save(final PersonalRecord personalRecord) {

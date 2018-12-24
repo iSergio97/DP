@@ -48,7 +48,7 @@ public class NoteService {
 		note.setMoment(new Date());
 		note.setReport(reportService.create());
 
-		return this.save(note);
+		return note;
 	}
 
 	public Note save(final Note note) {

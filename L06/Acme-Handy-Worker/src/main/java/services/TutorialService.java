@@ -53,7 +53,7 @@ public class TutorialService {
 		tutorial.setSponsorship(sponsorshipService.create());
 		tutorial.setTitle("");
 
-		return this.save(tutorial);
+		return tutorial;
 	}
 
 	public Tutorial save(final Tutorial tutorial) {

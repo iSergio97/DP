@@ -78,7 +78,7 @@ public class ApplicationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.POST, params = "addcomment")
-	public ModelAndView addComment(@RequestParam(value = "id") final int id, @RequestParam(value = "applicationcomment") final String applicationComment) {
+	public ModelAndView addComment(@RequestParam(value = "id") final int id, @RequestParam(value = "text") final String text) {
 		final ModelAndView result;
 		Application application;
 		final Actor actor;
@@ -90,7 +90,7 @@ public class ApplicationController extends AbstractController {
 		Assert.isTrue(application.getHandyWorker().getId() == actor.getId() || application.getFixUpTask().getCustomer().getId() == actor.getId());
 
 		final List<String> comments = application.getComments();
-		comments.add(applicationComment);
+		comments.add(text);
 		application.setComments(comments);
 		application = this.applicationService.save(application);
 
@@ -182,9 +182,9 @@ public class ApplicationController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView create(@RequestParam(value = "fixuptaskid") final int fixUpTaskId, @RequestParam(value = "offeredprice") final int offeredPrice, @RequestParam(value = "comment") final String comment) {
 		final ModelAndView result;
-		Application application;
-		HandyWorker handyWorker;
-		FixUpTask fixUpTask;
+		final Application application;
+		final HandyWorker handyWorker;
+		final FixUpTask fixUpTask;
 
 		handyWorker = this.handyWorkerService.findById(this.actorService.findPrincipal().getId());
 		fixUpTask = this.fixUpTaskService.findById(fixUpTaskId);
@@ -194,20 +194,19 @@ public class ApplicationController extends AbstractController {
 		final Collection<Application> fixUpTaskApplications = fixUpTask.getApplications();
 		fixUpTaskApplications.add(application);
 		fixUpTask.setApplications(fixUpTaskApplications);
+		this.fixUpTaskService.save(fixUpTask);
 		// Set handy worker
 		application.setHandyWorker(handyWorker);
 		final Collection<Application> handyWorkerApplications = handyWorker.getApplications();
 		handyWorkerApplications.add(application);
 		handyWorker.setApplications(handyWorkerApplications);
+		this.handyWorkerService.save(handyWorker);
 		//
 		application.setStatus("PENDING");
 		final ArrayList<String> comments = new ArrayList<>();
 		comments.add(comment);
 		application.setComments(comments);
-		// Save
-		application = this.applicationService.save(application);
-		fixUpTask = this.fixUpTaskService.save(fixUpTask);
-		handyWorker = this.handyWorkerService.save(handyWorker);
+		this.applicationService.save(application);
 
 		result = new ModelAndView("application/create");
 		result.addObject("fixuptaskid", fixUpTaskId);

@@ -8,4 +8,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/message")
 public class MessageController {
 
+
 }
