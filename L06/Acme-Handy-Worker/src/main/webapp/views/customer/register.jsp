@@ -15,12 +15,36 @@
 
 <div>
 	<form:form modelAttribute="customer" method="POST">
+
 		<!-- Campos ocultos -->
+
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="messageBoxes" />
-		<form:hidden path="userAccount" />
+		<form:hidden path="userAccount"/>
+		<form:hidden path="userAccount.authorities" value="CHORBI"/>
+		<form:hidden path="userAccount.id"/>
+		<form:hidden path="userAccount.version"/>
 
+		<!-- Campos de entrada -->
+
+		<div>
+			<form:label path="userAccount.username">
+				<spring:message code="security.username" />
+			</form:label>
+			<form:input path="userAccount.username" />
+			<form:errors path="userAccount.username" />
+		</div>
+		<br>
+
+		<div>
+			<form:label path="userAccount.password">
+				<spring:message code="security.password" />
+			</form:label>
+			<form:input path="userAccount.password" />
+			<form:errors path="userAccount.password" />
+		</div>
+		<br>
 
 		<div>
 			<form:label path="Name">
