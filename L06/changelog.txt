@@ -1,0 +1,4 @@
+
+
+CreditCard: Los campos de valor int se han cambiado a Integer para permitir los valores nulos y poder guardar usuarios sin tarjeta de crédito
+

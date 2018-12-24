@@ -19,9 +19,9 @@ public class CreditCard {
 	private String	holder;
 	private String	brand;
 	private String	number;
-	private int		expirationMonth;
-	private int		expirationYear;
-	private int		CVV;
+	private Integer	expirationMonth;
+	private Integer	expirationYear;
+	private Integer	CVV;
 
 
 	// Relationships ----------------------------------------------------------
@@ -58,29 +58,29 @@ public class CreditCard {
 	}
 
 	@Range(min = 1, max = 12)
-	public int getExpirationMonth() {
+	public Integer getExpirationMonth() {
 		return this.expirationMonth;
 	}
 
-	public void setExpirationMonth(final int expirationMonth) {
+	public void setExpirationMonth(final Integer expirationMonth) {
 		this.expirationMonth = expirationMonth;
 	}
 
-	//@Future
-	public int getExpirationYear() {
+	public Integer getExpirationYear() {
 		return this.expirationYear;
 	}
 
-	public void setExpirationYear(final int expirationYear) {
+	public void setExpirationYear(final Integer expirationYear) {
 		this.expirationYear = expirationYear;
 	}
 
 	@Range(min = 100, max = 999)
-	public int getCVV() {
+	public Integer getCVV() {
 		return this.CVV;
 	}
 
-	public void setCVV(final int cVV) {
+	public void setCVV(final Integer cVV) {
 		this.CVV = cVV;
 	}
+
 }
