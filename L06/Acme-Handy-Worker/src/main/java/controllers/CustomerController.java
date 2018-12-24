@@ -62,22 +62,15 @@ public class CustomerController extends AbstractController {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			//			final UserAccount userAccount = new UserAccount();
-			//			userAccount.setUsername(customer.getName());
-			//			userAccount.setPassword(customer.getName());
-			//			final List<Authority> authority = new ArrayList<>();
-			//			final Authority au = new Authority();
-			//			au.setAuthority(Authority.CUSTOMER);
-			//			authority.add(au);
-			//			userAccount.setAuthorities(authority);
-			//			final UserAccount uaSaved = this.userAccountRepository.save(userAccount);
-			//			customer.setUserAccount(uaSaved);
 			this.customerService.save(customer);
 			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("customer/register");
 			result.addObject("customer", customer);
 			result.addObject("showError", binding);
+			result.addObject("erroresBinding", binding.getAllErrors());
+			for (int i = 0; i < binding.getAllErrors().size(); i++)
+				System.out.println("Error " + i + binding.getAllErrors().get(i));
 		}
 
 		return result;
