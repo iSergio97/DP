@@ -38,8 +38,18 @@
 				</ul>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="administrator/register.do"><spring:message
-								code="master.page.administrator.register" /></a></li>
+					<li><a href="administrator/registeradministrator.do"><spring:message
+								code="master.page.administrator.register.administrator" /></a></li>
+				</ul>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="administrator/registerreferee.do"><spring:message
+								code="master.page.administrator.register.referee" /></a></li>
+				</ul>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="administrator/suspicious.do"><spring:message
+								code="master.page.administrator.suspicious" /></a></li>
 				</ul>
 				</li>
 		</security:authorize>
