@@ -13,7 +13,7 @@ import domain.HandyWorker;
 @Repository
 public interface EndorserRecordRepository extends JpaRepository<EndorserRecord, Integer> {
 
-	@Query("select e.curriculum.handyWorker from EndorserRecord e where e.endorserFullName like '%?1%' or e.endorserEmail like '%?1%' or e.endorserPhoneNumber like '%?1%' or e.endorserLinkedIn like '%?1%' or e.comments like '%?1%'")
+	@Query("select e.curriculum.handyWorker from EndorserRecord e where e.endorserFullName like concat('%', ?1, '%') or e.endorserEmail like concat('%', ?1, '%') or e.endorserPhoneNumber like concat('%', ?1, '%') or e.endorserLinkedIn like concat('%', ?1, '%') or e.comments like concat('%', ?1, '%')")
 	List<HandyWorker> getHandyWorkersWithEndorserRecordsWithWord(String word);
 
 }

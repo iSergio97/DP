@@ -30,24 +30,12 @@
 					<li class="arrow"></li>
 					<li><a href="administrator/systemconfiguration.do"><spring:message
 								code="master.page.administrator.systemconfiguration" /></a></li>
-				</ul>
-				<ul>
-					<li class="arrow"></li>
 					<li><a href="administrator/dashboard.do"><spring:message
 								code="master.page.administrator.dashboard" /></a></li>
-				</ul>
-				<ul>
-					<li class="arrow"></li>
 					<li><a href="administrator/registeradministrator.do"><spring:message
 								code="master.page.administrator.register.administrator" /></a></li>
-				</ul>
-				<ul>
-					<li class="arrow"></li>
 					<li><a href="administrator/registerreferee.do"><spring:message
 								code="master.page.administrator.register.referee" /></a></li>
-				</ul>
-				<ul>
-					<li class="arrow"></li>
 					<li><a href="administrator/suspicious.do"><spring:message
 								code="master.page.administrator.suspicious" /></a></li>
 				</ul>

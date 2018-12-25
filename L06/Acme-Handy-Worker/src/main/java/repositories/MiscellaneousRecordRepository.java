@@ -13,7 +13,7 @@ import domain.MiscellaneousRecord;
 @Repository
 public interface MiscellaneousRecordRepository extends JpaRepository<MiscellaneousRecord, Integer> {
 
-	@Query("select m.curriculum.handyWorker from MiscellaneousRecord m where m.title like '%?1%' or m.attachment like '%?1%' or m.comments like '%?1%'")
+	@Query("select m.curriculum.handyWorker from MiscellaneousRecord m where m.title like concat('%', ?1, '%') or m.attachment like concat('%', ?1, '%') or m.comments like concat('%', ?1, '%')")
 	List<HandyWorker> getHandyWorkersWithMiscellaneousRecordsWithWord(String word);
 
 }

@@ -11,3 +11,21 @@
 	<spring:message code="suspicious" />
 </p>
 
+<display:table name="suspiciousActors" id="row">
+	<display:column property="name" titleKey="suspicious.name" />
+	<display:column property="middleName" titleKey="suspicious.middleName" />
+	<display:column property="surname" titleKey="suspicious.surname" />
+	<display:column titleKey="suspicious.options">
+		<form action="administrator/suspicious.do" method="POST">
+			<input type="hidden" name="id" value="<jstl:out value="${row.id}" />">
+			<jstl:choose>
+				<jstl:when test = "${row.banned}">
+					<input type="submit" name="unban" value='<spring:message code="suspicious.unban" />' />
+				</jstl:when>
+				<jstl:otherwise>
+					<input type="submit" name="ban" value='<spring:message code="suspicious.ban" />' />
+				</jstl:otherwise>
+			</jstl:choose>
+		</form>
+	</display:column>
+</display:table>

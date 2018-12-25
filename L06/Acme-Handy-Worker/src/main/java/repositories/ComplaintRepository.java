@@ -23,7 +23,7 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 	@Query("select c from Complaint c join c.fixUpTask fut where fut.customer = ?1 and fut = ?2")
 	Complaint[] getComplaints(Customer c, FixUpTask fut);
 
-	@Query("select c.fixUpTask.customer from Complaint c where c.description like '%?1%'")
+	@Query("select c.fixUpTask.customer from Complaint c where c.description like concat('%', ?1, '%')")
 	List<Customer> getCustomersWhoPublishComplaintsWithWord(String word);
 
 }

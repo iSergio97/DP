@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,20 +110,20 @@ public class ActorService {
 	}
 
 	public List<Actor> findSuspicious() {
-		final List<Actor> suspiciousActors = new ArrayList<>();
+		final HashSet<Actor> uniqueSuspiciousActors = new HashSet<>();
 		for (final String spamWord : this.systemConfigurationService.getSystemConfiguration().getSpamWords()) {
-			suspiciousActors.addAll(this.getActorsWithWord(spamWord));
-			suspiciousActors.addAll(this.socialProfileService.getActorsWithSocialProfilesWithWord(spamWord));
-			suspiciousActors.addAll(this.messageService.getActorsWhoSendMessagesWithWord(spamWord));
-			suspiciousActors.addAll(this.fixUpTaskService.getCustomersWhoPublishFixUpTasksWithWord(spamWord));
-			suspiciousActors.addAll(this.complaintService.getCustomersWhoPublishComplaintsWithWord(spamWord));
-			suspiciousActors.addAll(this.educationalRecordService.getHandyWorkersWithEducationalRecordsWithWord(spamWord));
-			suspiciousActors.addAll(this.endorserRecordService.getHandyWorkersWithEndorserRecordsWithWord(spamWord));
-			suspiciousActors.addAll(this.miscellaneousRecordService.getHandyWorkersWithMiscellaneousRecordsWithWord(spamWord));
-			suspiciousActors.addAll(this.personalRecordService.getHandyWorkersWithPersonalRecordsWithWord(spamWord));
-			suspiciousActors.addAll(this.professionalRecordService.getHandyWorkersWithProfessionalRecordsWithWord(spamWord));
+			uniqueSuspiciousActors.addAll(this.getActorsWithWord(spamWord));
+			uniqueSuspiciousActors.addAll(this.socialProfileService.getActorsWithSocialProfilesWithWord(spamWord));
+			uniqueSuspiciousActors.addAll(this.messageService.getActorsWhoSendMessagesWithWord(spamWord));
+			uniqueSuspiciousActors.addAll(this.fixUpTaskService.getCustomersWhoPublishFixUpTasksWithWord(spamWord));
+			uniqueSuspiciousActors.addAll(this.complaintService.getCustomersWhoPublishComplaintsWithWord(spamWord));
+			uniqueSuspiciousActors.addAll(this.educationalRecordService.getHandyWorkersWithEducationalRecordsWithWord(spamWord));
+			uniqueSuspiciousActors.addAll(this.endorserRecordService.getHandyWorkersWithEndorserRecordsWithWord(spamWord));
+			uniqueSuspiciousActors.addAll(this.miscellaneousRecordService.getHandyWorkersWithMiscellaneousRecordsWithWord(spamWord));
+			uniqueSuspiciousActors.addAll(this.personalRecordService.getHandyWorkersWithPersonalRecordsWithWord(spamWord));
+			uniqueSuspiciousActors.addAll(this.professionalRecordService.getHandyWorkersWithProfessionalRecordsWithWord(spamWord));
 		}
-		return new ArrayList<Actor>(suspiciousActors);
+		return new ArrayList<Actor>(uniqueSuspiciousActors);
 	}
 
 }

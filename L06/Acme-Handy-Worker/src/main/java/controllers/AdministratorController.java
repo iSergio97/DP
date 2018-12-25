@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.ApplicationService;
 import services.CustomerService;
 import services.FixUpTaskService;
 import services.HandyWorkerService;
 import services.ReportService;
 import services.SystemConfigurationService;
+import domain.Actor;
 import domain.SystemConfiguration;
 
 @Controller
@@ -35,6 +37,8 @@ public class AdministratorController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
+	@Autowired
+	private ActorService				actorService;
 	@Autowired
 	private ApplicationService			applicationService;
 	@Autowired
@@ -239,6 +243,64 @@ public class AdministratorController extends AbstractController {
 		result = this.systemConfiguration();
 
 		return result;
+	}
+
+	// Register administrator ------------------------------------------------------
+
+	@RequestMapping(value = "/registeradministrator", method = RequestMethod.GET)
+	public ModelAndView registerAdministrator() {
+		final ModelAndView result;
+
+		result = new ModelAndView("administrator/registeradministrator");
+
+		return result;
+	}
+
+	// Register referee ------------------------------------------------------------
+
+	@RequestMapping(value = "/registerreferee", method = RequestMethod.GET)
+	public ModelAndView registerReferee() {
+		final ModelAndView result;
+
+		result = new ModelAndView("administrator/registerreferee");
+
+		return result;
+	}
+
+	// Suspicious ------------------------------------------------------------------
+
+	@RequestMapping(value = "/suspicious", method = RequestMethod.GET)
+	public ModelAndView suspicious() {
+		final ModelAndView result;
+		final List<Actor> suspiciousActors;
+
+		suspiciousActors = this.actorService.findSuspicious();
+		result = new ModelAndView("administrator/suspicious");
+		result.addObject("suspiciousActors", suspiciousActors);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/suspicious", method = RequestMethod.POST, params = "ban")
+	public ModelAndView suspiciousBan(@RequestParam(value = "id") final int id) {
+		final Actor actor;
+
+		actor = this.actorService.findById(id);
+		actor.setIsBanned(true);
+		this.actorService.save(actor);
+
+		return this.suspicious();
+	}
+
+	@RequestMapping(value = "/suspicious", method = RequestMethod.POST, params = "unban")
+	public ModelAndView suspiciousUnban(@RequestParam(value = "id") final int id) {
+		final Actor actor;
+
+		actor = this.actorService.findById(id);
+		actor.setIsBanned(false);
+		this.actorService.save(actor);
+
+		return this.suspicious();
 	}
 
 }

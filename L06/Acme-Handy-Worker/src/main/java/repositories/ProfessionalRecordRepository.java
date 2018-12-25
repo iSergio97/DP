@@ -13,7 +13,7 @@ import domain.ProfessionalRecord;
 @Repository
 public interface ProfessionalRecordRepository extends JpaRepository<ProfessionalRecord, Integer> {
 
-	@Query("select p.curriculum.handyWorker from ProfessionalRecord p where p.companyName like '%?1%' or p.role like '%?1%' or p.attachment like '%?1%' or p.comments like '%?1%'")
+	@Query("select p.curriculum.handyWorker from ProfessionalRecord p where p.companyName like concat('%', ?1, '%') or p.role like concat('%', ?1, '%') or p.attachment like concat('%', ?1, '%') or p.comments like concat('%', ?1, '%')")
 	List<HandyWorker> getHandyWorkersWithProfessionalRecordsWithWord(String word);
 
 }
