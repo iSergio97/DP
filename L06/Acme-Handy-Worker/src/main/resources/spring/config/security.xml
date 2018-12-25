@@ -54,7 +54,8 @@
 		<security:intercept-url pattern="/actor/send-message.do" access="isAuthenticated()"/>
 
 		<security:intercept-url pattern="/customer/box.do" access="isAuthenticated()"/>
-
+		<security:intercept-url pattern="/fixUpTask/customer/**" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/fixUpTask/handyWorker/**" access="hasRole('HANDYWORKER')" /> 
 		<security:intercept-url pattern="/customer/**" access="hasRole('CUSTOMER')" /> 
 
 		<security:intercept-url pattern="/profile/show.do" access="isAuthenticated()" /> 

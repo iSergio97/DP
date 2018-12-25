@@ -33,12 +33,12 @@ public class WarrantyService {
 	// Methods ----------------------------------------------------------------
 
 	public Warranty create() {
-		Warranty warranty = new Warranty();
-		List<String> applicableLaws = new ArrayList<>();
+		final Warranty warranty = new Warranty();
+		final List<String> applicableLaws = new ArrayList<>();
 		warranty.setApplicableLaws(applicableLaws);
 		warranty.setTerms("");
 		warranty.setTitle("");
-
+		warranty.setDraft(true);
 		return warranty;
 	}
 

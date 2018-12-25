@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -29,7 +30,7 @@ public class FixUpTask extends DomainEntity {
 	private Date					moment;
 	private String					description;
 	private String					address;
-	private int						maximumPrice;
+	private Integer					maximumPrice;
 	private Date					timeLimit;
 
 	// Relationships ----------------------------------------------------------
@@ -59,6 +60,7 @@ public class FixUpTask extends DomainEntity {
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -88,16 +90,17 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotNull
-	public int getMaximumPrice() {
+	public Integer getMaximumPrice() {
 		return this.maximumPrice;
 	}
 
-	public void setMaximumPrice(final int maximumPrice) {
+	public void setMaximumPrice(final Integer maximumPrice) {
 		this.maximumPrice = maximumPrice;
 	}
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getTimeLimit() {
 		return this.timeLimit;
 	}

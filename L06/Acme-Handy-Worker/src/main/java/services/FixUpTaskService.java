@@ -25,18 +25,21 @@ public class FixUpTaskService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private FixUpTaskRepository	fixUpTaskRepository;
+	private FixUpTaskRepository			fixUpTaskRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private CustomerService		customerService;
+	private CustomerService				customerService;
 
 	@Autowired
-	private WarrantyService		warrantyService;
+	private WarrantyService				warrantyService;
 
 	@Autowired
-	private WorkPlanService		workPlanService;
+	private WorkPlanService				workPlanService;
+
+	@Autowired
+	private FixUpTaskCategoryService	fixUpTaskCategoryService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -53,6 +56,8 @@ public class FixUpTaskService {
 		fixUpTask.setMoment(new Date());
 		fixUpTask.setDescription("");
 		fixUpTask.setAddress("");
+		fixUpTask.setMaximumPrice(null);
+		fixUpTask.setTimeLimit(null);
 		fixUpTask.setCustomer(this.customerService.findPrincipal());
 		fixUpTask.setApplications(new ArrayList<Application>());
 		// Dentro de () llamar al WarrantyServices y usar el método create
@@ -60,6 +65,7 @@ public class FixUpTaskService {
 		// Lo mismo pero con Workplan
 		fixUpTask.setWorkPlan(this.workPlanService.create());
 		fixUpTask.setComplaints(new ArrayList<Complaint>());
+		fixUpTask.setFixUpTaskCategory(this.fixUpTaskCategoryService.create());
 		// Guardar en el repositorio.
 		return fixUpTask;
 	}

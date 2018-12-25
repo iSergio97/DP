@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class WorkPlanService {
 		final WorkPlan workPlan = new WorkPlan();
 
 		final FixUpTask fixUpTask = new FixUpTask();
-		final Collection<Phase> phases = this.phaseService.findAll();
+		final Collection<Phase> phases = new ArrayList<Phase>();
 
 		workPlan.setFixUpTask(fixUpTask);
 		workPlan.setPhases(phases);

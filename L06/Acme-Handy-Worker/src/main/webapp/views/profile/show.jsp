@@ -50,4 +50,8 @@
 	<spring:message code="profile.isBanned" />?: <jstl:out
 							value="${actor.isBanned}" />
 	<br>
+	
+	<security:authorize access="hasRole('CUSTOMER')"> 
+	<a href ="fixUpTask/customer/list.do">Fix-Up Tasks</a>
+	</security:authorize>
 </div>

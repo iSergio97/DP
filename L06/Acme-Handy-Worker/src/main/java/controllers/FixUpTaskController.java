@@ -10,27 +10,31 @@
 
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CustomerService;
 import services.FixUpTaskCategoryService;
+import services.FixUpTaskService;
 import services.WarrantyService;
 import services.WorkPlanService;
-import domain.Application;
-import domain.Complaint;
 import domain.Customer;
+import domain.FixUpTask;
 import domain.FixUpTaskCategory;
 import domain.Warranty;
-import domain.WorkPlan;
 
 @Controller
-@RequestMapping("/fix-up-task")
+@RequestMapping("/fixUpTask")
 public class FixUpTaskController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
@@ -47,45 +51,130 @@ public class FixUpTaskController extends AbstractController {
 	@Autowired
 	private WorkPlanService				workPlanService;
 
+	@Autowired
+	private FixUpTaskService			fixUpTaskService;
 
-	// Constructors -----------------------------------------------------------
-
-	public FixUpTaskController() {
-		super();
-	}
 
 	// Create/Edit Fix-Up Task ------------------------------------------------
 
-	@RequestMapping("/customer_edit")
-	public ModelAndView action1() {
+	@RequestMapping(value = "/customer/list", method = RequestMethod.GET)
+	public ModelAndView list() {
 		// Create result object
-		final ModelAndView result;
-		result = new ModelAndView("fix-up-task/customer_edit");
+		ModelAndView result;
+		Collection<FixUpTask> fixUpTasks;
+		result = new ModelAndView("fixUpTask/list");
 
 		// Add logged customer
 		final Customer customer = this.customerService.findPrincipal();
+		fixUpTasks = customer.getFixUpTasks();
+		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("customer", customer);
-
-		// Add all fix-up task categories
-		final List<FixUpTaskCategory> fixUpTaskCategories = this.fixUpTaskCategoryService.findAll();
-		result.addObject("fixUpTaskCategories", fixUpTaskCategories);
-
-		// Add an empty collection of Application
-		final List<Application> applications = new ArrayList<>();
-		result.addObject("applications", applications);
-
-		// Add all warranties
-		final List<Warranty> warranties = this.warrantyService.findAll();
-		result.addObject("warranties", warranties);
-
-		// Add a built-from-scratch work plan
-		final WorkPlan workPlan = this.workPlanService.create();
-		result.addObject("workPlan", workPlan);
-
-		// Add an empty list of complaints
-		final List<Complaint> complaints = new ArrayList<>();
-		result.addObject("complaints", complaints);
+		result.addObject("requestURI", "fixUpTask/customer/list.do");
 
 		return result;
+	}
+
+	@RequestMapping(value = "/handyWorker/list", method = RequestMethod.GET)
+	public ModelAndView handyWorkerList() {
+		// Create result object
+		ModelAndView result;
+		Collection<FixUpTask> fixUpTasks;
+		result = new ModelAndView("fixUpTask/handyWorker/list");
+
+		// Add logged customer
+		fixUpTasks = this.fixUpTaskService.findAll();
+		result.addObject("fixUpTask", fixUpTasks);
+		result.addObject("requestURI", "fixUpTask/handyWorker/list.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/customer/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int fixUpTaskId) {
+		// Create result object
+		ModelAndView result;
+		FixUpTask fixUpTask;
+		result = new ModelAndView("fixUpTask/show");
+		fixUpTask = this.fixUpTaskService.findById(fixUpTaskId);
+		result.addObject("fixUpTask", fixUpTask);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/customer/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		FixUpTask fixUpTask;
+		fixUpTask = this.fixUpTaskService.create();
+		result = this.createEditModelAndView(fixUpTask);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/customer/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int fixUpTaskId) {
+		ModelAndView result;
+		FixUpTask fixUpTask;
+		fixUpTask = this.fixUpTaskService.findById(fixUpTaskId);
+		Assert.notNull(fixUpTask);
+		result = this.createEditModelAndView(fixUpTask);
+
+		return result;
+	}
+
+	@RequestMapping(value = "customer/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final FixUpTask fixUpTask, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(fixUpTask);
+		else
+			try {
+				this.fixUpTaskService.save(fixUpTask);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(fixUpTask, "fixUpTask.commit.error");
+			}
+
+		return result;
+
+	}
+	@RequestMapping(value = "/customer/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int fixUpTaskId) {
+		ModelAndView result;
+		FixUpTask fixUpTask;
+		fixUpTask = this.fixUpTaskService.findById(fixUpTaskId);
+		try {
+			this.fixUpTaskService.delete(fixUpTask);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(fixUpTask, "fixUpTask.commit.error");
+		}
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final FixUpTask fixUpTask) {
+		final ModelAndView result;
+		result = this.createEditModelAndView(fixUpTask, null);
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final FixUpTask fixUpTask, final String messageCode) {
+		final ModelAndView result;
+		final Warranty warranty;
+		Collection<Warranty> warranties;
+		Collection<FixUpTaskCategory> categories;
+
+		warranties = this.warrantyService.findAll();
+		categories = this.fixUpTaskCategoryService.findAll();
+
+		result = new ModelAndView("fixUpTask/edit");
+		result.addObject("fixUpTask", fixUpTask);
+		result.addObject("warranties", warranties);
+		result.addObject("fixUpTaskCategories", categories);
+		result.addObject("message", messageCode);
+		return result;
+
 	}
 }
