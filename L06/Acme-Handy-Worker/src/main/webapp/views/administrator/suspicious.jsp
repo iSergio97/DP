@@ -19,7 +19,7 @@
 		<form action="administrator/suspicious.do" method="POST">
 			<input type="hidden" name="id" value="<jstl:out value="${row.id}" />">
 			<jstl:choose>
-				<jstl:when test = "${row.banned}">
+				<jstl:when test = "${row.isBanned}">
 					<input type="submit" name="unban" value='<spring:message code="suspicious.unban" />' />
 				</jstl:when>
 				<jstl:otherwise>
