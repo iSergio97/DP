@@ -25,5 +25,20 @@
 		<put-attribute name="title" value="Configuración de sistema" />
 		<put-attribute name="body" value="/views/administrator/systemconfiguration.jsp" />
 	</definition>
-	
+
+	<definition name="administrator/registeradministrator" extends="master.page">	
+		<put-attribute name="title" value="Registrar administrador" />
+		<put-attribute name="body" value="/views/administrator/registeradministrator.jsp" />
+	</definition>
+
+	<definition name="administrator/registerreferee" extends="master.page">	
+		<put-attribute name="title" value="Registrar árbitro" />
+		<put-attribute name="body" value="/views/administrator/registerreferee.jsp" />
+	</definition>
+
+	<definition name="administrator/suspicious" extends="master.page">	
+		<put-attribute name="title" value="Actores sospechosos" />
+		<put-attribute name="body" value="/views/administrator/suspicious.jsp" />
+	</definition>
+
 </tiles-definitions>
