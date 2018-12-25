@@ -77,7 +77,7 @@ public class AdministratorController extends AbstractController {
 	public ModelAndView dashboard() {
 		final ModelAndView result;
 
-		result = new ModelAndView("administrator/systemconfiguration");
+		result = new ModelAndView("administrator/dashboard");
 
 		// QUERY C.1
 		// The average, the minimum, the maximum, and the standard deviation of
