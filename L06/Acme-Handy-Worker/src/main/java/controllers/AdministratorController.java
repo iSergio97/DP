@@ -21,6 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ApplicationService;
+import services.CustomerService;
+import services.FixUpTaskService;
+import services.HandyWorkerService;
+import services.ReportService;
 import services.SystemConfigurationService;
 import domain.SystemConfiguration;
 
@@ -31,16 +36,26 @@ public class AdministratorController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
+	private ApplicationService			applicationService;
+	@Autowired
+	private CustomerService				customerService;
+	@Autowired
+	private FixUpTaskService			fixUpTaskService;
+	@Autowired
+	private HandyWorkerService			handyWorkerService;
+	@Autowired
+	private ReportService				reportService;
+	@Autowired
 	private SystemConfigurationService	systemConfigurationService;
 
 
-	// Constructors -----------------------------------------------------------
+	// Constructors ----------------------------------------------------------------
 
 	public AdministratorController() {
 		super();
 	}
 
-	// Utility methods --------------------------------------------------------		
+	// Utility methods -------------------------------------------------------------
 
 	private static String join(final Collection<String> strings) {
 		String result = "";
@@ -56,7 +71,125 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// System configuration ---------------------------------------------------		
+	// Dashboard -------------------------------------------------------------------
+
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public ModelAndView dashboard() {
+		final ModelAndView result;
+
+		result = new ModelAndView("administrator/systemconfiguration");
+
+		// QUERY C.1
+		// The average, the minimum, the maximum, and the standard deviation of
+		// the number of fix-up tasks per user.
+
+		final Double[] fixUpTaskStatistics = this.customerService.getFixUpTaskStatistics();
+		result.addObject("fixUpTaskStatisticsMinimum", fixUpTaskStatistics[0]);
+		result.addObject("fixUpTaskStatisticsMaximum", fixUpTaskStatistics[1]);
+		result.addObject("fixUpTaskStatisticsAverage", fixUpTaskStatistics[2]);
+		result.addObject("fixUpTaskStatisticsStandardDeviation", fixUpTaskStatistics[3]);
+
+		// QUERY C.2
+		// The average, the minimum, the maximum, and the standard deviation of
+		// the number of applications per fix-up task.
+
+		final Double[] applicationStatistics = this.fixUpTaskService.getApplicationStatistics();
+		result.addObject("applicationStatisticsMinimum", applicationStatistics[0]);
+		result.addObject("applicationStatisticsMaximum", applicationStatistics[1]);
+		result.addObject("applicationStatisticsAverage", applicationStatistics[2]);
+		result.addObject("applicationStatisticsStandardDeviation", applicationStatistics[3]);
+
+		// QUERY C.3
+		// The average, the minimum, the maximum, and the standard deviation of
+		// the maximum price of the fix-up tasks.
+
+		final Double[] maximumPriceStatistics = this.fixUpTaskService.getMaximumPriceStatistics();
+		result.addObject("maximumPriceStatisticsMinimum", maximumPriceStatistics[0]);
+		result.addObject("maximumPriceStatisticsMaximum", maximumPriceStatistics[1]);
+		result.addObject("maximumPriceStatisticsAverage", maximumPriceStatistics[2]);
+		result.addObject("maximumPriceStatisticsStandardDeviation", maximumPriceStatistics[3]);
+
+		// QUERY C.4
+		// The average, the minimum, the maximum, and the standard deviation of
+		// the price offered in the applications.
+
+		final Double[] offeredPriceStatistics = this.applicationService.getOfferedPriceStatistics();
+		result.addObject("offeredPriceStatisticsMinimum", offeredPriceStatistics[0]);
+		result.addObject("offeredPriceStatisticsMaximum", offeredPriceStatistics[1]);
+		result.addObject("offeredPriceStatisticsAverage", offeredPriceStatistics[2]);
+		result.addObject("offeredPriceStatisticsStandardDeviation", offeredPriceStatistics[3]);
+
+		// QUERY C.5
+		// The ratio of pending applications.
+
+		result.addObject("pendingRatio", this.applicationService.getPendingRatio());
+
+		// QUERY C.6
+		// The ratio of accepted applications.
+
+		result.addObject("acceptedRatio", this.applicationService.getAcceptedRatio());
+
+		// QUERY C.7
+		// The ratio of rejected applications.
+
+		result.addObject("rejectedRatio", this.applicationService.getRejectedRatio());
+
+		// QUERY C.8
+		// The ratio of pending applications that cannot change its status because their time period's elapsed.
+
+		result.addObject("expiredRatio", this.applicationService.getExpiredRatio());
+
+		// QUERY C.9
+		// The listing of customers who have published at least 10% more fix-up tasks than the average,
+		// ordered by number of applications.
+
+		result.addObject("topFixUpTasks", this.customerService.getTopFixUpTasks());
+
+		// QUERY C.10
+		// The listing of handy workers who have got accepted at least 10% more applications than the average,
+		// ordered by number of applications.
+
+		result.addObject("topApplications", this.handyWorkerService.getTopApplications());
+
+		// QUERY B.1
+		// The minimum, the maximum, the average, and the standard deviation of
+		// the number of complaints per fix-up task.
+
+		final Double[] complaintStatistics = this.fixUpTaskService.getComplaintStatistics();
+		result.addObject("complaintStatisticsMinimum", complaintStatistics[0]);
+		result.addObject("complaintStatisticsMaximum", complaintStatistics[1]);
+		result.addObject("complaintStatisticsAverage", complaintStatistics[2]);
+		result.addObject("complaintStatisticsStandardDeviation", complaintStatistics[3]);
+
+		// QUERY B.2
+		// The minimum, the maximum, the average, and the standard deviation of
+		// the number of notes per referee report.
+
+		final Double[] noteStatistics = this.reportService.getNoteStatistics();
+		result.addObject("noteStatisticsMinimum", noteStatistics[0]);
+		result.addObject("noteStatisticsMaximum", noteStatistics[1]);
+		result.addObject("noteStatisticsAverage", noteStatistics[2]);
+		result.addObject("noteStatisticsStandardDeviation", noteStatistics[3]);
+
+		// QUERY B.3
+		// The ratio of fix-up tasks with a complaint.
+
+		result.addObject("complaintRatio", this.fixUpTaskService.getComplaintRatio());
+
+		// QUERY B.4
+		// The top 3 customers in terms of complaints.
+
+		result.addObject("topComplaintsCustomer", this.customerService.getTopComplaints().subList(0, 3));
+
+		// QUERY B.5
+		// The top-three handy workers in terms of complaints.
+
+		result.addObject("topComplaintsHandyWorker", this.handyWorkerService.getTopComplaints().subList(0, 3));
+
+		return result;
+	}
+
+	// System configuration --------------------------------------------------------
 
 	@RequestMapping(value = "/systemconfiguration", method = RequestMethod.GET)
 	public ModelAndView systemConfiguration() {

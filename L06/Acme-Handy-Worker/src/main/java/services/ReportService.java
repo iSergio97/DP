@@ -86,7 +86,7 @@ public class ReportService {
 
 	// Specific Methods ----------------------------------------------------------------
 
-	public Double[] getNoteStatics() {
+	public Double[] getNoteStatistics() {
 		return this.reportRepository.getNoteStatistics();
 	}
 
