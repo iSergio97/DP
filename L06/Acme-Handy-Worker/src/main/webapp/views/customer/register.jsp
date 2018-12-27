@@ -20,11 +20,18 @@
 
 		<form:hidden path="id" />
 		<form:hidden path="version" />
-		<form:hidden path="messageBoxes" />
+		<form:hidden path="isBanned" />
 		<form:hidden path="userAccount"/>
 		<form:hidden path="userAccount.authorities" value="CUSTOMER"/>
 		<form:hidden path="userAccount.id"/>
 		<form:hidden path="userAccount.version"/>
+		<form:hidden path="messageBoxes" />
+		<form:hidden path="socialProfiles" />
+		<form:hidden path="endorsedBy" />
+		<form:hidden path="endorses" />
+		<form:hidden path="messagesSent" />
+		<form:hidden path="messagesReceived" />
+		<form:hidden path="notes" />
 
 		<!-- Campos de entrada -->
 

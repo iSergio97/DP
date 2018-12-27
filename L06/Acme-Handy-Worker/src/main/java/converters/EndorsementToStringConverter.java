@@ -6,20 +6,19 @@ import javax.transaction.Transactional;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import security.UserAccount;
+import domain.Endorsement;
 
 @Component
 @Transactional
-public class UserAccountToStringConverter implements Converter<UserAccount, String> {
+public class EndorsementToStringConverter implements Converter<Endorsement, String> {
 
 	@Override
-	public String convert(final UserAccount userAccount) {
+	public String convert(final Endorsement endorsement) {
 		String result;
-
-		if (userAccount == null)
+		if (endorsement == null)
 			result = null;
 		else
-			result = userAccount.getUsername();
+			result = String.valueOf(endorsement.getId());
 
 		return result;
 	}

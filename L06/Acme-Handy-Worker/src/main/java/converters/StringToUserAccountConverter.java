@@ -1,18 +1,17 @@
 
 package converters;
 
-import domain.MessageBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.util.StringUtils;
-import repositories.MessageBoxRepository;
+
 import security.UserAccount;
 import security.UserAccountRepository;
 
 public class StringToUserAccountConverter implements Converter<String, UserAccount> {
 
 	@Autowired
-	private UserAccountRepository userAccountRepository;
+	private UserAccountRepository	userAccountRepository;
 
 
 	@Override

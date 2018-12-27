@@ -6,20 +6,19 @@ import javax.transaction.Transactional;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import security.UserAccount;
+import domain.Note;
 
 @Component
 @Transactional
-public class UserAccountToStringConverter implements Converter<UserAccount, String> {
+public class NoteToStringConverter implements Converter<Note, String> {
 
 	@Override
-	public String convert(final UserAccount userAccount) {
+	public String convert(final Note note) {
 		String result;
-
-		if (userAccount == null)
+		if (note == null)
 			result = null;
 		else
-			result = userAccount.getUsername();
+			result = String.valueOf(note.getId());
 
 		return result;
 	}

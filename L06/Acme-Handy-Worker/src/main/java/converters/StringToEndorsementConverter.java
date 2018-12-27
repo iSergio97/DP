@@ -5,25 +5,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.util.StringUtils;
 
-import repositories.MessageBoxRepository;
-import domain.MessageBox;
+import repositories.EndorsementRepository;
+import domain.Endorsement;
 
-public class StringToMessageBoxConverter implements Converter<String, MessageBox> {
+public class StringToEndorsementConverter implements Converter<String, Endorsement> {
 
 	@Autowired
-	private MessageBoxRepository	messageBoxRepository;
+	private EndorsementRepository	endorsementRepository;
 
 
 	@Override
-	public MessageBox convert(final String text) {
-		MessageBox result;
+	public Endorsement convert(final String text) {
+		Endorsement result;
 
 		try {
 			if (StringUtils.isEmpty(text))
 				result = null;
 			else {
 				final int id = Integer.valueOf(text);
-				result = this.messageBoxRepository.findOne(id);
+				result = this.endorsementRepository.findOne(id);
 			}
 		} catch (final Throwable izipizelemonezcuici) {
 			throw new IllegalArgumentException(izipizelemonezcuici);

@@ -6,20 +6,19 @@ import javax.transaction.Transactional;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import security.UserAccount;
+import domain.Message;
 
 @Component
 @Transactional
-public class UserAccountToStringConverter implements Converter<UserAccount, String> {
+public class MessageToStringConverter implements Converter<Message, String> {
 
 	@Override
-	public String convert(final UserAccount userAccount) {
+	public String convert(final Message message) {
 		String result;
-
-		if (userAccount == null)
+		if (message == null)
 			result = null;
 		else
-			result = userAccount.getUsername();
+			result = String.valueOf(message.getId());
 
 		return result;
 	}

@@ -5,25 +5,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.util.StringUtils;
 
-import repositories.MessageBoxRepository;
-import domain.MessageBox;
+import repositories.NoteRepository;
+import domain.Note;
 
-public class StringToMessageBoxConverter implements Converter<String, MessageBox> {
+public class StringToNoteConverter implements Converter<String, Note> {
 
 	@Autowired
-	private MessageBoxRepository	messageBoxRepository;
+	private NoteRepository	noteRepository;
 
 
 	@Override
-	public MessageBox convert(final String text) {
-		MessageBox result;
+	public Note convert(final String text) {
+		Note result;
 
 		try {
 			if (StringUtils.isEmpty(text))
 				result = null;
 			else {
 				final int id = Integer.valueOf(text);
-				result = this.messageBoxRepository.findOne(id);
+				result = this.noteRepository.findOne(id);
 			}
 		} catch (final Throwable izipizelemonezcuici) {
 			throw new IllegalArgumentException(izipizelemonezcuici);

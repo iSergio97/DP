@@ -154,7 +154,6 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@NotNull
-	//@NotEmpty
 	@Valid
 	@OneToMany(mappedBy = "actor")
 	public Collection<SocialProfile> getSocialProfiles() {
