@@ -62,6 +62,7 @@ public class MessageBoxService {
 
 	public MessageBox createNormalBoxes() {
 		final MessageBox mb = new MessageBox();
+		mb.setActor(this.actorService.findPrincipal());
 		mb.setName("");
 		mb.setMessages(new ArrayList<Message>());
 
