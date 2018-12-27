@@ -87,7 +87,7 @@
 						code="master.page.messages" />
 			</a><ul>
 					<li class="arrow"></li>
-					<li><a href="customer/send-message.do"><spring:message
+					<li><a href="message/sendMessage.do"><spring:message
 								code="master.page.messages.send" /></a></li>
 					<li><a href="customer/box.do?id=<security:authentication property="principal.id" />"><spring:message
 								code="master.page.messages.box" /></a></li>

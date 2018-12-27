@@ -1,12 +1,69 @@
 
 package controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import services.ActorService;
+import services.MessageBoxService;
+import services.MessageService;
+import domain.Actor;
+import domain.Message;
 
 @Controller
 @RequestMapping("/message")
 public class MessageController {
 
+	@Autowired
+	private MessageService		messageService;
 
+	@Autowired
+	private MessageBoxService	messageBoxService;
+
+	@Autowired
+	private ActorService		actorService;
+
+
+	public MessageController() {
+		super();
+	}
+
+	@RequestMapping(value = "/sendMessage", method = RequestMethod.GET)
+	public ModelAndView sendMessageGet() {
+		ModelAndView result;
+		List<Actor> lsActors;
+		lsActors = this.actorService.findAll();
+		Message message;
+		message = this.messageService.create();
+		result = new ModelAndView("message/sendMessage");
+		result.addObject("message", message);
+		result.addObject("actors", lsActors);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
+	public ModelAndView sendMessagePost(final Message message, final BindingResult bindingResult) {
+
+		ModelAndView result;
+		if (!bindingResult.hasErrors()) {
+			this.messageService.save(message);
+			result = new ModelAndView("redirect:showMessage.do");
+		} else {
+			for (int i = 0; i < bindingResult.getErrorCount(); i++)
+				System.out.println(bindingResult.getAllErrors().get(i));
+			result = new ModelAndView("/sendMessage");
+			result.addObject("message", message);
+			result.addObject("bindingResult", bindingResult);
+			for (int i = 0; i < bindingResult.getAllErrors().size(); i++)
+				System.out.println("Error " + i + bindingResult.getAllErrors().get(i));
+		}
+		return result;
+	}
 }
