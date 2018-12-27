@@ -153,7 +153,7 @@ public abstract class Actor extends DomainEntity {
 		this.messageBoxes = messageBoxes;
 	}
 
-	//@NotNull
+	@NotNull
 	//@NotEmpty
 	@Valid
 	@OneToMany(mappedBy = "actor")

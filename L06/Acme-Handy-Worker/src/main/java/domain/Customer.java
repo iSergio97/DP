@@ -31,7 +31,7 @@ public class Customer extends Actor {
 		this.fixUpTasks = fixUpTasks;
 	}
 
-	// @Valid
+	@Valid
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}

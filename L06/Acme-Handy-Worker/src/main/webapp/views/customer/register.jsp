@@ -22,7 +22,7 @@
 		<form:hidden path="version" />
 		<form:hidden path="messageBoxes" />
 		<form:hidden path="userAccount"/>
-		<form:hidden path="userAccount.authorities" value="CHORBI"/>
+		<form:hidden path="userAccount.authorities" value="CUSTOMER"/>
 		<form:hidden path="userAccount.id"/>
 		<form:hidden path="userAccount.version"/>
 
