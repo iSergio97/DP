@@ -4,9 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -15,6 +13,7 @@ import repositories.SponsorRepository;
 import security.Authority;
 import security.UserAccount;
 import security.UserAccountRepository;
+import domain.Sponsor;
 
 @Service
 @Transactional
@@ -23,16 +22,16 @@ public class SponsorService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private SponsorRepository	sponsorRepository;
-
+	private SponsorRepository		sponsorRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private MessageBoxService messageBoxService;
+	private MessageBoxService		messageBoxService;
 
 	@Autowired
-	private UserAccountRepository userAccountRepository;
+	private UserAccountRepository	userAccountRepository;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -43,17 +42,16 @@ public class SponsorService {
 	// Methods ----------------------------------------------------------------
 
 	public Sponsor create() {
-		Sponsor sponsor = new Sponsor();
-		List<Authority> ls = new ArrayList<>();
-		Authority authority = new Authority();
+		final Sponsor sponsor = new Sponsor();
+		final List<Authority> ls = new ArrayList<>();
+		final Authority authority = new Authority();
 		authority.setAuthority(Authority.SPONSOR);
 		ls.add(authority);
-		UserAccount userAccount = new UserAccount();
+		final UserAccount userAccount = new UserAccount();
 		userAccount.setAuthorities(ls);
-		sponsor.setMessageBoxes(messageBoxService.createSystemBoxes());
-		UserAccount saved = userAccountRepository.save(userAccount);
+		sponsor.setMessageBoxes(this.messageBoxService.createSystemBoxes());
+		final UserAccount saved = this.userAccountRepository.save(userAccount);
 		sponsor.setUserAccount(saved);
-
 
 		return sponsor;
 	}

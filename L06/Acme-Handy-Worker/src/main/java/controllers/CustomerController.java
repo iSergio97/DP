@@ -24,6 +24,7 @@ import security.LoginService;
 import security.UserAccountRepository;
 import services.ActorService;
 import services.CustomerService;
+import services.MessageBoxService;
 import domain.Actor;
 import domain.Customer;
 import domain.MessageBox;
@@ -35,11 +36,11 @@ public class CustomerController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private CustomerService			customerService;
-
-	@Autowired
 	private ActorService			actorService;
-
+	@Autowired
+	private CustomerService			customerService;
+	@Autowired
+	private MessageBoxService		messageBoxService;
 	@Autowired
 	private UserAccountRepository	userAccountRepository;
 
@@ -63,14 +64,19 @@ public class CustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView registerPost(final Customer customer, final BindingResult binding) {
+	public ModelAndView registerPost(Customer customer, final BindingResult binding) {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			this.customerService.save(customer);
+			customer = this.customerService.save(customer);
 			final String password = new Md5PasswordEncoder().encodePassword(customer.getUserAccount().getPassword(), null);
 			customer.getUserAccount().setPassword(password);
 			this.userAccountRepository.save(customer.getUserAccount());
+			customer.setMessageBoxes(this.messageBoxService.createSystemBoxes());
+			for (final MessageBox mb : customer.getMessageBoxes())
+				mb.setActor(customer);
+			this.messageBoxService.save(customer.getMessageBoxes());
+			customer = this.customerService.save(customer);
 			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("customer/register");

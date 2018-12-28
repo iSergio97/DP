@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,17 +23,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.UserAccountRepository;
 import services.ActorService;
 import services.AdminService;
 import services.ApplicationService;
 import services.CustomerService;
 import services.FixUpTaskService;
 import services.HandyWorkerService;
+import services.MessageBoxService;
 import services.RefereeService;
 import services.ReportService;
 import services.SystemConfigurationService;
 import domain.Actor;
 import domain.Admin;
+import domain.MessageBox;
 import domain.Referee;
 import domain.SystemConfiguration;
 
@@ -55,11 +59,15 @@ public class AdministratorController extends AbstractController {
 	@Autowired
 	private HandyWorkerService			handyWorkerService;
 	@Autowired
+	private MessageBoxService			messageBoxService;
+	@Autowired
 	private RefereeService				refereeService;
 	@Autowired
 	private ReportService				reportService;
 	@Autowired
 	private SystemConfigurationService	systemConfigurationService;
+	@Autowired
+	private UserAccountRepository		userAccountRepository;
 
 
 	// Constructors ----------------------------------------------------------------
@@ -269,12 +277,20 @@ public class AdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/registeradmin", method = RequestMethod.POST)
-	public ModelAndView registerAdmin(final Admin admin, final BindingResult binding) {
+	public ModelAndView registerAdmin(Admin admin, final BindingResult binding) {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			this.adminService.save(admin);
-			result = new ModelAndView("redirect:/");
+			admin = this.adminService.save(admin);
+			final String password = new Md5PasswordEncoder().encodePassword(admin.getUserAccount().getPassword(), null);
+			admin.getUserAccount().setPassword(password);
+			this.userAccountRepository.save(admin.getUserAccount());
+			admin.setMessageBoxes(this.messageBoxService.createSystemBoxes());
+			for (final MessageBox mb : admin.getMessageBoxes())
+				mb.setActor(admin);
+			this.messageBoxService.save(admin.getMessageBoxes());
+			admin = this.adminService.save(admin);
+			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("administrator/registeradmin");
 			result.addObject("admin", admin);
@@ -302,12 +318,20 @@ public class AdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/registerreferee", method = RequestMethod.POST)
-	public ModelAndView registerReferee(final Referee referee, final BindingResult binding) {
+	public ModelAndView registerReferee(Referee referee, final BindingResult binding) {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			this.refereeService.save(referee);
-			result = new ModelAndView("redirect:/");
+			referee = this.refereeService.save(referee);
+			final String password = new Md5PasswordEncoder().encodePassword(referee.getUserAccount().getPassword(), null);
+			referee.getUserAccount().setPassword(password);
+			this.userAccountRepository.save(referee.getUserAccount());
+			referee.setMessageBoxes(this.messageBoxService.createSystemBoxes());
+			for (final MessageBox mb : referee.getMessageBoxes())
+				mb.setActor(referee);
+			this.messageBoxService.save(referee.getMessageBoxes());
+			referee = this.refereeService.save(referee);
+			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("administrator/registerreferee");
 			result.addObject("referee", referee);

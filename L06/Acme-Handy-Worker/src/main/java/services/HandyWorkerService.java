@@ -4,17 +4,22 @@ package services;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.FinderRepository;
 import repositories.HandyWorkerRepository;
 import security.Authority;
 import security.UserAccount;
 import security.UserAccountRepository;
+import domain.Application;
+import domain.Endorsement;
+import domain.HandyWorker;
+import domain.Message;
+import domain.Note;
+import domain.SocialProfile;
+import domain.Tutorial;
 
 @Service
 @Transactional
@@ -33,40 +38,40 @@ public class HandyWorkerService {
 	// SuportingServices
 
 	@Autowired
-	private FixUpTaskService	fixUpTaskService;
+	private FixUpTaskService		fixUpTaskService;
 
 	@Autowired
-	private ApplicationService	applicationService;
+	private ApplicationService		applicationService;
 
-    @Autowired
-    private MessageBoxService	messageBoxService;
+	@Autowired
+	private MessageBoxService		messageBoxService;
 
-    @Autowired
-	private UserAccountRepository userAccountRepository;
+	@Autowired
+	private UserAccountRepository	userAccountRepository;
 
-    @Autowired
-	private FinderService finderService;
+	@Autowired
+	private FinderService			finderService;
 
-     @Autowired
-	 private CurriculumService curriculumService;
+	@Autowired
+	private CurriculumService		curriculumService;
 
 
-    //Methods
+	//Methods
 
 	public HandyWorker create() {
-		HandyWorker handyWorker = new HandyWorker();
-		List<Authority> ls = new ArrayList<>();
-		Authority authority = new Authority();
+		final HandyWorker handyWorker = new HandyWorker();
+		final List<Authority> ls = new ArrayList<>();
+		final Authority authority = new Authority();
 		authority.setAuthority(Authority.HANDY_WORKER);
 		ls.add(authority);
-		UserAccount ua = new UserAccount();
+		final UserAccount ua = new UserAccount();
 		ua.setAuthorities(ls);
-		UserAccount saved = userAccountRepository.save(ua);
+		final UserAccount saved = this.userAccountRepository.save(ua);
 		handyWorker.setUserAccount(saved);
-		handyWorker.setMessageBoxes(messageBoxService.createSystemBoxes());
+		handyWorker.setMessageBoxes(this.messageBoxService.createSystemBoxes());
 		handyWorker.setApplications(new ArrayList<Application>());
-		handyWorker.setFinder(finderService.create());
-		handyWorker.setCurriculum(curriculumService.create());
+		handyWorker.setFinder(this.finderService.create());
+		handyWorker.setCurriculum(this.curriculumService.create());
 		handyWorker.setTutorials(new ArrayList<Tutorial>());
 		handyWorker.setNotes(new ArrayList<Note>());
 		handyWorker.setMessagesSent(new ArrayList<Message>());
@@ -87,7 +92,7 @@ public class HandyWorkerService {
 		return handyWorker;
 	}
 
-    public HandyWorker save(final HandyWorker handyWorker) {
+	public HandyWorker save(final HandyWorker handyWorker) {
 		Assert.isTrue(handyWorker != null);
 		return this.handyWorkerRepository.save(handyWorker);
 	}
@@ -123,10 +128,10 @@ public class HandyWorkerService {
 		return this.handyWorkerRepository.getTopComplaints();
 	}
 
-//	public HandyWorker getHandyWorkerByUserAccountId(final int userAccountId) {
-//		HandyWorker hw;
-//		hw = this.handyWorkerRepository.findByUserAccountId(userAccountId);
-//		return hw;
-//	}
+	//	public HandyWorker getHandyWorkerByUserAccountId(final int userAccountId) {
+	//		HandyWorker hw;
+	//		hw = this.handyWorkerRepository.findByUserAccountId(userAccountId);
+	//		return hw;
+	//	}
 
 }
