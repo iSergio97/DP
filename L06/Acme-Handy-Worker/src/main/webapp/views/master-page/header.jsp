@@ -71,7 +71,7 @@
 			</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="profile/show.do?id=<security:authentication property="principal.id" />"><spring:message
+					<li><a href="profile/show.do"><spring:message
 								code="master.page.profile.show" /></a></li>
 					<li><a href="profile/edit.do?id=<security:authentication property="principal.id" />"><spring:message
 								code="master.page.profile.edit" /></a></li>

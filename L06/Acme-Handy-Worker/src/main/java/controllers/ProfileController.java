@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.ActorService;
 import domain.Actor;
 
@@ -33,9 +34,9 @@ public class ProfileController extends AbstractController {
 	// Show -------------------------------------------------------------------
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam(value = "id") final int id) {
+	public ModelAndView show() {
 		ModelAndView result;
-
+		final int id = LoginService.getPrincipal().getId();
 		final Actor actor = this.actorService.findByUserAccountId(id);
 
 		result = new ModelAndView("profile/show");
@@ -44,7 +45,6 @@ public class ProfileController extends AbstractController {
 
 		return result;
 	}
-
 	// Edit -------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)

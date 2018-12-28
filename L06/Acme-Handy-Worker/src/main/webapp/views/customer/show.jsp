@@ -22,6 +22,5 @@
 	<display:column property="timeLimit" titleKey="fixUpTask.timeLimit" />
 	<display:column property="descriptiom" titleKey="fixUpTask.description" />
 	<display:column> <a href="fixUpTask.show.do?fixUpTaskId=${row.id}"> <jstl:out value="Show"/></a> </display:column>
-	
 
 </display:table>

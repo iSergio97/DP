@@ -13,6 +13,7 @@ package controllers;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,8 +67,10 @@ public class CustomerController extends AbstractController {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			this.userAccountRepository.save(customer.getUserAccount());
 			this.customerService.save(customer);
+			final String password = new Md5PasswordEncoder().encodePassword(customer.getUserAccount().getPassword(), null);
+			customer.getUserAccount().setPassword(password);
+			this.userAccountRepository.save(customer.getUserAccount());
 			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("customer/register");
