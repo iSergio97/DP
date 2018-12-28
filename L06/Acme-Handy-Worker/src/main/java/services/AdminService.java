@@ -2,7 +2,6 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +12,10 @@ import org.springframework.util.Assert;
 import repositories.AdminRepository;
 import security.Authority;
 import security.UserAccount;
+import security.UserAccountRepository;
 import domain.Admin;
 import domain.Endorsement;
 import domain.Message;
-import domain.MessageBox;
-import domain.Note;
 import domain.SocialProfile;
 
 @Service
@@ -27,13 +25,15 @@ public class AdminService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private AdminRepository		adminRepository;
+	private AdminRepository			adminRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private MessageBoxService	messageBoxService;
+	private MessageBoxService		messageBoxService;
 
+	@Autowired
+	private UserAccountRepository	userAccountRepository;
 
 
 	// Constructors -----------------------------------------------------------
@@ -45,21 +45,32 @@ public class AdminService {
 	// Methods ----------------------------------------------------------------
 
 	public Admin create() {
+
 		final Admin admin = new Admin();
-
-		final UserAccount userAccount = new UserAccount();
+		UserAccount userAccount = new UserAccount();
 		final List<Authority> authorities = new ArrayList<>();
-		final Authority authority = new Authority();
-		final Collection<MessageBox> messageBoxes = this.messageBoxService.createSystemBoxes();
-
+		Authority authority;
+		authority = new Authority();
 		authority.setAuthority(Authority.ADMIN);
 		authorities.add(authority);
 		userAccount.setAuthorities(authorities);
-
-
+		userAccount = this.userAccountRepository.save(userAccount);
 
 		admin.setUserAccount(userAccount);
-
+		admin.setMessageBoxes(this.messageBoxService.createSystemBoxes());
+		admin.setMessagesSent(new ArrayList<Message>());
+		admin.setMessagesReceived(new ArrayList<Message>());
+		admin.setEndorses(new ArrayList<Endorsement>());
+		admin.setEndorsedBy(new ArrayList<Endorsement>());
+		admin.setSocialProfiles(new ArrayList<SocialProfile>());
+		admin.setIsBanned(false);
+		admin.setAddress("");
+		admin.setPhoneNumber("");
+		admin.setEmail("");
+		admin.setPhoto("");
+		admin.setMiddleName("");
+		admin.setName("");
+		admin.setSurname("");
 		return admin;
 	}
 	public Admin save(final Admin admin) {

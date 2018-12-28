@@ -8,11 +8,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="registerreferee" />
+	<spring:message code="registeradmin" />
 </p>
 
 <div>
-	<form:form modelAttribute="referee" method="POST">
+	<form:form modelAttribute="admin" method="POST">
 
 		<!-- Campos ocultos -->
 
@@ -20,7 +20,7 @@
 		<form:hidden path="version" />
 		<form:hidden path="isBanned" />
 		<form:hidden path="userAccount"/>
-		<form:hidden path="userAccount.authorities" value="REFEREE"/>
+		<form:hidden path="userAccount.authorities" value="ADMIN"/>
 		<form:hidden path="userAccount.id"/>
 		<form:hidden path="userAccount.version"/>
 		<form:hidden path="messageBoxes" />

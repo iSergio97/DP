@@ -4,7 +4,6 @@ package services;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +13,10 @@ import repositories.RefereeRepository;
 import security.Authority;
 import security.UserAccount;
 import security.UserAccountRepository;
+import domain.Endorsement;
+import domain.Message;
+import domain.Referee;
+import domain.SocialProfile;
 
 @Service
 @Transactional
@@ -22,16 +25,17 @@ public class RefereeService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private RefereeRepository	refereeRepository;
-
+	private RefereeRepository		refereeRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private MessageBoxService messageBoxService;
+	private MessageBoxService		messageBoxService;
 
-	 @Autowired
-	 private UserAccountRepository userAccountRepository;
+	@Autowired
+	private UserAccountRepository	userAccountRepository;
+
+
 	// Constructors -----------------------------------------------------------
 
 	public RefereeService() {
@@ -40,18 +44,33 @@ public class RefereeService {
 
 	// Methods ----------------------------------------------------------------
 
-	public Referee create(){
-		Referee referee = new Referee();
-		referee.setMessageBoxes(messageBoxService.createSystemBoxes());
-		UserAccount userAccount = new UserAccount();
-		List<Authority> ls = new ArrayList<>();
-		Authority a = new Authority();
-		a.setAuthority(Authority.REFEREE);
-		ls.add(a);
-		userAccount.setAuthorities(ls);
-		UserAccount saved = userAccountRepository.save(userAccount);
-		referee.setUserAccount(saved);
+	public Referee create() {
 
+		final Referee referee = new Referee();
+		UserAccount userAccount = new UserAccount();
+		final List<Authority> authorities = new ArrayList<>();
+		Authority authority;
+		authority = new Authority();
+		authority.setAuthority(Authority.REFEREE);
+		authorities.add(authority);
+		userAccount.setAuthorities(authorities);
+		userAccount = this.userAccountRepository.save(userAccount);
+
+		referee.setUserAccount(userAccount);
+		referee.setMessageBoxes(this.messageBoxService.createSystemBoxes());
+		referee.setMessagesSent(new ArrayList<Message>());
+		referee.setMessagesReceived(new ArrayList<Message>());
+		referee.setEndorses(new ArrayList<Endorsement>());
+		referee.setEndorsedBy(new ArrayList<Endorsement>());
+		referee.setSocialProfiles(new ArrayList<SocialProfile>());
+		referee.setIsBanned(false);
+		referee.setAddress("");
+		referee.setPhoneNumber("");
+		referee.setEmail("");
+		referee.setPhoto("");
+		referee.setMiddleName("");
+		referee.setName("");
+		referee.setSurname("");
 		return referee;
 	}
 

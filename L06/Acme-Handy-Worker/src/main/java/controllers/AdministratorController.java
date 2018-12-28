@@ -16,19 +16,24 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AdminService;
 import services.ApplicationService;
 import services.CustomerService;
 import services.FixUpTaskService;
 import services.HandyWorkerService;
+import services.RefereeService;
 import services.ReportService;
 import services.SystemConfigurationService;
 import domain.Actor;
+import domain.Admin;
+import domain.Referee;
 import domain.SystemConfiguration;
 
 @Controller
@@ -40,6 +45,8 @@ public class AdministratorController extends AbstractController {
 	@Autowired
 	private ActorService				actorService;
 	@Autowired
+	private AdminService				adminService;
+	@Autowired
 	private ApplicationService			applicationService;
 	@Autowired
 	private CustomerService				customerService;
@@ -47,6 +54,8 @@ public class AdministratorController extends AbstractController {
 	private FixUpTaskService			fixUpTaskService;
 	@Autowired
 	private HandyWorkerService			handyWorkerService;
+	@Autowired
+	private RefereeService				refereeService;
 	@Autowired
 	private ReportService				reportService;
 	@Autowired
@@ -247,11 +256,33 @@ public class AdministratorController extends AbstractController {
 
 	// Register administrator ------------------------------------------------------
 
-	@RequestMapping(value = "/registeradministrator", method = RequestMethod.GET)
-	public ModelAndView registerAdministrator() {
+	@RequestMapping(value = "/registeradmin", method = RequestMethod.GET)
+	public ModelAndView registerAdmin() {
 		final ModelAndView result;
+		final Admin admin;
 
-		result = new ModelAndView("administrator/registeradministrator");
+		admin = this.adminService.create();
+		result = new ModelAndView("administrator/registeradmin");
+		result.addObject("admin", admin);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/registeradmin", method = RequestMethod.POST)
+	public ModelAndView registerAdmin(final Admin admin, final BindingResult binding) {
+		ModelAndView result;
+
+		if (!binding.hasErrors()) {
+			this.adminService.save(admin);
+			result = new ModelAndView("redirect:/");
+		} else {
+			result = new ModelAndView("administrator/registeradmin");
+			result.addObject("admin", admin);
+			result.addObject("showError", binding);
+			result.addObject("erroresBinding", binding.getAllErrors());
+			for (int i = 0; i < binding.getAllErrors().size(); i++)
+				System.out.println("Error " + i + binding.getAllErrors().get(i));
+		}
 
 		return result;
 	}
@@ -261,8 +292,30 @@ public class AdministratorController extends AbstractController {
 	@RequestMapping(value = "/registerreferee", method = RequestMethod.GET)
 	public ModelAndView registerReferee() {
 		final ModelAndView result;
+		final Referee referee;
 
+		referee = this.refereeService.create();
 		result = new ModelAndView("administrator/registerreferee");
+		result.addObject("referee", referee);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/registerreferee", method = RequestMethod.POST)
+	public ModelAndView registerReferee(final Referee referee, final BindingResult binding) {
+		ModelAndView result;
+
+		if (!binding.hasErrors()) {
+			this.refereeService.save(referee);
+			result = new ModelAndView("redirect:/");
+		} else {
+			result = new ModelAndView("administrator/registerreferee");
+			result.addObject("referee", referee);
+			result.addObject("showError", binding);
+			result.addObject("erroresBinding", binding.getAllErrors());
+			for (int i = 0; i < binding.getAllErrors().size(); i++)
+				System.out.println("Error " + i + binding.getAllErrors().get(i));
+		}
 
 		return result;
 	}

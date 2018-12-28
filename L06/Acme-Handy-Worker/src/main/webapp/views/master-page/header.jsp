@@ -32,7 +32,7 @@
 								code="master.page.administrator.systemconfiguration" /></a></li>
 					<li><a href="administrator/dashboard.do"><spring:message
 								code="master.page.administrator.dashboard" /></a></li>
-					<li><a href="administrator/registeradministrator.do"><spring:message
+					<li><a href="administrator/registeradmin.do"><spring:message
 								code="master.page.administrator.register.administrator" /></a></li>
 					<li><a href="administrator/registerreferee.do"><spring:message
 								code="master.page.administrator.register.referee" /></a></li>
