@@ -64,7 +64,7 @@ public class FinderService {
 		dateMax.setTime(dateMax.getMonth() + 3);
 		finder.setMaximumDate(dateMax);
 
-		UserAccount login = LoginService.getPrincipal();
+		final UserAccount login = LoginService.getPrincipal();
 		HandyWorker handyWorker;
 		handyWorker = this.handyWorkerService.findById(login.getId());
 		finder.setHandyWorker(handyWorker);
@@ -106,4 +106,9 @@ public class FinderService {
 
 	// Specific Methods ----------------------------------------------------------------
 
+	//Este metodo devuelve el finder asociado a un id de un handy worker
+	public Finder findByHandyWorkerId(final int id) {
+
+		return this.finderRepository.findByHandyWorkerId(id);
+	}
 }
