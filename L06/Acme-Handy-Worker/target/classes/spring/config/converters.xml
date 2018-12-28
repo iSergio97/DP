@@ -33,6 +33,7 @@
 		<bean class="converters.NoteToStringConverter" />
 		<bean class="converters.SocialProfileToStringConverter" />
 		<bean class="converters.UserAccountToStringConverter" />
+		<bean class="converters.CreditCardToStringConverter" />
 		
 		<!-- From String -->
 		
@@ -44,7 +45,7 @@
 		<bean class="converters.StringToNoteConverter" />
 		<bean class="converters.StringToSocialProfileConverter" />
 		<bean class="converters.StringToUserAccountConverter" />
-		
+		<bean class="converters.StringToCreditCardConverter" />
 	</util:list>
 	
 </beans>

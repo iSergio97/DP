@@ -32,6 +32,7 @@
 		<form:hidden path="messagesSent" />
 		<form:hidden path="messagesReceived" />
 		<form:hidden path="notes" />
+		
 
 		<!-- Campos de entrada -->
 
@@ -48,7 +49,7 @@
 			<form:label path="userAccount.password">
 				<spring:message code="security.password" />
 			</form:label>
-			<form:input path="userAccount.password" />
+			<form:password path="userAccount.password" />
 			<form:errors path="userAccount.password" />
 		</div>
 		<br>

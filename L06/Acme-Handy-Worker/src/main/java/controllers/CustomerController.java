@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import security.UserAccountRepository;
 import services.ActorService;
 import services.CustomerService;
 import domain.Actor;
@@ -33,10 +34,13 @@ public class CustomerController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private CustomerService	customerService;
+	private CustomerService			customerService;
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
+
+	@Autowired
+	private UserAccountRepository	userAccountRepository;
 
 
 	// Constructors -----------------------------------------------------------
@@ -62,6 +66,7 @@ public class CustomerController extends AbstractController {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
+			this.userAccountRepository.save(customer.getUserAccount());
 			this.customerService.save(customer);
 			result = new ModelAndView("redirect:show.do");
 		} else {
