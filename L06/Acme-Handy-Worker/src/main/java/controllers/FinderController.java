@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.FinderService;
+import services.FixUpTaskCategoryService;
+import services.WarrantyService;
 import domain.Finder;
+import domain.FixUpTaskCategory;
+import domain.Warranty;
 
 @Controller
 //Se especifica que esta clase es un controlador	
@@ -23,7 +29,13 @@ import domain.Finder;
 public class FinderController extends AbstractController {
 
 	@Autowired
-	private FinderService	finderService;	//Vamos a requerir del servicio de finders
+	private FinderService				finderService;				//Vamos a requerir del servicio de finders
+
+	@Autowired
+	private FixUpTaskCategoryService	fixUpTaskCategoryService;	//Necesitamos el servicio de categorias
+
+	@Autowired
+	private WarrantyService				warrantyService;			//necesitamos el serivicio de warrantys
 
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
@@ -98,8 +110,24 @@ public class FinderController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Finder finder, final String messageCode) {
 
 		final ModelAndView result;
+		FixUpTaskCategory category;
+		Warranty warranty;
+		Collection<Warranty> warranties;
 
+		warranties = this.warrantyService.findAll();
+		if (finder.getWarranty() == null) {
+			warranty = null;
+		} else {
+			warranty = finder.getWarranty();
+		}
+		if (finder.getFixUpTaskCategory() == null) {
+			category = null;
+		} else {
+			category = finder.getFixUpTaskCategory();
+		}
 		result = new ModelAndView("finder/edit");
+		result.addObject("warranties", warranties);
+		result.addObject("category", category);
 		result.addObject("message", messageCode);
 
 		return result;
