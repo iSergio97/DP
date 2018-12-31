@@ -19,6 +19,7 @@ import domain.Customer;
 import domain.Endorsement;
 import domain.FixUpTask;
 import domain.Message;
+import domain.MessageBox;
 import domain.SocialProfile;
 
 @Service
@@ -63,7 +64,8 @@ public class CustomerService {
 		UserAccount cuentaSaved;
 		cuentaSaved = this.userAccountRepository.save(cuenta);
 		customer.setUserAccount(cuentaSaved);
-		customer.setMessageBoxes(this.messageBoxService.createSystemBoxes());
+		final Collection<MessageBox> mbls = this.messageBoxService.createSystemBoxes();
+		customer.setMessageBoxes(mbls);
 		customer.setFixUpTasks(new ArrayList<FixUpTask>());
 		customer.setCreditCard(null);
 		customer.setMessagesSent(new ArrayList<Message>());

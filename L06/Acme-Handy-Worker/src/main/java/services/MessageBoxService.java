@@ -25,7 +25,7 @@ public class MessageBoxService {
 	//SuportingServices
 
 	@Autowired
-	ActorService					actorService;
+	private ActorService			actorService;
 
 
 	//Constructors
@@ -38,28 +38,27 @@ public class MessageBoxService {
 	public List<MessageBox> createSystemBoxes() {
 		final List<MessageBox> mbls = new ArrayList<>();
 		final MessageBox inBox = new MessageBox();
-		inBox.setName("inBox");
+		inBox.setName("InBox");
 		inBox.setMessages(new ArrayList<Message>());
 		mbls.add(inBox);
 
 		final MessageBox outBox = new MessageBox();
-		outBox.setName("outBox");
+		outBox.setName("OutBox");
 		outBox.setMessages(new ArrayList<Message>());
 		mbls.add(outBox);
 
 		final MessageBox trashBox = new MessageBox();
-		trashBox.setName("outBox");
+		trashBox.setName("SpamBox");
 		trashBox.setMessages(new ArrayList<Message>());
 		mbls.add(trashBox);
 
 		final MessageBox spamBox = new MessageBox();
-		spamBox.setName("outBox");
+		spamBox.setName("TrashBox");
 		spamBox.setMessages(new ArrayList<Message>());
 		mbls.add(spamBox);
 
 		return mbls;
 	}
-
 	public MessageBox createNormalBoxes() {
 		final MessageBox mb = new MessageBox();
 		mb.setActor(this.actorService.findPrincipal());

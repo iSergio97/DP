@@ -14,10 +14,11 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
-
+	
+<div id="escImg" class="escImg">
 <div>
 	<a href="#"><img src="images/logo.png"
-		alt="Acme Handy Worker Co., Inc." /></a>
+		alt="Acme Handy Worker Co., Inc." height="70%" width="50%"/></a>
 </div>
 
 <div>
@@ -97,7 +98,7 @@
 					<li class="arrow"></li>
 					<li><a href="message/sendMessage.do"><spring:message
 								code="master.page.messages.send" /></a></li>
-					<li><a href="customer/box.do?id=<security:authentication property="principal.id" />"><spring:message
+					<li><a href="message/showBox.do"><spring:message
 								code="master.page.messages.box" /></a></li>
 				</ul></li>
 		</security:authorize>
@@ -108,3 +109,4 @@
 	<a href="?language=en">en</a> | <a href="?language=es">es</a>
 </div>
 
+</div>

@@ -10,8 +10,6 @@
 
 package controllers;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,14 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
 import security.UserAccountRepository;
 import services.ActorService;
 import services.CustomerService;
 import services.MessageBoxService;
-import domain.Actor;
 import domain.Customer;
-import domain.MessageBox;
 
 @Controller
 @RequestMapping("/customer")
@@ -64,19 +59,14 @@ public class CustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView registerPost(Customer customer, final BindingResult binding) {
+	public ModelAndView registerPost(final Customer customer, final BindingResult binding) {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			customer = this.customerService.save(customer);
+			this.customerService.save(customer);
 			final String password = new Md5PasswordEncoder().encodePassword(customer.getUserAccount().getPassword(), null);
 			customer.getUserAccount().setPassword(password);
 			this.userAccountRepository.save(customer.getUserAccount());
-			customer.setMessageBoxes(this.messageBoxService.createSystemBoxes());
-			for (final MessageBox mb : customer.getMessageBoxes())
-				mb.setActor(customer);
-			this.messageBoxService.save(customer.getMessageBoxes());
-			customer = this.customerService.save(customer);
 			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("customer/register");
@@ -90,26 +80,5 @@ public class CustomerController extends AbstractController {
 		return result;
 	}
 
-	// Esto no quedar√° as√≠... (enviar a ActorController)
-	@RequestMapping(value = "/box", method = RequestMethod.GET)
-	public ModelAndView boxes() {
-		final ModelAndView result;
-		final int id = LoginService.getPrincipal().getId();
-		Actor customer;
-		customer = this.actorService.findByUserAccountId(id);
-		if (customer.getMessageBoxes().size() == 0) {
-			final List<MessageBox> mb = this.messageBoxService.createSystemBoxes();
-			for (final MessageBox ms : mb) {
-				ms.setActor(customer);
-				this.messageBoxService.save(ms);
-			}
-		}
-		
-		final Collection<MessageBox> mb = customer.getMessageBoxes();
-		result = new ModelAndView("customer/box");
-
-		result.addObject("messageBoxes", mb);
-
-		return result;
-	}
+	// Esto no quedar· asÌ... (enviar a ActorController)
 }

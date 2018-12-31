@@ -31,7 +31,7 @@
 		<form:label path="recipient">
 			<spring:message code="recipient" />
 		</form:label>
-		<form:option value="${actores}" />
+		<form:option value="${actors}" />
 		<form:errors path="recipient"/>
 	</div>
 

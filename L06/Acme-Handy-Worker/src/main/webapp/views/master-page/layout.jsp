@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="styles/common.css" type="text/css">
 <link rel="stylesheet" href="styles/jmenu.css" media="screen" type="text/css" />
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
-
+<link rel="stylesheet" href="styles/body.css" type="text/css" />
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 
 <script type="text/javascript">
@@ -60,7 +60,7 @@
 </head>
 
 <body>
-
+<div id="imgBody" class="imgBody" >
 	<div>
 		<tiles:insertAttribute name="header" />
 	</div>
@@ -77,6 +77,6 @@
 	<div>
 		<tiles:insertAttribute name="footer" />
 	</div>
-
+</div>
 </body>
 </html>
