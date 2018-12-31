@@ -90,13 +90,21 @@ public class CustomerController extends AbstractController {
 		return result;
 	}
 
-	// Esto no quedar· asÌ... (enviar a ActorController)
+	// Esto no quedar√° as√≠... (enviar a ActorController)
 	@RequestMapping(value = "/box", method = RequestMethod.GET)
 	public ModelAndView boxes() {
 		final ModelAndView result;
 		final int id = LoginService.getPrincipal().getId();
 		Actor customer;
 		customer = this.actorService.findByUserAccountId(id);
+		if (customer.getMessageBoxes().size() == 0) {
+			final List<MessageBox> mb = this.messageBoxService.createSystemBoxes();
+			for (final MessageBox ms : mb) {
+				ms.setActor(customer);
+				this.messageBoxService.save(ms);
+			}
+		}
+		
 		final Collection<MessageBox> mb = customer.getMessageBoxes();
 		result = new ModelAndView("customer/box");
 
