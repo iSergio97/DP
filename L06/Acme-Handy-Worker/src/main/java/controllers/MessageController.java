@@ -42,31 +42,31 @@ public class MessageController {
 		ModelAndView result;
 		List<Actor> lsActors;
 		lsActors = this.actorService.findAll();
-		Message message;
-		message = this.messageService.create();
+		Message domainMessage;
+		domainMessage = this.messageService.create();
 		result = new ModelAndView("message/sendMessage");
-		result.addObject("message", message);
+		result.addObject("domainMessage", domainMessage);
 		result.addObject("actors", lsActors);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
-	public ModelAndView sendMessagePost(final Message message, final BindingResult bindingResult) {
+	public ModelAndView sendMessagePost(final Message domainMessage, final BindingResult bindingResult) {
 
 		ModelAndView result;
 		if (!bindingResult.hasErrors()) {
-			this.messageService.save(message);
+			this.messageService.save(domainMessage);
 			final int id = LoginService.getPrincipal().getId();
 			final Actor a = this.actorService.findByUserAccountId(id);
 			final Collection<Message> ms = a.getMessagesSent();
-			ms.add(message);
+			ms.add(domainMessage);
 			result = new ModelAndView("redirect:showMessage.do");
 		} else {
 			for (int i = 0; i < bindingResult.getErrorCount(); i++)
 				System.out.println(bindingResult.getAllErrors().get(i));
-			result = new ModelAndView("/sendMessage");
-			result.addObject("message", message);
+			result = new ModelAndView("message/sendMessage");
+			result.addObject("domainMessage", domainMessage);
 			result.addObject("bindingResult", bindingResult);
 			for (int i = 0; i < bindingResult.getAllErrors().size(); i++)
 				System.out.println("Error " + i + bindingResult.getAllErrors().get(i));

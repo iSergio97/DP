@@ -25,6 +25,7 @@
 		
 		<!-- To String -->
 		
+		<bean class="converters.ActorToStringConverter" />
 		<bean class="converters.AuthorityToStringConverter" />
 		<bean class="converters.CustomerToStringConverter" />
 		<bean class="converters.EndorsementToStringConverter" />
@@ -37,6 +38,7 @@
 		
 		<!-- From String -->
 		
+		<bean class="converters.StringToActorConverter" />
 		<bean class="converters.StringToAuthorityConverter" />
 		<bean class="converters.StringToCustomerConverter" />
 		<bean class="converters.StringToEndorsementConverter" />

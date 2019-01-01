@@ -9,7 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form methodParam="message" action="POST">
+<form:form modelAttribute="domainMessage" method="POST">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -17,22 +17,28 @@
 	<form:hidden path="messageBoxes" />
 	<form:hidden path="sender"/>
 	
-	<spring:message code="message.sender"/> : <jstl:out value="sender">${customer.sender}</jstl:out>
+	<spring:message code="message.sender"/>:<jstl:out value="${domainMessage.sender.userAccount.username}"/>
 
 	<div id="priority" class="priority">
 		<form:label path="priority">
 			<spring:message code="message.priority" />
 		</form:label>
-		<form:input path="priority" />
+		<form:select path="priority">
+			<form:option value="HIGH" />
+			<form:option value="NEUTRAL" />
+			<form:option value="LOW" />
+		</form:select>
 		<form:errors path="priority"/>
 	</div>
 
-	<div id="recipient" class="recipient">
-		<form:label path="recipient">
-			<spring:message code="recipient" />
+	<div id="recipients" class="recipients">
+		<form:label path="recipients">
+			<spring:message code="message.recipients" />
 		</form:label>
-		<form:option value="${actors}" />
-		<form:errors path="recipient"/>
+		<form:select path="recipients" multiple="true">
+			<form:options items="${actors}" itemValue="id" itemLabel="userAccount.username"/>
+		</form:select>
+		<form:errors path="recipients"/>
 	</div>
 
 	<div id="subject" class="subject">
