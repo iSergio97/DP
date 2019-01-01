@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.UserAccount;
 import security.UserAccountRepository;
 import services.ActorService;
 import services.AdminService;
@@ -281,15 +282,25 @@ public class AdministratorController extends AbstractController {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
+			UserAccount userAccount = admin.getUserAccount();
+			final Collection<MessageBox> messageBoxes = admin.getMessageBoxes();
 			admin = this.adminService.save(admin);
-			final String password = new Md5PasswordEncoder().encodePassword(admin.getUserAccount().getPassword(), null);
-			admin.getUserAccount().setPassword(password);
-			this.userAccountRepository.save(admin.getUserAccount());
-			admin.setMessageBoxes(this.messageBoxService.createSystemBoxes());
-			for (final MessageBox mb : admin.getMessageBoxes())
-				mb.setActor(admin);
-			this.messageBoxService.save(admin.getMessageBoxes());
+
+			final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
+			userAccount.setPassword(password);
+			userAccount = this.userAccountRepository.save(userAccount);
+			admin.setUserAccount(userAccount);
 			admin = this.adminService.save(admin);
+
+			final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
+			for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
+				messageBox.setActor(admin);
+				messageBox = this.messageBoxService.save(messageBox);
+				savedMessageBoxes.add(messageBox);
+			}
+			admin.setMessageBoxes(savedMessageBoxes);
+			admin = this.adminService.save(admin);
+
 			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("administrator/registeradmin");
@@ -322,15 +333,25 @@ public class AdministratorController extends AbstractController {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
+			UserAccount userAccount = referee.getUserAccount();
+			final Collection<MessageBox> messageBoxes = referee.getMessageBoxes();
 			referee = this.refereeService.save(referee);
-			final String password = new Md5PasswordEncoder().encodePassword(referee.getUserAccount().getPassword(), null);
-			referee.getUserAccount().setPassword(password);
-			this.userAccountRepository.save(referee.getUserAccount());
-			referee.setMessageBoxes(this.messageBoxService.createSystemBoxes());
-			for (final MessageBox mb : referee.getMessageBoxes())
-				mb.setActor(referee);
-			this.messageBoxService.save(referee.getMessageBoxes());
+
+			final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
+			userAccount.setPassword(password);
+			userAccount = this.userAccountRepository.save(userAccount);
+			referee.setUserAccount(userAccount);
 			referee = this.refereeService.save(referee);
+
+			final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
+			for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
+				messageBox.setActor(referee);
+				messageBox = this.messageBoxService.save(messageBox);
+				savedMessageBoxes.add(messageBox);
+			}
+			referee.setMessageBoxes(savedMessageBoxes);
+			referee = this.refereeService.save(referee);
+
 			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("administrator/registerreferee");
