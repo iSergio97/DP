@@ -10,6 +10,9 @@
 
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.UserAccount;
 import security.UserAccountRepository;
 import services.ActorService;
 import services.CustomerService;
 import services.MessageBoxService;
 import domain.Customer;
+import domain.MessageBox;
 
 @Controller
 @RequestMapping("/customer")
@@ -59,14 +64,29 @@ public class CustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView registerPost(final Customer customer, final BindingResult binding) {
+	public ModelAndView registerPost(Customer customer, final BindingResult binding) {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			this.customerService.save(customer);
-			final String password = new Md5PasswordEncoder().encodePassword(customer.getUserAccount().getPassword(), null);
-			customer.getUserAccount().setPassword(password);
-			this.userAccountRepository.save(customer.getUserAccount());
+			UserAccount userAccount = customer.getUserAccount();
+			final Collection<MessageBox> messageBoxes = customer.getMessageBoxes();
+			customer = this.customerService.save(customer);
+
+			final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
+			userAccount.setPassword(password);
+			userAccount = this.userAccountRepository.save(userAccount);
+			customer.setUserAccount(userAccount);
+			customer = this.customerService.save(customer);
+
+			final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
+			for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
+				messageBox.setActor(customer);
+				messageBox = this.messageBoxService.save(messageBox);
+				savedMessageBoxes.add(messageBox);
+			}
+			customer.setMessageBoxes(savedMessageBoxes);
+			customer = this.customerService.save(customer);
+
 			result = new ModelAndView("redirect:show.do");
 		} else {
 			result = new ModelAndView("customer/register");
