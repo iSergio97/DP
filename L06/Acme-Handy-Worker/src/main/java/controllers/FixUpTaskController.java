@@ -89,7 +89,7 @@ public class FixUpTaskController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/customer/show", method = RequestMethod.GET)
+	@RequestMapping(value = "/profile/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int fixUpTaskId) {
 		// Create result object
 		ModelAndView result;
@@ -122,7 +122,7 @@ public class FixUpTaskController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "customer/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "profile/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final FixUpTask fixUpTask, final BindingResult binding) {
 		ModelAndView result;
 

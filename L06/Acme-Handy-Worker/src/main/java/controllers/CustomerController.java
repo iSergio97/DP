@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
 import security.UserAccountRepository;
-import services.ActorService;
 import services.CustomerService;
 import services.MessageBoxService;
 import domain.Customer;
@@ -34,9 +33,6 @@ import domain.MessageBox;
 public class CustomerController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
-
-	@Autowired
-	private ActorService			actorService;
 	@Autowired
 	private CustomerService			customerService;
 	@Autowired
@@ -99,6 +95,4 @@ public class CustomerController extends AbstractController {
 
 		return result;
 	}
-
-	// Esto no quedará así... (enviar a ActorController)
 }
