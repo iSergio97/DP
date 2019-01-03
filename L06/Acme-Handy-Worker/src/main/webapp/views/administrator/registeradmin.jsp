@@ -29,7 +29,6 @@
 		<form:hidden path="endorses" />
 		<form:hidden path="messagesSent" />
 		<form:hidden path="messagesReceived" />
-		<form:hidden path="notes" />
 
 		<!-- Campos de entrada -->
 
