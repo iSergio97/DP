@@ -8,12 +8,16 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<a href="customer/browse.do">Back</a>
+<a href="fixUpTask/customer/list.do"><spring:message code="fixUpTask.return" /></a><br/>
 
-<jstl:out value="Address: ${fixUpTask.address}"/><br/>
-<jstl:out value="Maximum Price: ${fixUpTask.maximumPrice}"/>
-<jstl:out value="Time Limit: ${fixUpTask.timeLimit}"/>
-<jstl:out value="Description: ${fixUpTask.description}"/>
+<spring:message code="fixUpTask.address" />
+<jstl:out value=": ${fixUpTask.address}"/><br/>
+<spring:message code="fixUpTask.maximumPrice" />
+<jstl:out value=": ${fixUpTask.maximumPrice}"/><br/>
+<spring:message code="fixUpTask.timeLimit" />
+<jstl:out value=": ${fixUpTask.timeLimit}"/><br/>
+<spring:message code="fixUpTask.description" />
+<jstl:out value=": ${fixUpTask.description}"/><br/>
 
-<a href="fix-up-task/edit.do">Edit</a>
-<a href="fix-up-task/delete.do">Delete</a>
+<a href="fixUpTask/customer/edit.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.edit" /></a>
+<a href="fixUpTask/customer/delete.do?fixUpTaskId=${fixUpTask.id}"><spring:message code="fixUpTask.delete" /></a>

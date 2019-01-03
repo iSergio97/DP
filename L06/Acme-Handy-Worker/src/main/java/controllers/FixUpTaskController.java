@@ -81,15 +81,15 @@ public class FixUpTaskController extends AbstractController {
 		Collection<FixUpTask> fixUpTasks;
 		result = new ModelAndView("fixUpTask/handyWorker/list");
 
-		// Add logged customer
+		// Add logged handyWorker
 		fixUpTasks = this.fixUpTaskService.findAll();
-		result.addObject("fixUpTask", fixUpTasks);
+		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("requestURI", "fixUpTask/handyWorker/list.do");
 
 		return result;
 	}
 
-	@RequestMapping(value = "/profile/show", method = RequestMethod.GET)
+	@RequestMapping(value = "/customer/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int fixUpTaskId) {
 		// Create result object
 		ModelAndView result;
@@ -122,7 +122,7 @@ public class FixUpTaskController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "profile/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "customer/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final FixUpTask fixUpTask, final BindingResult binding) {
 		ModelAndView result;
 

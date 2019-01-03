@@ -35,6 +35,12 @@
 		<bean class="converters.SocialProfileToStringConverter" />
 		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.CreditCardToStringConverter" />
+		<bean class="converters.FixUpTaskToStringConverter" />
+		<bean class="converters.WarrantyToStringConverter" />
+		<bean class="converters.WorkPlanToStringConverter" />
+		<bean class="converters.ApplicationToStringConverter" />
+		<bean class="converters.ComplaintToStringConverter" />
+		<bean class="converters.FixUpTaskCategoryToStringConverter" />
 		
 		<!-- From String -->
 		
@@ -48,6 +54,12 @@
 		<bean class="converters.StringToSocialProfileConverter" />
 		<bean class="converters.StringToUserAccountConverter" />
 		<bean class="converters.StringToCreditCardConverter" />
+		<bean class="converters.StringToFixUpTaskConverter" />
+		<bean class="converters.StringToWarrantyConverter" />
+		<bean class="converters.StringToWorkPlanConverter" />
+		<bean class="converters.StringToApplicationConverter" />
+		<bean class="converters.StringToComplaintConverter" />
+		<bean class="converters.StringToFixUpTaskCategoryConverter" />
 	</util:list>
 	
 </beans>

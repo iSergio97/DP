@@ -54,4 +54,8 @@
 	<security:authorize access="hasRole('CUSTOMER')"> 
 	<a href ="fixUpTask/customer/list.do">Fix-Up Tasks</a>
 	</security:authorize>
+	
+	<security:authorize access="hasRole('HANDY_WORKER')"> 
+	<a href ="fixUpTask/handyWorker/list.do">Fix-Up Tasks</a>
+	</security:authorize>
 </div>
