@@ -56,11 +56,18 @@ public class MessageController {
 
 		ModelAndView result;
 		if (!bindingResult.hasErrors()) {
-			this.messageService.save(domainMessage);
 			final int id = LoginService.getPrincipal().getId();
 			final Actor a = this.actorService.findByUserAccountId(id);
-			final Collection<Message> ms = a.getMessagesSent();
-			ms.add(domainMessage);
+			/*
+			 * final Actor a2 = this.actorService.findByUserAccountId(32768);
+			 * final Collection<Message> mSend = a.getMessagesSent();
+			 * final Collection<Message> mRecieved = a2.getMessagesReceived();
+			 * mSend.add(domainMessage);
+			 * mRecieved.add(domainMessage);
+			 * this.messageService.save(domainMessage);
+			 */
+			final List<Actor> actors = this.actorService.findAll();
+			this.messageService.sendMessage(domainMessage, a, actors);
 			result = new ModelAndView("redirect:showMessage.do");
 		} else {
 			for (int i = 0; i < bindingResult.getErrorCount(); i++)
