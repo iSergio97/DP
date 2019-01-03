@@ -15,9 +15,9 @@
 	<form:hidden path="version" />
 	<form:hidden path="date" />
 	<form:hidden path="messageBoxes" />
-	<form:hidden path="sender"/>
+	<form:hidden path="sender" />
+
 	
-	<spring:message code="message.sender"/>:<jstl:out value="${domainMessage.sender.userAccount.username}"/>
 
 	<div id="priority" class="priority">
 		<form:label path="priority">
@@ -28,7 +28,7 @@
 			<form:option value="NEUTRAL" />
 			<form:option value="LOW" />
 		</form:select>
-		<form:errors path="priority"/>
+		<form:errors path="priority" />
 	</div>
 
 	<div id="recipients" class="recipients">
@@ -36,9 +36,10 @@
 			<spring:message code="message.recipients" />
 		</form:label>
 		<form:select path="recipients" multiple="true">
-			<form:options items="${actors}" itemValue="id" itemLabel="userAccount.username"/>
+			<form:options items="${actors}" itemValue="id"
+				itemLabel="userAccount.username" />
 		</form:select>
-		<form:errors path="recipients"/>
+		<form:errors path="recipients" />
 	</div>
 
 	<div id="subject" class="subject">
@@ -46,7 +47,7 @@
 			<spring:message code="message.subject" />
 		</form:label>
 		<form:input path="subject" />
-		<form:errors path="subject"/>
+		<form:errors path="subject" />
 	</div>
 
 	<div id="tags" class="tags">
@@ -62,14 +63,14 @@
 			<spring:message code="message.body" />
 		</form:label>
 		<form:input path="body" />
-		<form:errors path="body"/>
+		<form:errors path="body" />
 	</div>
-	
+
 	<input type="submit" name="save"
-			value="<spring:message code='security.send'/>" />
-		<br>
-		<input type="button" name="cancel"
-			value="<spring:message code='security.cancel' />"
-			onclick="javascript: relativeRedir('security/login.do');" />
+		value="<spring:message code='security.send'/>" />
+	<br>
+	<input type="button" name="cancel"
+		value="<spring:message code='security.cancel' />"
+		onclick="javascript: relativeRedir('security/login.do');" />
 
 </form:form>

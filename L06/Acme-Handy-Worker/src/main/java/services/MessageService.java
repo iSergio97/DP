@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import org.springframework.util.Assert;
 
 import repositories.MessageRepository;
 import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Message;
 
@@ -85,4 +85,19 @@ public class MessageService {
 		return this.messageRepository.getActorsWhoSendMessagesWithWord(word);
 	}
 
+	public Message sendMessage(final Message message, final Actor actor, final List<Actor> recipients) {
+		Assert.isTrue(message != null);
+		Assert.isTrue(actor != null);
+		final Collection<Message> ls = actor.getMessagesSent();
+		ls.add(message);
+		final Message message2 = this.messageRepository.save(message);
+		actor.setMessagesSent(ls);
+		for (final Actor a : recipients) {
+			final Collection<Message> msRe = a.getMessagesReceived();
+			msRe.add(message2);
+			a.setMessagesReceived(msRe);
+		}
+
+		return message2;
+	}
 }

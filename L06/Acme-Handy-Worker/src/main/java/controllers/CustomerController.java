@@ -11,7 +11,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -65,7 +64,6 @@ public class CustomerController extends AbstractController {
 
 		if (!binding.hasErrors()) {
 			UserAccount userAccount = customer.getUserAccount();
-			final Collection<MessageBox> messageBoxes = customer.getMessageBoxes();
 			customer = this.customerService.save(customer);
 
 			final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
@@ -83,7 +81,7 @@ public class CustomerController extends AbstractController {
 			customer.setMessageBoxes(savedMessageBoxes);
 			customer = this.customerService.save(customer);
 
-			result = new ModelAndView("redirect:show.do");
+			result = new ModelAndView("redirect:index");
 		} else {
 			result = new ModelAndView("customer/register");
 			result.addObject("customer", customer);
