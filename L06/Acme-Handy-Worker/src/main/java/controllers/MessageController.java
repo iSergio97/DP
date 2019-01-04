@@ -73,7 +73,10 @@ public class MessageController {
 			for (int i = 0; i < bindingResult.getErrorCount(); i++)
 				System.out.println(bindingResult.getAllErrors().get(i));
 			result = new ModelAndView("message/sendMessage");
+			List<Actor> lsActors;
+			lsActors = this.actorService.findAll();
 			result.addObject("domainMessage", domainMessage);
+			result.addObject("actors", lsActors);
 			result.addObject("bindingResult", bindingResult);
 			for (int i = 0; i < bindingResult.getAllErrors().size(); i++)
 				System.out.println("Error " + i + bindingResult.getAllErrors().get(i));
