@@ -6,7 +6,11 @@ import java.net.URLDecoder;
 import org.springframework.core.convert.converter.Converter;
 
 import domain.CreditCard;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+@Component
+@Transactional
 public class StringToCreditCardConverter implements Converter<String, CreditCard> {
 
 	@Override

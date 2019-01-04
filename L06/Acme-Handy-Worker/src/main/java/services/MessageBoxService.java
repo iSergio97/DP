@@ -103,9 +103,4 @@ public class MessageBoxService {
 	MessageBox[] getMessageBoxes(final Actor a) {
 		return this.messageBoxRepository.getMessageBoxes(a.getId());
 	}
-
-	public MessageBox getInbox(final int id) {
-		final Actor a = this.actorService.findByUserAccountId(id);
-		final MessageBox inBox = 
-	}
 }
