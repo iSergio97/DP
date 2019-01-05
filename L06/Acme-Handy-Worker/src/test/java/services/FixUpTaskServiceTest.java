@@ -1,6 +1,7 @@
 
 package services;
 
+import java.sql.Date;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -23,7 +24,13 @@ import domain.FixUpTask;
 public class FixUpTaskServiceTest extends AbstractTest {
 
 	@Autowired
-	private FixUpTaskService	fixUpTaskService;
+	private FixUpTaskService			fixUpTaskService;
+
+	@Autowired
+	private WarrantyService				warrantyService;
+
+	@Autowired
+	private FixUpTaskCategoryService	futCService;
 
 
 	@Test
@@ -34,17 +41,26 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		super.authenticate("customer3");
 
 		fut = this.fixUpTaskService.create();
-		Assert.isTrue(fut.getTicker().equals(""));
-		Assert.isNull(fut.getMoment());
+		Assert.isTrue(!fut.getTicker().equals(""));
+		Assert.isTrue(fut.getMoment() != null);
 		Assert.isTrue(fut.getDescription().equals(""));
 		Assert.isTrue(fut.getAddress().equals(""));
+		Assert.isNull(fut.getMaximumPrice());
+		Assert.isNull(fut.getTimeLimit());
 		Assert.isTrue(fut.getCustomer().getUserAccount().getUsername().equals("customer3"));
 		Assert.isTrue(fut.getApplications().isEmpty());
-		Assert.isNull(fut.getWarranty());
-		Assert.isNull(fut.getWorkPlan());
+		Assert.isTrue(fut.getWarranty() != null);
+		Assert.isTrue(fut.getWorkPlan() == null);
+		Assert.isTrue(fut.getFixUpTaskCategory() != null);
 		Assert.isTrue(fut.getComplaints().isEmpty());
 
 		//Falta inicializarlo
+		fut.setDescription("Descripción de prueba");
+		fut.setAddress("Dirección de prueba");
+		fut.setMaximumPrice(500);
+		fut.setTimeLimit(Date.valueOf("2020-06-06"));
+		fut.setFixUpTaskCategory(this.futCService.findById(2493));
+		fut.setWarranty(this.warrantyService.findById(2508));
 		saved = this.fixUpTaskService.save(fut);
 		futs = this.fixUpTaskService.findAll();
 		Assert.isTrue(futs.contains(saved));

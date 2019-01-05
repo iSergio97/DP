@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.Referee;
+import domain.Report;
 
 @Service
 @Transactional
@@ -50,7 +52,7 @@ public class ComplaintService {
 		complaint.setMoment(new Date());
 		complaint.setDescription("");
 		complaint.setAttachments(new ArrayList<String>());
-		complaint.setReports(this.reportService.findAll());
+		complaint.setReports(/* this.reportService.findAll() */new ArrayList<Report>());
 		complaint.setFixUpTask(this.fixUpTaskService.create());
 
 		return complaint;
@@ -86,11 +88,11 @@ public class ComplaintService {
 
 	// Specific Methods ----------------------------------------------------------------
 
-	public Complaint[] getUnassignedComplaints() {
+	public Collection<Complaint> getUnassignedComplaints() {
 		return this.complaintRepository.getUnassignedComplaints();
 	}
 
-	public Complaint[] getComplaints(final Customer c) {
+	public Collection<Complaint> getComplaints(final Customer c) {
 		return this.complaintRepository.getComplaints(c);
 	}
 
@@ -98,7 +100,7 @@ public class ComplaintService {
 		return this.reportService.getComplaintsOfReferee(referee);
 	}
 
-	public Complaint[] getComplaints(final Customer c, final FixUpTask fut) {
+	public Collection<Complaint> getComplaints(final Customer c, final FixUpTask fut) {
 		return this.complaintRepository.getComplaints(c, fut);
 	}
 
