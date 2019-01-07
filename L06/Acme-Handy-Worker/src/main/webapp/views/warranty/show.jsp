@@ -8,16 +8,16 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<a href="warranty/list.do">Back</a>
+<a href="warranty/administrator/list.do">Back</a><br/>
 
 <jstl:out value="Title: ${warranty.title}"/><br/>
-<jstl:out value="Laws: ${warranty.laws}"/>
-<jstl:out value="Terms: ${warranty.terms}"/>
-<jstl:out value="Description: ${fixUpTask.description}"/>
+<jstl:out value="Laws: ${warranty.applicableLaws}"/><br/>
+<jstl:out value="Terms: ${warranty.terms}"/><br/>
 
-<jstl:if test="${draft}">
-<a href="warranty/save.do">Save</a>
+
+
+<jstl:if test="${!warranty.draft}">
+<a href="warranty/administrator/save.do?warrantyId=${warranty.id}">Save</a>
+<a href="warranty/administrator/edit.do?warrantyId=${warranty.id}">Edit</a>
+<a href="warranty/administrator/delete.do?warrantyId=${warranty.id}">Delete</a>
 </jstl:if>
-
-<a href="warranty/edit.do">Edit</a>
-<a href="warranty/delete.do">Delete</a>

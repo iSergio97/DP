@@ -8,31 +8,31 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<a href="warranty/show.do">Back</a>
 
-<form:form action="warranty/new.do" modelAttribute="warranty">
 
+<form:form action="warranty/administrator/edit.do" modelAttribute="warranty">
+
+<input type="button" name="cancel" value ="<spring:message code="warranty.cancel" />" onclick="javascript:relativeRedir('warranty/administrator/list.do');"/><br/>
 <form:hidden path="id"/>
 <form:hidden path="version"/>
 
 
 
-<form:label path="title"></form:label>
+
+<form:label path="title"><spring:message code="warranty.title" /></form:label>
 <form:input path="title" />
 <form:errors cssClass="error" path="title"></form:errors>
 <br/>
 
-<form:label path="laws"></form:label>
-<form:input path="laws" />
-<form:errors cssClass="error" path="laws"></form:errors>
-<br/>
 
-<form:label path="terms"></form:label>
+<form:hidden path = "applicableLaws"/>
+
+<form:label path="terms"><spring:message code="warranty.terms" /></form:label>
 <form:input path="terms" />
 <form:errors cssClass="error" path="terms"></form:errors>
 <br/>
 
 
-<input type="submit" name="submit" value="<spring:message code="warranty.update" />" />
+<input type="submit" name="save" value="<spring:message code="warranty.save" />" />
 
 </form:form>

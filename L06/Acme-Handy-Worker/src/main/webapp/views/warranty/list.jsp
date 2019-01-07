@@ -10,18 +10,19 @@
 
 
 <display:table name="draftedWarranties" id="row"
-	requestURI="warranties/browse.do" pagesize="5"
+	requestURI="warranty/administrator/list.do" pagesize="5"
 	class="displaytag">
 	<display:column property="terms" titleKey="warranty.terms" />
-	<display:column property="terms" titleKey="warranty.laws" />
+	<display:column property="applicableLaws" titleKey="warranty.laws" />
 	<display:column> <a href="warranty.show.do?warrantyId=${row.id}"> <jstl:out value="Show"/></a> </display:column>
 </display:table>
 
 <display:table name="warranties" id="row"
-	requestURI="warranties/browse.do" pagesize="5"
+	requestURI="warranty/administrator/list.do" pagesize="5"
 	class="displaytag">
 	<display:column property="terms" titleKey="warranty.terms" />
-	<display:column property="terms" titleKey="warranty.laws" />
+	<display:column property="applicableLaws" titleKey="warranty.laws" />
+	<display:column> <a href="warranty/administrator/show.do?warrantyId=${row.id}"> <jstl:out value="Show"/></a> </display:column>
 </display:table>
 
-<a href="warranty/new.do">New</a>
+<a href="warranty/administrator/create.do">New</a>

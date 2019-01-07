@@ -25,6 +25,7 @@
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/fix-up-task/tiles.xml</value>
 		<value>/views/message/tiles.xml</value>
+		<value>/views/warranty/tiles.xml</value>
 		
 	</util:list>
 
