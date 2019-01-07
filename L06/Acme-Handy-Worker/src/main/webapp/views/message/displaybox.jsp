@@ -18,11 +18,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jstl:forEach items="${messageBoxes}" var="messageBox">
+<jstl:forEach items="${messageBox.messages}" var="message">
 
-	<p>
-		<jstl:out value="${messageBox.name}" />
-	</p>
+	
+
 </jstl:forEach>
 
 

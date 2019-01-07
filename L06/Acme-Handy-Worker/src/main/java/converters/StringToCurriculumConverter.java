@@ -1,22 +1,21 @@
 
 package converters;
 
-import domain.Actor;
-import domain.Curriculum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.ActorRepository;
+
 import repositories.CurriculumRepository;
+import domain.Curriculum;
 
 @Component
 @Transactional
 public class StringToCurriculumConverter implements Converter<String, Curriculum> {
 
 	@Autowired
-	private CurriculumRepository curriculumRepository;
+	private CurriculumRepository	curriculumRepository;
 
 
 	@Override

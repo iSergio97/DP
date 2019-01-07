@@ -1,22 +1,21 @@
 
 package converters;
 
-import domain.Note;
-import domain.Referee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.NoteRepository;
+
 import repositories.RefereeRepository;
+import domain.Referee;
 
 @Component
 @Transactional
 public class StringToRefereeConverter implements Converter<String, Referee> {
 
 	@Autowired
-	private RefereeRepository refereeRepository;
+	private RefereeRepository	refereeRepository;
 
 
 	@Override

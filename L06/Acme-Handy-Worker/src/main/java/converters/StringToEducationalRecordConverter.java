@@ -1,22 +1,21 @@
 
 package converters;
 
-import domain.Actor;
-import domain.EducationalRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.ActorRepository;
+
 import repositories.EducationalRecordRepository;
+import domain.EducationalRecord;
 
 @Component
 @Transactional
 public class StringToEducationalRecordConverter implements Converter<String, EducationalRecord> {
 
 	@Autowired
-	private EducationalRecordRepository educationalRecordRepository;
+	private EducationalRecordRepository	educationalRecordRepository;
 
 
 	@Override

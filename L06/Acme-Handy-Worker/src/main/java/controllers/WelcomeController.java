@@ -21,11 +21,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.ActorService;
+import services.SystemConfigurationService;
 import domain.Actor;
 
 @Controller
 @RequestMapping("/welcome")
 public class WelcomeController extends AbstractController {
+
+	// Services ---------------------------------------------------------------
+
+	@Autowired
+	private ActorService				actorService;
+	@Autowired
+	private SystemConfigurationService	systemConfigurationService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -33,29 +42,37 @@ public class WelcomeController extends AbstractController {
 		super();
 	}
 
-
-	@Autowired
-	private ActorService	actorService;
-
-
 	// Index ------------------------------------------------------------------		
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(@RequestParam(required = false, defaultValue = "John Doe") final String name) {
+	public ModelAndView index(@RequestParam(required = false, defaultValue = "user") String name) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
+		String systemMessage;
 
-		final int id = LoginService.getPrincipal().getId();
-		final Actor actor = this.actorService.findByUserAccountId(id);
+		try {
+			final int id = LoginService.getPrincipal().getId();
+			final Actor actor = this.actorService.findByUserAccountId(id);
+			name = actor.getName() + " " + actor.getSurname();
+		} catch (final IllegalArgumentException e) {
+			/*
+			 * LoginService.getPrincipal() throws and IllegalArgumentException
+			 * if no actor is logged in.
+			 */
+		}
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
 
+		systemMessage = this.systemConfigurationService.getSystemConfiguration().getMessage();
+
 		result = new ModelAndView("welcome/index");
-		result.addObject("name", actor.getName() + " " + actor.getSurname());
+		result.addObject("name", name);
 		result.addObject("moment", moment);
+		result.addObject("systemMessage", systemMessage);
 
 		return result;
 	}
+
 }

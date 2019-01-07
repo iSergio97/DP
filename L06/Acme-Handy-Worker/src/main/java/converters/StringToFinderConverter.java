@@ -1,22 +1,21 @@
 
 package converters;
 
-import domain.EndorserRecord;
-import domain.Finder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.EndorserRecordRepository;
+
 import repositories.FinderRepository;
+import domain.Finder;
 
 @Component
 @Transactional
 public class StringToFinderConverter implements Converter<String, Finder> {
 
 	@Autowired
-	private FinderRepository finderRepository;
+	private FinderRepository	finderRepository;
 
 
 	@Override

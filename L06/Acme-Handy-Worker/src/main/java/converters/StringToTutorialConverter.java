@@ -1,23 +1,21 @@
 
 package converters;
 
-import domain.Sponsorship;
-import domain.Tutorial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.SponsorshipRepository;
-import repositories.TutorialRepository;
 
+import repositories.TutorialRepository;
+import domain.Tutorial;
 
 @Component
 @Transactional
 public class StringToTutorialConverter implements Converter<String, Tutorial> {
 
 	@Autowired
-	private TutorialRepository tutorialRepository;
+	private TutorialRepository	tutorialRepository;
 
 
 	@Override

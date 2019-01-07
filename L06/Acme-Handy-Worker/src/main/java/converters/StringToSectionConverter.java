@@ -1,22 +1,21 @@
 
 package converters;
 
-import domain.Report;
-import domain.Section;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.ReportRepository;
+
 import repositories.SectionRepository;
+import domain.Section;
 
 @Component
 @Transactional
 public class StringToSectionConverter implements Converter<String, Section> {
 
 	@Autowired
-	private SectionRepository sectionRepository;
+	private SectionRepository	sectionRepository;
 
 
 	@Override

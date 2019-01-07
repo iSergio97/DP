@@ -1,12 +1,12 @@
 
 package converters;
 
-import domain.Sponsorship;
-import domain.Tutorial;
+import javax.transaction.Transactional;
+
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
+import domain.Tutorial;
 
 @Component
 @Transactional

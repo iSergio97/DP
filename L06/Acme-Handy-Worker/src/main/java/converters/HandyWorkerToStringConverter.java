@@ -1,11 +1,11 @@
 
 package converters;
 
-import domain.Finder;
-import domain.HandyWorker;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import domain.HandyWorker;
 
 @Component
 @Transactional

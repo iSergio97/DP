@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -84,23 +85,25 @@ public class MessageController {
 		return result;
 	}
 
-	@RequestMapping(value = "/showBox", method = RequestMethod.GET)
+	@RequestMapping(value = "/listboxes", method = RequestMethod.GET)
 	public ModelAndView boxes() {
 		final ModelAndView result;
 		final int id = LoginService.getPrincipal().getId();
 		Actor customer;
 		customer = this.actorService.findByUserAccountId(id);
 		if (customer.getMessageBoxes().size() == 0) {
-			final List<MessageBox> mb = this.messageBoxService.createSystemBoxes();
-			for (final MessageBox ms : mb) {
-				ms.setActor(customer);
-				this.messageBoxService.save(ms);
+			final List<MessageBox> messageBoxes = new ArrayList<MessageBox>();
+			for (final MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
+				messageBox.setActor(customer);
+				messageBoxes.add(this.messageBoxService.save(messageBox));
 			}
+			customer.setMessageBoxes(messageBoxes);
+			customer = this.actorService.save(customer);
 		}
 
-		final Collection<MessageBox> mb = customer.getMessageBoxes();
-		result = new ModelAndView("customer/box");
-		result.addObject("messageBoxes", mb);
+		final Collection<MessageBox> messageBoxes = customer.getMessageBoxes();
+		result = new ModelAndView("customer/listboxes");
+		result.addObject("messageBoxes", messageBoxes);
 
 		return result;
 	}

@@ -1,22 +1,21 @@
 
 package converters;
 
-import domain.PersonalRecord;
-import domain.ProfessionalRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.PersonalRecordRepository;
+
 import repositories.ProfessionalRecordRepository;
+import domain.ProfessionalRecord;
 
 @Component
 @Transactional
 public class StringToProfessionalRecordConverter implements Converter<String, ProfessionalRecord> {
 
 	@Autowired
-	private ProfessionalRecordRepository professionalRecordRepository;
+	private ProfessionalRecordRepository	professionalRecordRepository;
 
 
 	@Override

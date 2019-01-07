@@ -12,9 +12,14 @@
 		<put-attribute name="body" value="/views/message/sendMessage.jsp" />
 	</definition>
 
-	<definition name="customer/box" extends="master.page">
-		<put-attribute name="title" value="Boxes" />
-		<put-attribute name="body" value="/views/message/box.jsp" />
+	<definition name="customer/listboxes" extends="master.page">
+		<put-attribute name="title" value="List boxes" />
+		<put-attribute name="body" value="/views/message/listboxes.jsp" />
+	</definition>
+
+	<definition name="customer/displaybox" extends="master.page">
+		<put-attribute name="title" value="Display box" />
+		<put-attribute name="body" value="/views/message/displaybox.jsp" />
 	</definition>
 
 </tiles-definitions>

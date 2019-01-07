@@ -1,22 +1,21 @@
 
 package converters;
 
-import domain.MiscellaneousRecord;
-import domain.PersonalRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.MiscellaneousRecordRepository;
+
 import repositories.PersonalRecordRepository;
+import domain.PersonalRecord;
 
 @Component
 @Transactional
 public class StringToPersonalRecordConverter implements Converter<String, PersonalRecord> {
 
 	@Autowired
-	private PersonalRecordRepository personalRecordRepository;
+	private PersonalRecordRepository	personalRecordRepository;
 
 
 	@Override

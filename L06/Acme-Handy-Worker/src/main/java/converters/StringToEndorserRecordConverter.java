@@ -1,22 +1,21 @@
 
 package converters;
 
-import domain.Endorsement;
-import domain.EndorserRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.EndorsementRepository;
+
 import repositories.EndorserRecordRepository;
+import domain.EndorserRecord;
 
 @Component
 @Transactional
-public class StringToEndorserConverter implements Converter<String, EndorserRecord> {
+public class StringToEndorserRecordConverter implements Converter<String, EndorserRecord> {
 
 	@Autowired
-	private EndorserRecordRepository endorserRecordRepository;
+	private EndorserRecordRepository	endorserRecordRepository;
 
 
 	@Override

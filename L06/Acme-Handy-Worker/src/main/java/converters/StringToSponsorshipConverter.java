@@ -1,22 +1,21 @@
 
 package converters;
 
-import domain.Sponsor;
-import domain.Sponsorship;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.SponsorRepository;
+
 import repositories.SponsorshipRepository;
+import domain.Sponsorship;
 
 @Component
 @Transactional
 public class StringToSponsorshipConverter implements Converter<String, Sponsorship> {
 
 	@Autowired
-	private SponsorshipRepository sponsorshipRepository;
+	private SponsorshipRepository	sponsorshipRepository;
 
 
 	@Override

@@ -26,14 +26,14 @@
 		<bean class="converters.CustomerToStringConverter" />
 		<bean class="converters.EducationalRecordToStringConverter" />
 		<bean class="converters.EndorsementToStringConverter" />
-		<bean class="converters.EndorserToStringConverter" />
+		<bean class="converters.EndorserRecordToStringConverter" />
 		<bean class="converters.FinderToStringConverter" />
 		<bean class="converters.FixUpTaskToStringConverter" />
 		<bean class="converters.FixUpTaskCategoryToStringConverter" />
 		<bean class="converters.HandyWorkerToStringConverter" />
 		<bean class="converters.MessageBoxToStringConverter" />
 		<bean class="converters.MessageToStringConverter" />
-		<bean class="converters.MiscelaneousRecordToStringConverter" />
+		<bean class="converters.MiscellaneousRecordToStringConverter" />
 		<bean class="converters.NoteToStringConverter" />
 		<bean class="converters.PersonalRecordToStringConverter" />
 		<bean class="converters.PhaseToStringConverter" />

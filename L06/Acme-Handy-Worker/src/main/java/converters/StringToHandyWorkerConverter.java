@@ -1,22 +1,21 @@
 
 package converters;
 
-import domain.Finder;
-import domain.HandyWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import repositories.FinderRepository;
+
 import repositories.HandyWorkerRepository;
+import domain.HandyWorker;
 
 @Component
 @Transactional
 public class StringToHandyWorkerConverter implements Converter<String, HandyWorker> {
 
 	@Autowired
-	private HandyWorkerRepository handyWorkerRepository;
+	private HandyWorkerRepository	handyWorkerRepository;
 
 
 	@Override
