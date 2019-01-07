@@ -7,9 +7,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -107,4 +109,18 @@ public class MessageController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "/displaybox", method = RequestMethod.GET)
+	public ModelAndView displayBox(@RequestParam(value = "id") final int id) {
+		ModelAndView result;
+		MessageBox messageBox;
+
+		messageBox = this.messageBoxService.findById(id);
+		Assert.isTrue(LoginService.getPrincipal().equals(messageBox.getActor().getUserAccount()));
+		result = new ModelAndView("message/displaybox");
+		result.addObject("messageBox", messageBox);
+
+		return result;
+	}
+
 }
