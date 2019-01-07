@@ -18,12 +18,28 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jstl:forEach items="${messageBox.messages}" var="message">
-
-	
-
-</jstl:forEach>
-
-
-
-
+<display:table name="messageBox.messages" id="message">
+	<display:column titleKey="message.subject">
+		<a href="message/displaymessage.do?id=<jstl:out value="${message.id}" />"><jstl:out value="${message.subject}" /></a>
+	</display:column>
+	<display:column titleKey="message.sender">
+		<jstl:out value="${message.sender.name}" />
+		<jstl:out value=" " />
+		<jstl:out value="${message.sender.middleName}" />
+		<jstl:out value=" " />
+		<jstl:out value="${message.sender.surname}" />
+	</display:column>
+	<display:column titleKey="message.priority">
+		<jstl:choose>
+			<jstl:when test = "${message.priority == 'LOW'}">
+				<spring:message code="message.priority.LOW" />
+			</jstl:when>
+			<jstl:when test = "${message.priority == 'NEUTRAL'}">
+				<spring:message code="message.priority.NEUTRAL" />
+			</jstl:when>
+			<jstl:when test = "${message.priority == 'HIGH'}">
+				<spring:message code="message.priority.HIGH" />
+			</jstl:when>
+		</jstl:choose>
+	</display:column>
+</display:table>
