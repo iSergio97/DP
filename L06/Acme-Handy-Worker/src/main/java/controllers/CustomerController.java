@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
@@ -90,6 +91,18 @@ public class CustomerController extends AbstractController {
 			for (int i = 0; i < binding.getAllErrors().size(); i++)
 				System.out.println("Error " + i + binding.getAllErrors().get(i));
 		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/handyWorker/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int customerId) {
+		// Create result object
+		ModelAndView result;
+		Customer customer;
+		result = new ModelAndView("customer/show");
+		customer = this.customerService.findById(customerId);
+		result.addObject("customer", customer);
 
 		return result;
 	}

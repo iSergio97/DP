@@ -51,6 +51,8 @@
 						<li class="arrow"></li>
 						<li><a href="application/customer.do"><spring:message
 									code="master.page.customer.application" /></a></li>
+						<li><a href="fixUpTask/customer/list.do"><spring:message
+									code="master.page.fixUpTask.customer" /></a></li>
 					</ul></li>
 			</security:authorize>
 
@@ -61,6 +63,8 @@
 						<li class="arrow"></li>
 						<li><a href="application/handyworker.do"><spring:message
 									code="master.page.handyWorker.application" /></a></li>
+						<li><a href="fixUpTask/handyWorker/list.do"><spring:message
+									code="master.page.fixUpTask.handyWorker" /></a></li>
 					</ul></li>
 			</security:authorize>
 

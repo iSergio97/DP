@@ -13,8 +13,8 @@
 	class="displaytag">
 
 	<display:column property="customer" titleKey="fixUpTask.customer" />
-	<display:column> <a href="customer.show.do?customerId=${row.id}"> <jstl:out value="fixUpTask.customer.surname"/></a> </display:column>
-	<display:column property="category" titleKey="fixUpTask.fixUpTaskCategory.name" />
+	<display:column titleKey="fixUpTask.customer"> <a href="customer.show.do?customerId=${row.id}"> <jstl:out value="fixUpTask.customer.surname"/></a> </display:column>
+	<display:column property="category" titleKey="fixUpTask.category" />
 	<display:column property="address" titleKey="fixUpTask.address" />
 	<display:column property="timeLimit" titleKey="fixUpTask.timeLimit" />
 	<display:column property="maximumPrice" titleKey="fixUpTask.maximumPrice" />
