@@ -32,11 +32,13 @@ import services.CustomerService;
 import services.FixUpTaskService;
 import services.HandyWorkerService;
 import services.MessageBoxService;
+import services.MessageService;
 import services.RefereeService;
 import services.ReportService;
 import services.SystemConfigurationService;
 import domain.Actor;
 import domain.Admin;
+import domain.Message;
 import domain.MessageBox;
 import domain.Referee;
 import domain.SystemConfiguration;
@@ -61,6 +63,8 @@ public class AdministratorController extends AbstractController {
 	private HandyWorkerService			handyWorkerService;
 	@Autowired
 	private MessageBoxService			messageBoxService;
+	@Autowired
+	private MessageService				messageService;
 	@Autowired
 	private RefereeService				refereeService;
 	@Autowired
@@ -399,6 +403,37 @@ public class AdministratorController extends AbstractController {
 		this.actorService.save(actor);
 
 		return this.suspicious();
+	}
+
+	@RequestMapping(value = "/broadcast", method = RequestMethod.GET)
+	public ModelAndView broadcast() {
+		final ModelAndView result;
+		final Message message;
+
+		message = this.messageService.create();
+		message.setSender(this.actorService.findPrincipal());
+		message.setRecipients(this.actorService.findAll());
+		result = new ModelAndView("administrator/broadcast");
+		result.addObject("message", message);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/broadcast", method = RequestMethod.POST)
+	public ModelAndView broadcast(Message message, final BindingResult binding) {
+		final ModelAndView result;
+
+		if (!binding.hasErrors()) {
+			result = new ModelAndView("administrator/broadcast");
+			result.addObject("message", message);
+		} else {
+			result = new ModelAndView("redirect:showMessage.do");// TODO: corregir redirect
+			message.setSender(this.actorService.findPrincipal());
+			message.setRecipients(this.actorService.findAll());
+			message = this.messageService.save(message);
+		}
+
+		return result;
 	}
 
 }
