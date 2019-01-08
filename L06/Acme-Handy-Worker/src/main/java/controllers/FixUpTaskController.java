@@ -28,6 +28,7 @@ import services.FixUpTaskCategoryService;
 import services.FixUpTaskService;
 import services.WarrantyService;
 import services.WorkPlanService;
+import domain.Application;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.FixUpTaskCategory;
@@ -94,9 +95,29 @@ public class FixUpTaskController extends AbstractController {
 		// Create result object
 		ModelAndView result;
 		FixUpTask fixUpTask;
+		Collection<Application> applications;
 		result = new ModelAndView("fixUpTask/show");
 		fixUpTask = this.fixUpTaskService.findById(fixUpTaskId);
+		applications = fixUpTask.getApplications();
 		result.addObject("fixUpTask", fixUpTask);
+		result.addObject("applications", applications);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/handyWorker/show", method = RequestMethod.GET)
+	public ModelAndView handyWorkerShow(@RequestParam final int fixUpTaskId) {
+		// Create result object
+		ModelAndView result;
+		FixUpTask fixUpTask;
+		Collection<Application> applications;
+		result = new ModelAndView("fixUpTask/handyWorker/show");
+		fixUpTask = this.fixUpTaskService.findById(fixUpTaskId);
+		applications = fixUpTask.getApplications();
+		final boolean accepted = this.fixUpTaskService.anyApplicationAccepted(fixUpTask);
+		result.addObject("fixUpTask", fixUpTask);
+		result.addObject("applications", applications);
+		result.addObject("accepted", accepted);
 
 		return result;
 	}

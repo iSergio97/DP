@@ -52,6 +52,7 @@ public class WarrantyController extends AbstractController {
 
 		warranties = this.warrantyService.findAll();
 		draftedWarranties = this.warrantyService.findDrafted();
+		warranties.removeAll(draftedWarranties);
 		result.addObject("warranties", warranties);
 		result.addObject("draftedWarranties", draftedWarranties);
 		result.addObject("requestURI", "warranty/administrator/list.do");

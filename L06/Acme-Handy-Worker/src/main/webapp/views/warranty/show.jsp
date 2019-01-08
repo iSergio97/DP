@@ -13,6 +13,7 @@
 <jstl:out value="Title: ${warranty.title}"/><br/>
 <jstl:out value="Laws: ${warranty.applicableLaws}"/><br/>
 <jstl:out value="Terms: ${warranty.terms}"/><br/>
+<jstl:out value="Terms: ${warranty.draft}"/><br/>
 
 
 

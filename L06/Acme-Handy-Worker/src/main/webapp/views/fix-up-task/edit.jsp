@@ -11,7 +11,7 @@
 
 <form:form action="fixUpTask/customer/edit.do" modelAttribute="fixUpTask">
 
-<input type="button" name="cancel" value ="<spring:message code="fixUpTask.cancel" />" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');"/>
+
 <form:hidden path="id"/>
 <form:errors cssClass="error" path="id"></form:errors>
 <br/>
@@ -81,6 +81,6 @@
 <br/>
 
 <input type="submit" name="save" value="<spring:message code="fixUpTask.update" />" />
-
+<input type="button" name="cancel" value ="<spring:message code="fixUpTask.cancel" />" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');"/>
 
 </form:form>

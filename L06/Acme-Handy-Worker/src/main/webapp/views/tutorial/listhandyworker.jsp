@@ -40,7 +40,7 @@
 </display:table>
 
 <p>
-	<a href="tutorial/edit.do">
+	<a href="tutorial/create.do">
 		<spring:message code="tutorial.create" />
 	</a>
 </p>

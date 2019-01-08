@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import domain.Section;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.TutorialRepository;
-import domain.Tutorial;
 import security.LoginService;
 import security.UserAccount;
+import domain.Section;
+import domain.Tutorial;
 
 @Service
 @Transactional
@@ -25,14 +25,14 @@ public class TutorialService {
 	@Autowired
 	private TutorialRepository	tutorialRepository;
 
-
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private HandyWorkerService handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
 
 	@Autowired
-	private SponsorshipService sponsorshipService;
+	private SponsorshipService	sponsorshipService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -43,14 +43,14 @@ public class TutorialService {
 	// Methods ----------------------------------------------------------------
 
 	public Tutorial create() {
-		Tutorial tutorial = new Tutorial();
-		UserAccount login = LoginService.getPrincipal();
-		tutorial.setHandyWorker(handyWorkerService.findById(login.getId()));
+		final Tutorial tutorial = new Tutorial();
+		final UserAccount login = LoginService.getPrincipal();
+		tutorial.setHandyWorker(this.handyWorkerService.findById(login.getId()));
 		tutorial.setLastUpdated(new Date());
 		tutorial.setPictures(new ArrayList<String>());
 		tutorial.setSections(new ArrayList<Section>());
 		tutorial.setSummary("");
-		tutorial.setSponsorship(sponsorshipService.create());
+		tutorial.setSponsorship(this.sponsorshipService.create());
 		tutorial.setTitle("");
 
 		return tutorial;

@@ -20,7 +20,7 @@ public class Warranty extends DomainEntity {
 	private String				title;
 	private String				terms;
 	private Collection<String>	applicableLaws;
-	private boolean draft;
+	private boolean				draft;
 
 
 	// Field access methods ---------------------------------------------------
@@ -51,11 +51,11 @@ public class Warranty extends DomainEntity {
 	public void setApplicableLaws(final List<String> applicableLaws) {
 		this.applicableLaws = applicableLaws;
 	}
-	
+
 	public boolean getDraft() {
 		return this.draft;
 	}
-	
+
 	public void setDraft(final boolean draft) {
 		this.draft = draft;
 	}

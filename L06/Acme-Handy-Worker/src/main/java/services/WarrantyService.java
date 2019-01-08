@@ -46,6 +46,7 @@ public class WarrantyService {
 		warranty.setTerms("");
 		warranty.setTitle("");
 		warranty.setDraft(true);
+		Assert.isTrue(warranty.getDraft(), "Que te den");
 		return warranty;
 	}
 

@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -124,4 +125,14 @@ public class FixUpTaskService {
 		return this.fixUpTaskRepository.getCustomersWhoPublishFixUpTasksWithWord(word);
 	}
 
+	public boolean anyApplicationAccepted(final FixUpTask f) {
+		boolean result = false;
+		final Collection<Application> applications = f.getApplications();
+		for (final Application a : applications)
+			if (a.getStatus().equals("ACCEPTED")) {
+				result = true;
+				break;
+			}
+		return result;
+	}
 }

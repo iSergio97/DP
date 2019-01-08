@@ -15,7 +15,7 @@
 <input type="button" name="cancel" value ="<spring:message code="warranty.cancel" />" onclick="javascript:relativeRedir('warranty/administrator/list.do');"/><br/>
 <form:hidden path="id"/>
 <form:hidden path="version"/>
-
+<form:hidden path="draft"/>
 
 
 
@@ -25,7 +25,10 @@
 <br/>
 
 
-<form:hidden path = "applicableLaws"/>
+<form:label path="applicableLaws"><spring:message code="warranty.laws" /></form:label>
+<form:input path="applicableLaws" />
+<form:errors cssClass="error" path="title"></form:errors>
+<br/>
 
 <form:label path="terms"><spring:message code="warranty.terms" /></form:label>
 <form:input path="terms" />

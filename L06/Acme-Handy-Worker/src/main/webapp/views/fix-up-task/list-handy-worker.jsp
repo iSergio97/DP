@@ -18,6 +18,7 @@
 	<display:column property="address" titleKey="fixUpTask.address" />
 	<display:column property="timeLimit" titleKey="fixUpTask.timeLimit" />
 	<display:column property="maximumPrice" titleKey="fixUpTask.maximumPrice" />
+	<display:column> <a href="fixUpTask/handyWorker/show.do?fixUpTaskId=${row.id}"> <spring:message code="fixUpTask.show" /></a> </display:column>
 
 
 
