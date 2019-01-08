@@ -29,6 +29,7 @@
 		<value>/views/profile/messages</value>
 		<value>/views/fix-up-task/messages</value>
 		<value>/views/message/messages</value>
+		<value>/views/message-box/messages</value>
 		<value>/views/warranty/messages</value>
 		<value>/views/tutorial/messages</value>
 	</util:list>

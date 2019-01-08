@@ -118,4 +118,8 @@ public class MessageBoxService {
 	MessageBox[] getMessageBoxes(final Actor a) {
 		return this.messageBoxRepository.getMessageBoxes(a.getId());
 	}
+
+	public MessageBox findByPrincipalAndName(final int id, final String name) {
+		return this.messageBoxRepository.findByPrincipalAndName(id, name);
+	}
 }
