@@ -7,7 +7,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<spring:message code="security.requiredFields" />
+<spring:message code="security.optionalFields" />
 <br />
 <br />
 
@@ -66,7 +66,7 @@
 
 		<div>
 			<form:label path="MiddleName">
-				<spring:message code="security.middleName" />
+				<spring:message code="security.middleName" /> (*)
 			</form:label>
 			<form:input path="middleName" />
 			<form:errors cssClass="error" path="middleName" />
@@ -111,7 +111,7 @@
 
 		<div>
 			<form:label path="photo">
-				<spring:message code="security.photo" />
+				<spring:message code="security.photo" /> (*)
 			</form:label>
 			<form:input path="photo" />
 			<form:errors cssClass="error" path="photo" />

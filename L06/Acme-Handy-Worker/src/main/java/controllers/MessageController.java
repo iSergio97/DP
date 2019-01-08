@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -45,32 +47,37 @@ public class MessageController {
 		ModelAndView result;
 		List<Actor> lsActors;
 		lsActors = this.actorService.findAll();
-		Message domainMessage;
-		domainMessage = this.messageService.create();
+		final Actor a = this.actorService.findByUserAccountId(LoginService.getPrincipal().getId());
+		lsActors.remove(a);
+		Message mesage;
+		mesage = this.messageService.create();
 		result = new ModelAndView("message/sendMessage");
-		result.addObject("domainMessage", domainMessage);
+		result.addObject("domainMessage", mesage);
 		result.addObject("actors", lsActors);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
-	public ModelAndView sendMessagePost(final Message domainMessage, final BindingResult bindingResult) {
+	public ModelAndView sendMessagePost(@Valid final Message mesage, final BindingResult bindingResult) {
 
 		ModelAndView result;
 		if (!bindingResult.hasErrors()) {
 			final int id = LoginService.getPrincipal().getId();
 			final Actor a = this.actorService.findByUserAccountId(id);
-			/*
-			 * final Actor a2 = this.actorService.findByUserAccountId(32768);
-			 * final Collection<Message> mSend = a.getMessagesSent();
-			 * final Collection<Message> mRecieved = a2.getMessagesReceived();
-			 * mSend.add(domainMessage);
-			 * mRecieved.add(domainMessage);
-			 * this.messageService.save(domainMessage);
-			 */
-			final List<Actor> actors = this.actorService.findAll();
-			this.messageService.sendMessage(domainMessage, a, actors);
+
+			final Actor a2 = this.actorService.findByUserAccountId(32768);
+			final Collection<Message> mSend = a.getMessagesSent();
+			final Collection<Message> mRecieved = a2.getMessagesReceived();
+			mSend.add(mesage);
+			mRecieved.add(mesage);
+			final MessageBox inBox = (MessageBox) a.getMessageBoxes().toArray()[0];
+			inBox.setMessages(mSend);
+			this.messageBoxService.save(inBox);
+
+			mesage.setSender(a);
+			this.messageService.save(mesage);
+			a.getMessagesSent().add(mesage);
 			result = new ModelAndView("redirect:showMessage.do");
 		} else {
 			for (int i = 0; i < bindingResult.getErrorCount(); i++)
@@ -78,7 +85,7 @@ public class MessageController {
 			result = new ModelAndView("message/sendMessage");
 			List<Actor> lsActors;
 			lsActors = this.actorService.findAll();
-			result.addObject("domainMessage", domainMessage);
+			result.addObject("domainMessage", mesage);
 			result.addObject("actors", lsActors);
 			result.addObject("bindingResult", bindingResult);
 			for (int i = 0; i < bindingResult.getAllErrors().size(); i++)
@@ -136,17 +143,17 @@ public class MessageController {
 		Assert.isTrue(LoginService.getPrincipal().equals(fromMessageBox.getActor().getUserAccount()));
 		Assert.isTrue(LoginService.getPrincipal().equals(toMessageBox.getActor().getUserAccount()));
 
-		Collection<MessageBox> messageBoxes = message.getMessageBoxes();
+		final Collection<MessageBox> messageBoxes = message.getMessageBoxes();
 		messageBoxes.remove(fromMessageBox);
 		messageBoxes.add(toMessageBox);
 		message.setMessageBoxes(messageBoxes);
 		message = this.messageService.save(message);
 
-		Collection<Message> fromMessages = fromMessageBox.getMessages();
+		final Collection<Message> fromMessages = fromMessageBox.getMessages();
 		fromMessages.remove(message);
 		fromMessageBox = this.messageBoxService.save(fromMessageBox);
 
-		Collection<Message> toMessages = toMessageBox.getMessages();
+		final Collection<Message> toMessages = toMessageBox.getMessages();
 		toMessages.add(message);
 		toMessageBox = this.messageBoxService.save(toMessageBox);
 
