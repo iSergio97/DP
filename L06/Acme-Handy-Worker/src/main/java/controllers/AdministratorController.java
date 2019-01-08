@@ -29,6 +29,7 @@ import services.ActorService;
 import services.AdminService;
 import services.ApplicationService;
 import services.CustomerService;
+import services.EndorsementService;
 import services.FixUpTaskService;
 import services.HandyWorkerService;
 import services.MessageBoxService;
@@ -38,6 +39,7 @@ import services.ReportService;
 import services.SystemConfigurationService;
 import domain.Actor;
 import domain.Admin;
+import domain.Endorsement;
 import domain.Message;
 import domain.MessageBox;
 import domain.Referee;
@@ -57,6 +59,8 @@ public class AdministratorController extends AbstractController {
 	private ApplicationService			applicationService;
 	@Autowired
 	private CustomerService				customerService;
+	@Autowired
+	private EndorsementService			endorsementService;
 	@Autowired
 	private FixUpTaskService			fixUpTaskService;
 	@Autowired
@@ -432,6 +436,23 @@ public class AdministratorController extends AbstractController {
 			message.setRecipients(this.actorService.findAll());
 			message = this.messageService.save(message);
 		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/score", method = RequestMethod.GET)
+	public ModelAndView score() {
+		final ModelAndView result;
+		List<Endorsement> endorsements;
+		List<String> positiveWords;
+		List<String> negativeWords;
+		SystemConfiguration systemConfiguration;
+
+		result = new ModelAndView("administrator/score");
+		endorsements = this.endorsementService.findAll();
+		systemConfiguration = this.systemConfigurationService.getSystemConfiguration();
+		positiveWords = systemConfiguration.getPositiveWords();
+		negativeWords = systemConfiguration.getNegativeWords();
 
 		return result;
 	}
