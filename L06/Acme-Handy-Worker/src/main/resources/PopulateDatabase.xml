@@ -89,6 +89,18 @@
 		</property>
 	</bean>
 
+	<bean id="admin2" class="security.UserAccount">
+    		<property name="username" value="admin2" />
+    		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+    		<property name="authorities">
+    			<list>
+    				<bean class="security.Authority">
+    					<property name="authority" value="ADMIN" />
+    				</bean>
+    			</list>
+    		</property>
+    	</bean>
+
 	<bean id="userAccountC1" class="security.UserAccount">
 		<property name="username" value="customer" />
 		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
@@ -581,7 +593,47 @@
 		</property>
 	</bean>
 
+	<bean id="inBoxAdmin" class="domain.MessageBox">
+    		<property name="name" value="InBox" />
+    		<property name="actor" ref="adminPrueba" />
+    		<property name="messages">
+    			<list></list>
+    		</property>
+    	</bean>
+
+    	<bean id="outBoxAdmin" class="domain.MessageBox">
+    		<property name="name" value="OutBox" />
+    		<property name="actor" ref="adminPrueba" />
+    		<property name="messages">
+    			<list></list>
+    		</property>
+    	</bean>
+
+    	<bean id="spamBoxAdmin" class="domain.MessageBox">
+    		<property name="name" value="SpamBox" />
+    		<property name="actor" ref="adminPrueba" />
+    		<property name="messages">
+    			<list></list>
+    		</property>
+    	</bean>
+
+    	<bean id="trashBoxAdmin" class="domain.MessageBox">
+    		<property name="name" value="TrashBox" />
+    		<property name="actor" ref="adminPrueba" />
+    		<property name="messages">
+    			<list></list>
+    		</property>
+    	</bean>
+
+
 	<!-- SOCIAL PROFILES -->
+    <bean id="socialProfileAdmin" class="domain.SocialProfile">
+		<property name="nickName" value="sergio" />
+		<property name="socialNetworkName" value="Twitter" />
+		<property name="link" value="https://twitter.com/iSergio97" />
+		<property name="actor" ref="adminPrueba" />
+	</bean>
+
 
 	<bean id="socialProfileC1" class="domain.SocialProfile">
 		<property name="nickName" value="carlosrb96" />
@@ -659,6 +711,46 @@
 		<property name="link" value="https://twitter.com/iSergio97" />
 		<property name="actor" ref="sponsor1" />
 	</bean>
+
+
+    <!-- ADMINS -->
+
+    <bean id="adminPrueba" class="domain.Admin">
+        <property name="name" value="Sergio" />
+   	    <property name="middleName" value="" />
+   	    <property name="surname" value="Garrido Domínguez" />
+   	    <property name="photo"
+    	    value="https://gyazo.com/bc9a07f806b4b8222308e38e48c6ff04" />
+        <property name="email" value="sergiotb15@gmail.com" />
+        <property name="phoneNumber" value="+34 644768390" />
+        <property name="address" value="Avenida Reina Mercedes s/n" />
+        <property name="userAccount" ref="admin2" />
+        <property name="messageBoxes">
+        			<list>
+        				<ref bean="inBoxAdmin" />
+        				<ref bean="outBoxAdmin" />
+        				<ref bean="spamBoxAdmin" />
+        				<ref bean="trashBoxAdmin" />
+        			</list>
+        		</property>
+        		<property name="socialProfiles">
+        			<list>
+        				<ref bean="socialProfileAdmin" />
+        			</list>
+        		</property>
+        		<property name="messagesSent">
+        			<list>
+        			</list>
+        		</property>
+        		<property name="messagesReceived">
+        			<list>
+        			</list>
+        		</property>
+        		<property name="notes">
+                		<list>
+                		</list>
+                		</property>
+    </bean>
 
 	<!-- CUSTOMERS -->
 
