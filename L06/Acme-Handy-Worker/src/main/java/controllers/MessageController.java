@@ -123,4 +123,34 @@ public class MessageController {
 		return result;
 	}
 
+	@RequestMapping(value = "/move", method = RequestMethod.GET)
+	public ModelAndView move(@RequestParam(value = "messageId") final int messageId, @RequestParam(value = "fromMessageBoxId") final int fromMessageBoxId, @RequestParam(value = "toMessageBoxId") final int toMessageBoxId) {
+		Message message;
+		MessageBox fromMessageBox;
+		MessageBox toMessageBox;
+
+		message = this.messageService.findById(messageId);
+		fromMessageBox = this.messageBoxService.findById(fromMessageBoxId);
+		toMessageBox = this.messageBoxService.findById(toMessageBoxId);
+
+		Assert.isTrue(LoginService.getPrincipal().equals(fromMessageBox.getActor().getUserAccount()));
+		Assert.isTrue(LoginService.getPrincipal().equals(toMessageBox.getActor().getUserAccount()));
+
+		Collection<MessageBox> messageBoxes = message.getMessageBoxes();
+		messageBoxes.remove(fromMessageBox);
+		messageBoxes.add(toMessageBox);
+		message.setMessageBoxes(messageBoxes);
+		message = this.messageService.save(message);
+
+		Collection<Message> fromMessages = fromMessageBox.getMessages();
+		fromMessages.remove(message);
+		fromMessageBox = this.messageBoxService.save(fromMessageBox);
+
+		Collection<Message> toMessages = toMessageBox.getMessages();
+		toMessages.add(message);
+		toMessageBox = this.messageBoxService.save(toMessageBox);
+
+		return this.displayBox(toMessageBox.getId());
+	}
+
 }
