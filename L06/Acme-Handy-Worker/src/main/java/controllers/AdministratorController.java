@@ -12,7 +12,10 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -443,16 +446,56 @@ public class AdministratorController extends AbstractController {
 	@RequestMapping(value = "/score", method = RequestMethod.GET)
 	public ModelAndView score() {
 		final ModelAndView result;
-		List<Endorsement> endorsements;
 		List<String> positiveWords;
 		List<String> negativeWords;
 		SystemConfiguration systemConfiguration;
+		Map<Actor, Double> scores;
 
 		result = new ModelAndView("administrator/score");
-		endorsements = this.endorsementService.findAll();
 		systemConfiguration = this.systemConfigurationService.getSystemConfiguration();
 		positiveWords = systemConfiguration.getPositiveWords();
 		negativeWords = systemConfiguration.getNegativeWords();
+		scores = new HashMap<Actor, Double>();
+
+		for (final Actor actor : this.actorService.findAll())
+			scores.put(actor, 0.d);
+
+		for (final Endorsement endorsement : this.endorsementService.findAll())
+			for (final String comment : endorsement.getComment())
+				for (final String word : comment.split(" ")) {
+					for (final String positiveWord : positiveWords)
+						if (word.equals(positiveWord)) {
+							final Actor endorser = endorsement.getEndorser();
+							final Actor endorsed = endorsement.getEndorsed();
+							scores.put(endorser, scores.get(endorser) + 1.d);
+							scores.put(endorsed, scores.get(endorsed) + 1.d);
+						}
+					for (final String negativeWord : negativeWords)
+						if (word.equals(negativeWord)) {
+							final Actor endorser = endorsement.getEndorser();
+							final Actor endorsed = endorsement.getEndorsed();
+							scores.put(endorser, scores.get(endorser) - 1.d);
+							scores.put(endorsed, scores.get(endorsed) - 1.d);
+						}
+				}
+
+		Double minimumScore = Double.MAX_VALUE;
+		Double maximumScore = Double.MIN_VALUE;
+
+		for (final Entry<Actor, Double> entry : scores.entrySet()) {
+			final Double entryScore = entry.getValue();
+			if (entryScore < minimumScore)
+				minimumScore = entryScore;
+			if (entryScore > maximumScore)
+				maximumScore = entryScore;
+		}
+
+		for (final Entry<Actor, Double> entry : scores.entrySet()) {
+			final Double transformedScore = ((entry.getValue() - minimumScore) / (maximumScore - minimumScore)) * 2.d - 1.d;
+			entry.setValue(transformedScore);
+		}
+
+		result.addObject("scores", scores);
 
 		return result;
 	}
