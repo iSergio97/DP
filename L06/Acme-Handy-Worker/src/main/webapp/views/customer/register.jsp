@@ -42,6 +42,7 @@
 			</form:label>
 			<form:input path="userAccount.username" />
 			<form:errors path="userAccount.username" />
+
 		</div>
 		<br>
 
@@ -59,7 +60,7 @@
 				<spring:message code="security.name" />
 			</form:label>
 			<form:input path="name" />
-			<form:errors path="name" />
+			<form:errors cssClass="error" path="name" />
 		</div>
 		<br>
 
@@ -68,7 +69,7 @@
 				<spring:message code="security.middleName" />
 			</form:label>
 			<form:input path="middleName" />
-			<form:errors path="middleName" />
+			<form:errors cssClass="error" path="middleName" />
 		</div>
 		<br>
 
@@ -77,7 +78,7 @@
 				<spring:message code="security.surname" />
 			</form:label>
 			<form:input path="surname" />
-			<form:errors path="surname" />
+			<form:errors cssClass="error" path="surname" />
 		</div>
 		<br>
 
@@ -86,7 +87,7 @@
 				<spring:message code="security.email" />
 			</form:label>
 			<form:input path="email" />
-			<form:errors path="email" />
+			<form:errors cssClass="error" path="email" />
 		</div>
 		<br>
 
@@ -95,7 +96,7 @@
 				<spring:message code="security.phoneNumber" />
 			</form:label>
 			<form:input path="phoneNumber" />
-			<form:errors path="phoneNumber" />
+			<form:errors cssClass="error" path="phoneNumber" />
 		</div>
 		<br>
 
@@ -104,7 +105,7 @@
 				<spring:message code="security.address" />
 			</form:label>
 			<form:input path="address" />
-			<form:errors path="address" />
+			<form:errors cssClass="error" path="address" />
 		</div>
 		<br>
 
@@ -113,7 +114,7 @@
 				<spring:message code="security.photo" />
 			</form:label>
 			<form:input path="photo" />
-			<form:errors path="photo" />
+			<form:errors cssClass="error" path="photo" />
 		</div>
 		<br>
 
