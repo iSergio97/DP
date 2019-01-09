@@ -46,12 +46,15 @@ public class MessageBoxController {
 		return result;
 	}
 
-//	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-//	public void delete(@RequestParam(value = "name") final String name) {
-//
-//		final int id = LoginService.getPrincipal().getId();
-//		final Actor actor = this.actorService.findByUserAccountId(id);
-//
-//		this.messageBoxService.deleteByPrincipalAndName(actor.getId(), name);
-//	}
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	public void delete(@RequestParam(value = "name") final String name) {
+
+		final int id = LoginService.getPrincipal().getId();
+		final Actor actor = this.actorService.findByUserAccountId(id);
+
+		final MessageBox[] messageBoxes = this.messageBoxService.findByPrincipalAndName(actor.getId(), name);
+		final MessageBox messageBox = messageBoxes[0];
+
+		this.messageBoxService.delete(messageBox);
+	}
 }

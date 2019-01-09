@@ -16,6 +16,4 @@ public interface MessageBoxRepository extends JpaRepository<MessageBox, Integer>
 	@Query("select m from MessageBox m join m.actor a where a.id = ?1 and m.name = ?2")
 	MessageBox[] findByPrincipalAndName(int id, String name);
 
-	//@Query("delete from MessageBox m join m.actor a where a.id = ?1 and m.name = ?2")
-	//void deleteByPrincipalAndName(int id, String name);
 }
