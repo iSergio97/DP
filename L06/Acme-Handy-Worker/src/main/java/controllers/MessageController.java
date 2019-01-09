@@ -59,26 +59,36 @@ public class MessageController {
 	}
 
 	@RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
-	public ModelAndView sendMessagePost(@Valid final Message mesage, final BindingResult bindingResult) {
+	public ModelAndView sendMessagePost(@Valid Message mesage, final BindingResult bindingResult) {
 
 		ModelAndView result;
 		if (!bindingResult.hasErrors()) {
-			final int id = LoginService.getPrincipal().getId();
-			final Actor a = this.actorService.findByUserAccountId(id);
-
-			final Actor a2 = this.actorService.findByUserAccountId(32768);
-			final Collection<Message> mSend = a.getMessagesSent();
-			final Collection<Message> mRecieved = a2.getMessagesReceived();
-			mSend.add(mesage);
-			mRecieved.add(mesage);
-			final MessageBox inBox = (MessageBox) a.getMessageBoxes().toArray()[0];
-			inBox.setMessages(mSend);
+			final Actor sender = mesage.getSender();
+			final List<Actor> recipients = (List<Actor>) mesage.getRecipients();
+			final MessageBox[] inBoxes = this.messageBoxService.findByPrincipalAndName(sender.getId(), "InBox");
+			final MessageBox inBox = inBoxes[0];
+			List<MessageBox> mb;
+			mb = new ArrayList<>();
+			mb.add(inBox);
+			inBox.getMessages().add(mesage);
 			this.messageBoxService.save(inBox);
+			mesage.setMessageBoxes(mb);
+			mesage = this.messageService.save(mesage);
+			sender.getMessagesSent().add(mesage);
+			//this.messageService.save(mesage);
+			for (final Actor a : recipients) {
+				final MessageBox[] outBoxes = this.messageBoxService.findByPrincipalAndName(a.getId(), "OutBox");
+				a.getMessagesReceived().add(mesage);
+				final MessageBox outBox = outBoxes[0];
+				final List<MessageBox> ls1 = new ArrayList<>();
+				ls1.add(outBox);
+				mesage.setMessageBoxes(ls1);
+				outBox.getMessages().add(mesage);
+				this.messageBoxService.save(outBox);
+				this.messageService.save(mesage);
+			}
+			result = new ModelAndView("redirect: show");
 
-			mesage.setSender(a);
-			this.messageService.save(mesage);
-			a.getMessagesSent().add(mesage);
-			result = new ModelAndView("redirect:showMessage.do");
 		} else {
 			for (int i = 0; i < bindingResult.getErrorCount(); i++)
 				System.out.println(bindingResult.getAllErrors().get(i));
@@ -89,34 +99,10 @@ public class MessageController {
 			result.addObject("actors", lsActors);
 			result.addObject("bindingResult", bindingResult);
 			for (int i = 0; i < bindingResult.getAllErrors().size(); i++)
-				System.out.println("Error " + i + bindingResult.getAllErrors().get(i));
+				System.out.println("Error " + i + " " + bindingResult.getAllErrors().get(i));
 		}
 		return result;
 	}
-
-	@RequestMapping(value = "/listboxes", method = RequestMethod.GET)
-	public ModelAndView boxes() {
-		final ModelAndView result;
-		final int id = LoginService.getPrincipal().getId();
-		Actor customer;
-		customer = this.actorService.findByUserAccountId(id);
-		if (customer.getMessageBoxes().size() == 0) {
-			final List<MessageBox> messageBoxes = new ArrayList<MessageBox>();
-			for (final MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
-				messageBox.setActor(customer);
-				messageBoxes.add(this.messageBoxService.save(messageBox));
-			}
-			customer.setMessageBoxes(messageBoxes);
-			customer = this.actorService.save(customer);
-		}
-
-		final Collection<MessageBox> messageBoxes = customer.getMessageBoxes();
-		result = new ModelAndView("customer/listboxes");
-		result.addObject("messageBoxes", messageBoxes);
-
-		return result;
-	}
-
 	@RequestMapping(value = "/displaybox", method = RequestMethod.GET)
 	public ModelAndView displayBox(@RequestParam(value = "id") final int id) {
 		ModelAndView result;

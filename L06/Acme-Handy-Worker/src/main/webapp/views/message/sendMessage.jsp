@@ -17,7 +17,7 @@
 	<form:hidden path="messageBoxes" />
 	<form:hidden path="sender" />
 
-	
+
 
 	<div id="priority" class="priority">
 		<form:label path="priority">
@@ -30,6 +30,9 @@
 		</form:select>
 		<form:errors path="priority" />
 	</div>
+
+	<!-- Los recipients de los mensajes son los nombres de usuario porque no hemos tratado la unicidad de 1 usuario - 1 correo. Y hay actores con
+		el mismo correo -->
 
 	<div id="recipients" class="recipients">
 		<form:label path="recipients">
