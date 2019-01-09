@@ -52,6 +52,9 @@ public class MessageController {
 		Message mesage;
 		mesage = this.messageService.create();
 		result = new ModelAndView("message/sendMessage");
+		final List<MessageBox> ls = new ArrayList<>();
+		ls.add((MessageBox) a.getMessageBoxes().toArray()[0]);
+		mesage.setMessageBoxes(ls);
 		result.addObject("domainMessage", mesage);
 		result.addObject("actors", lsActors);
 
@@ -63,29 +66,27 @@ public class MessageController {
 
 		ModelAndView result;
 		if (!bindingResult.hasErrors()) {
-			final Actor sender = mesage.getSender();
-			final List<Actor> recipients = (List<Actor>) mesage.getRecipients();
-			final MessageBox[] inBoxes = this.messageBoxService.findByPrincipalAndName(sender.getId(), "InBox");
-			final MessageBox inBox = inBoxes[0];
-			List<MessageBox> mb;
-			mb = new ArrayList<>();
-			mb.add(inBox);
-			inBox.getMessages().add(mesage);
-			this.messageBoxService.save(inBox);
-			mesage.setMessageBoxes(mb);
+			//TODO FALTA AÑADIR QUE EL MENSAJE SE GUARDE EN LA CAJA DE OUTBOX DEL ACTOR QUE LO ENVÍA
+			Actor sender;
+			sender = mesage.getSender();
+
+			Collection<Actor> recipients;
+			recipients = mesage.getRecipients();
+			this.messageBoxService.save(sender.getMessageBoxes());
 			mesage = this.messageService.save(mesage);
 			sender.getMessagesSent().add(mesage);
 			//this.messageService.save(mesage);
 			for (final Actor a : recipients) {
-				final MessageBox[] outBoxes = this.messageBoxService.findByPrincipalAndName(a.getId(), "OutBox");
+				//TODO REVISAR PORQUÉ SÓLO SE AÑADE A UN ACTOR (POSIBLE RANDOM)
+				final MessageBox[] inBoxes = this.messageBoxService.findByPrincipalAndName(a.getId(), "InBox");
 				a.getMessagesReceived().add(mesage);
-				final MessageBox outBox = outBoxes[0];
+				final MessageBox inBox = inBoxes[0];
 				final List<MessageBox> ls1 = new ArrayList<>();
-				ls1.add(outBox);
+				ls1.add(inBox);
 				mesage.setMessageBoxes(ls1);
-				outBox.getMessages().add(mesage);
-				this.messageBoxService.save(outBox);
-				this.messageService.save(mesage);
+				inBox.getMessages().add(mesage);
+				this.messageBoxService.save(inBox);
+				//this.messageService.save(mesage);
 			}
 			result = new ModelAndView("redirect: show");
 
