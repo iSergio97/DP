@@ -27,17 +27,31 @@ public class MessageBoxController {
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam(value = "name") final String name) {
-		ModelAndView result;
 		MessageBox messageBox;
 
 		final int id = LoginService.getPrincipal().getId();
 		final Actor actor = this.actorService.findByUserAccountId(id);
 
-		//messageBox = this.messageBoxService.findByPrincipalAndName(actor.getId(), name);
-		messageBox = (MessageBox) actor.getMessageBoxes().toArray()[1];
-		result = new ModelAndView("message-box/show");
+		final MessageBox[] messageBoxes = this.messageBoxService.findByPrincipalAndName(actor.getId(), name);
+		if (messageBoxes.length == 0)
+			messageBox = null;
+		else
+			messageBox = messageBoxes[0];
+
+		//messageBox = (MessageBox) actor.getMessageBoxes().toArray()[1];
+
+		final ModelAndView result = new ModelAndView("message-box/show");
 		result.addObject("messageBox", messageBox);
 
 		return result;
 	}
+
+//	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+//	public void delete(@RequestParam(value = "name") final String name) {
+//
+//		final int id = LoginService.getPrincipal().getId();
+//		final Actor actor = this.actorService.findByUserAccountId(id);
+//
+//		this.messageBoxService.deleteByPrincipalAndName(actor.getId(), name);
+//	}
 }

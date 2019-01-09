@@ -19,7 +19,7 @@
 
 <display:table name="messageBox.messages" id="message">
 	<display:column titleKey="message.subject">
-		<a href="message/displaymessage.do?id=<jstl:out value="${message.id}" />"><jstl:out value="${message.subject}" /></a>
+		<jstl:out value="${message.subject}" />
 	</display:column>
 	<display:column titleKey="message.sender">
 		<jstl:out value="${message.sender.name}" />
@@ -41,7 +41,20 @@
 			</jstl:when>
 		</jstl:choose>
 	</display:column>
+	<display:column titleKey="message.options">
+		<a href="message/show.do?id=<jstl:out value="${message.id}" />">
+			<spring:message code="message.open" />
+		</a>
+	</display:column>
 </display:table>
+
+<br/>
+
+<jstl:if test="${messageBox.name != 'InBox' && messageBox.name != 'OutBox' && messageBox.name != 'TrashBox' && messageBox.name != 'SpamBox'}">
+	<a href="message-box/delete.do?name=<jstl:out value="${messageBox.name}" />">
+		<spring:message code="messageBox.delete" />
+	</a>
+</jstl:if>
 
 <!--
 <br/> <br/>

@@ -109,13 +109,13 @@
 						<li class="arrow"></li>
 						<li><a href="message/sendMessage.do"><spring:message
 									code="master.page.messages.send" /></a></li>
-						<li><a href="message-box/show.do?name=inBox"><spring:message
+						<li><a href="message-box/show.do?name=InBox"><spring:message
 									code="master.page.messagebox.inbox" /></a></li>
-						<li><a href="message-box/show.do?name=outBox"><spring:message
+						<li><a href="message-box/show.do?name=OutBox"><spring:message
 									code="master.page.messagebox.outbox" /></a></li>
-						<li><a href="message-box/show.do?name=trashBox"><spring:message
+						<li><a href="message-box/show.do?name=TrashBox"><spring:message
 									code="master.page.messagebox.trashbox" /></a></li>
-						<li><a href="message-box/show.do?name=spamBox"><spring:message
+						<li><a href="message-box/show.do?name=SpamBox"><spring:message
 									code="master.page.messagebox.spambox" /></a></li>
 					</ul></li>
 			</security:authorize>

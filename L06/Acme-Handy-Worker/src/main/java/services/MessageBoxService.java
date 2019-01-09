@@ -119,7 +119,11 @@ public class MessageBoxService {
 		return this.messageBoxRepository.getMessageBoxes(a.getId());
 	}
 
-	public MessageBox findByPrincipalAndName(final int id, final String name) {
+	public MessageBox[] findByPrincipalAndName(final int id, final String name) {
 		return this.messageBoxRepository.findByPrincipalAndName(id, name);
 	}
+
+//	public void deleteByPrincipalAndName(final int id, final String name) {
+//		this.messageBoxRepository.deleteByPrincipalAndName(id, name);
+//	}
 }
