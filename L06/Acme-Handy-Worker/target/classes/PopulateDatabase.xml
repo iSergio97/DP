@@ -102,8 +102,8 @@
     	</bean>
 
 	<bean id="userAccountC1" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="customer1" />
+		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -263,6 +263,30 @@
 
 	<bean id="trashBoxC1" class="domain.MessageBox">
 		<property name="name" value="TrashBox" />
+		<property name="actor" ref="customer1" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="newBoxC1" class="domain.MessageBox">
+		<property name="name" value="NewBox" />
+		<property name="actor" ref="customer1" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="newBoxC2" class="domain.MessageBox">
+		<property name="name" value="NewBox2" />
+		<property name="actor" ref="customer1" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="newBoxC3" class="domain.MessageBox">
+		<property name="name" value="NewBox3" />
 		<property name="actor" ref="customer1" />
 		<property name="messages">
 			<list></list>

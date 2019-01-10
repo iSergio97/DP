@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,11 +18,14 @@ import security.LoginService;
 import services.ActorService;
 import services.MessageBoxService;
 import domain.Actor;
+import domain.Message;
 import domain.MessageBox;
 
 @Controller
 @RequestMapping("/message-box")
 public class MessageBoxController {
+
+	// Services ---------------------------------------------------------------
 
 	@Autowired
 	private MessageBoxService	messageBoxService;
@@ -30,8 +34,16 @@ public class MessageBoxController {
 	private ActorService		actorService;
 
 
+	// Constructors -----------------------------------------------------------
+
+	public MessageBoxController() {
+		super();
+	}
+
+	// List ------------------------------------------------------------------
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView boxes() {
+	public ModelAndView list() {
 		final ModelAndView result;
 		final int id = LoginService.getPrincipal().getId();
 		Actor actor;
@@ -56,23 +68,33 @@ public class MessageBoxController {
 		return result;
 	}
 
+	// Create ----------------------------------------------------------------
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView create() {
+		final ModelAndView result;
+		final MessageBox messageBox;
+
+		messageBox = this.messageBoxService.create();
+		result = this.createEditModelAndView(messageBox);
+
+		return result;
+	}
+
+	// Edit ------------------------------------------------------------------
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam(value = "id") final int id) {
+		ModelAndView result;
 		MessageBox messageBox;
 
-		final int principalId = LoginService.getPrincipal().getId();
-		final Actor actor = this.actorService.findByUserAccountId(principalId);
+		messageBox = messageBoxService.findById(id);
+		Assert.notNull(messageBox);
+		
+		result = createEditModelAndView(messageBox);
 
-		final MessageBox[] messageBoxes = this.messageBoxService.findByPrincipalAndId(actor.getId(), id);
-		if (messageBoxes.length == 0)
-			messageBox = null;
-		else
-			messageBox = messageBoxes[0];
-
-		//messageBox = (MessageBox) actor.getMessageBoxes().toArray()[1];
-
-		final ModelAndView result = new ModelAndView("message-box/edit");
-		result.addObject("messageBox", messageBox);
+//		result = new ModelAndView("message-box/edit");
+//		result.addObject("messageBox", messageBox);
 
 		return result;
 	}
@@ -117,4 +139,33 @@ public class MessageBoxController {
 		return result;
 	}
 
+	protected ModelAndView createEditModelAndView(final MessageBox messageBox) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(messageBox, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final MessageBox messageBox, final String messageCode) {
+		final ModelAndView result;
+		final String name;
+		final Actor actor;
+		final Collection<Message> messages;
+
+		name = messageBox.getName();
+		final int principalId = LoginService.getPrincipal().getId();
+		actor = this.actorService.findByUserAccountId(principalId);
+		messages = messageBox.getMessages();
+
+		result = new ModelAndView("message-box/edit");
+		result.addObject("messageBox", messageBox);
+		result.addObject("name", name);
+		result.addObject("actor", actor);
+		result.addObject("messages", messages);
+
+		result.addObject("messageCode", messageCode);
+
+		return result;
+	}
 }

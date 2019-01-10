@@ -63,8 +63,8 @@
 		<form:input path="name"/>
 		<br/>
 		
-		<input type="submit" name="cancel" value="<spring:message code="options.cancel" />"
-				onclick="javascript:relativeRedir('message-box/list.do')" />
+		<input type="button" name="cancel" value="<spring:message code="options.cancel" />"
+				onclick="javascript:relativeRedir('message-box/list.do');" />
 		<input type="submit" name="save" value="<spring:message code="options.save" />" />
 		<input type="submit" name="delete" value="<spring:message code="options.delete" />" />
 	</form:form>

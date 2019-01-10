@@ -92,7 +92,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		handyWorker.setPhoneNumber("123456789");
 		handyWorker.setAddress("Calle de prueba");
 		handyWorker.setMessageBoxes(this.messageBoxService.createSystemBoxes());
-		final MessageBox cajaNueva = this.messageBoxService.createNormalBoxes();
+		final MessageBox cajaNueva = this.messageBoxService.create();
 		cajaNueva.setName("Caja de prueba");
 		final MessageBox cajaSaved = this.messageBoxService.save(cajaNueva);
 		handyWorker.getMessageBoxes().add(cajaSaved);

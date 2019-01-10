@@ -53,7 +53,7 @@ public class MessageBoxServiceTest extends AbstractTest {
 
 		super.authenticate("customer2");
 		final Actor a = this.actorService.findPrincipal();
-		b = this.boxService.createNormalBoxes();
+		b = this.boxService.create();
 
 		Assert.isTrue(b.getName().equals(""));
 		Assert.isTrue(b.getActor().equals(a));
@@ -87,7 +87,7 @@ public class MessageBoxServiceTest extends AbstractTest {
 
 		super.authenticate("customer2");
 		final Actor a = this.actorService.findPrincipal();
-		box = this.boxService.createNormalBoxes();
+		box = this.boxService.create();
 
 		box.setName("Caja de Prueba");
 		saved = this.boxService.save(box);

@@ -28,8 +28,6 @@
 	</display:column>
 </display:table>
 
-<br/>
-
 <a href="message-box/create.do">
 	<spring:message code="options.create"/>
 </a>
