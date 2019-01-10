@@ -48,7 +48,12 @@ public class TutorialService {
 		final UserAccount login = LoginService.getPrincipal();
 		tutorial.setHandyWorker(this.handyWorkerService.findById(login.getId()));
 		tutorial.setLastUpdated(new Date());
-		tutorial.setPictures(new ArrayList<String>());
+		final List<String> pictures = new ArrayList<String>();
+		pictures.add("");
+		pictures.add("");
+		pictures.add("");
+		pictures.add("");
+		tutorial.setPictures(pictures);
 		tutorial.setSections(new ArrayList<Section>());
 		tutorial.setSummary("");
 		tutorial.setSponsorships(new ArrayList<Sponsorship>());

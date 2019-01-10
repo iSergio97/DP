@@ -30,4 +30,11 @@
 	</display:column>
 	<display:column property="lastUpdated" titleKey="tutorial.lastUpdated" />
 	<display:column property="summary" titleKey="tutorial.summary" />
+	<display:column titleKey="tutorial.handyWorker">
+		<div>
+			<a href="handy-worker/show.do?handyWorkerId=${tutorial.handyWorker.id}">
+				<spring:message code="tutorial.handyWorker" />
+			</a>
+		</div>
+	</display:column>
 </display:table>

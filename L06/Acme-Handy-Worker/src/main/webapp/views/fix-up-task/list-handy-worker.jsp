@@ -7,7 +7,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
+<a href="fixUpTask/handyWorker/show.do?handyWorkerId=${handyWorker.id}">Finder</a>
 <display:table name="fixUpTasks" id="row"
 	requestURI="fixUpTask/handyWorker/list.do" pagesize="5"
 	class="displaytag">

@@ -11,6 +11,8 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.TutorialService;
+import domain.Sponsorship;
 import domain.Tutorial;
 
 @Controller
@@ -71,10 +74,15 @@ public class TutorialController extends AbstractController {
 		// Create result object
 		ModelAndView result;
 		Tutorial tutorial;
+		String banner;
 		result = new ModelAndView("tutorial/display");
 		tutorial = this.tutorialService.findById(tutorialId);
-		result.addObject("tutorial", tutorial);
+		final List<Sponsorship> sponsorships = (List<Sponsorship>) tutorial.getSponsorships();
+		final Random rand = new Random();
+		banner = sponsorships.get(rand.nextInt(sponsorships.size())).getBanner();
 
+		result.addObject("tutorial", tutorial);
+		result.addObject("banner", banner);
 		return result;
 	}
 
@@ -142,7 +150,10 @@ public class TutorialController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Tutorial tutorial, final String messageCode) {
 		final ModelAndView result;
 		result = new ModelAndView("tutorial/handy-worker/edit");
+		final Integer size = tutorial.getPictures().size() - 1;
+
 		result.addObject("tutorial", tutorial);
+		result.addObject("size", size);
 		result.addObject("message", messageCode);
 		return result;
 

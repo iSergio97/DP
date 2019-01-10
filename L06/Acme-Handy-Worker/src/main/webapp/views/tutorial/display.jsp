@@ -19,7 +19,9 @@
 <p>
 	<spring:message code="tutorial.display" />
 </p>
-
+<p>
+<img alt="banner" src="${banner}">
+</p>
 <p>
 	<spring:message code="tutorial.title" />
 	<br>

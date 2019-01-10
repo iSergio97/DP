@@ -29,6 +29,6 @@
 	<display:column property="maximumPrice" titleKey="fixUpTask.maximumPrice" />
 	<display:column property="timeLimit" titleKey="fixUpTask.timeLimit" />
 	<display:column property="description" titleKey="fixUpTask.description" />
-	<display:column> <a href="fixUpTask.show.do?fixUpTaskId=${row.id}"> <jstl:out value="Show"/></a> </display:column>
+	<display:column> <a href="fixUpTask/handyWorker/show.do?fixUpTaskId=${row.id}"> <jstl:out value="Show"/></a> </display:column>
 
 </display:table>

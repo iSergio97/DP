@@ -19,6 +19,10 @@
 		<put-attribute name="title" value="Register a finder for you" />
 		<put-attribute name="body" value="/views/handy-worker/register-finder.jsp" />
 	</definition>
-
+	
+	<definition name="handy-worker/show" extends="master.page">
+		<put-attribute name="title" value="Handy Worker" />
+		<put-attribute name="body" value="/views/handy-worker/show.jsp" />
+	</definition>
 
 </tiles-definitions>

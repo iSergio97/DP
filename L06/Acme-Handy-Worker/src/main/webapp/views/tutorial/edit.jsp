@@ -25,13 +25,11 @@
 	<!-- Hidden fields -->
 	<form:hidden path="id"/>
 	<form:hidden path="version" />
-	<form:hidden path="pictures" />
-	<form:errors cssClass="error" path="pictures"></form:errors>
 	<form:hidden path="sections" />
 	<form:errors cssClass="error" path="sections"></form:errors>
 	<form:hidden path="handyWorker" />
 	<form:errors cssClass="error" path="handyWorker"></form:errors>
-	<form:hidden path="sponsorship" /><form:errors cssClass="error" path="sponsorship"></form:errors>
+	<form:hidden path="sponsorships" /><form:errors cssClass="error" path="sponsorships"></form:errors>
 	<form:hidden path="lastUpdated" />
 	<form:errors cssClass="error" path="lastUpdated"></form:errors>
 
@@ -45,6 +43,13 @@
 <form:label path="summary"><spring:message code="tutorial.summary" /></form:label>
 <form:input path="summary" />
 <form:errors cssClass="error" path="summary"></form:errors>
+<br/>
+
+<jstl:forEach begin="0" end ="${size}" var="x" >
+	<form:label path="pictures"><spring:message code="tutorial.pictures" />${x}</form:label>
+    <form:input path="pictures[${x}]" />
+    <form:errors cssClass="error" path="pictures"></form:errors>
+</jstl:forEach>
 <br/>
 
 	<!-- Control -->
