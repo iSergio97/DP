@@ -130,6 +130,8 @@
 									code="master.page.messagebox.trashbox" /></a></li>
 						<li><a href="message-box/show.do?name=SpamBox"><spring:message
 									code="master.page.messagebox.spambox" /></a></li>
+						<li><a href="message-box/list.do"><spring:message
+									code="master.page.messagebox.list" /></a></li>
 					</ul></li>
 			</security:authorize>
 		</ul>

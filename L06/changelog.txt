@@ -1,6 +1,16 @@
+﻿Changelog 10/01/2019
 
+-Añadidos controladores y convertidores
 
-CreditCard: Los campos de valor int se han cambiado a Integer para permitir los valores nulos y poder guardar usuarios sin tarjeta de crédito
+-Actualizados Servicios y Repositorios
 
-Todos los repositorios: Reemplazado "like '%?1%'" por "like concat('%', ?1, '%')"
+-Actualizadas y añadidas vistas
+
+-Añadidos y actualizados tests
+
+-Actualizado PopulateDatabase.xml
+
+-CreditCard: Los campos de valor int se han cambiado a Integer para permitir los valores nulos y poder guardar usuarios sin tarjeta de crédito
+
+-Todos los repositorios: Reemplazado "like '%?1%'" por "like concat('%', ?1, '%')"
 
