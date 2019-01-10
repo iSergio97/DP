@@ -2035,7 +2035,7 @@
 			</list>
 		</property>
 		<property name="handyWorker" ref="handyWorker1" />
-		<property name="sponsorship" ref="sponsorship1" />
+		<property name="sponsorships" ref="sponsorship1" />
 	</bean>
 
 
