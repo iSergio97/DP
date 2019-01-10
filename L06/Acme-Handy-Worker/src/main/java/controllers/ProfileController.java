@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import security.LoginService;
 import services.ActorService;
+import services.HandyWorkerService;
 import domain.Actor;
+import domain.HandyWorker;
 
 @Controller
 @RequestMapping("/profile")
@@ -28,7 +33,10 @@ public class ProfileController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
+
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
 
 
 	// Show -------------------------------------------------------------------
@@ -40,7 +48,12 @@ public class ProfileController extends AbstractController {
 		final Actor actor = this.actorService.findByUserAccountId(id);
 
 		result = new ModelAndView("profile/show");
-
+		final List<Authority> au = (List<Authority>) actor.getUserAccount().getAuthorities();
+		final Authority auth = au.get(0);
+		if (auth.equals("HANDY_WORKER")) {
+			final HandyWorker hw = this.handyWorkerService.findById(actor.getId());
+			result.addObject("handyWorker", hw);
+		}
 		result.addObject("actor", actor);
 
 		return result;

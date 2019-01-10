@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import domain.Application;
 import domain.Endorsement;
 import domain.HandyWorker;
 import domain.Message;
+import domain.MessageBox;
 import domain.Note;
 import domain.SocialProfile;
 import domain.Tutorial;
@@ -38,27 +40,16 @@ public class HandyWorkerService {
 	// SuportingServices
 
 	@Autowired
-	private FixUpTaskService		fixUpTaskService;
-
-	@Autowired
-	private ApplicationService		applicationService;
-
-	@Autowired
 	private MessageBoxService		messageBoxService;
 
 	@Autowired
 	private UserAccountRepository	userAccountRepository;
 
-	@Autowired
-	private FinderService			finderService;
-
-	@Autowired
-	private CurriculumService		curriculumService;
-
 
 	//Methods
 
 	public HandyWorker create() {
+
 		final HandyWorker handyWorker = new HandyWorker();
 		final List<Authority> ls = new ArrayList<>();
 		final Authority authority = new Authority();
@@ -68,10 +59,11 @@ public class HandyWorkerService {
 		ua.setAuthorities(ls);
 		final UserAccount saved = this.userAccountRepository.save(ua);
 		handyWorker.setUserAccount(saved);
-		handyWorker.setMessageBoxes(this.messageBoxService.createSystemBoxes());
+		final Collection<MessageBox> mbls = this.messageBoxService.createSystemBoxes();
+		handyWorker.setMessageBoxes(mbls);
 		handyWorker.setApplications(new ArrayList<Application>());
-		handyWorker.setFinder(this.finderService.create());
-		handyWorker.setCurriculum(this.curriculumService.create());
+		handyWorker.setFinder(null);
+		handyWorker.setCurriculum(null);
 		handyWorker.setTutorials(new ArrayList<Tutorial>());
 		handyWorker.setNotes(new ArrayList<Note>());
 		handyWorker.setMessagesSent(new ArrayList<Message>());

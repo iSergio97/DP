@@ -8,54 +8,82 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
-<%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="profile.show" /></p>
+<p>
+	<spring:message code="profile.show" />
+</p>
 
 <div>
-	<spring:message code="profile.name" />: <jstl:out
-							value="${actor.name}" />
+	<spring:message code="profile.name" />
+	:
+	<jstl:out value="${actor.name}" />
 	<br>
-	
-	<spring:message code="profile.middleName" />: <jstl:out
-							value="${actor.middleName}" />
+
+	<spring:message code="profile.middleName" />
+	:
+	<jstl:out value="${actor.middleName}" />
 	<br>
-	
-	<spring:message code="profile.surname" />: <jstl:out
-							value="${actor.surname}" />
+
+	<spring:message code="profile.surname" />
+	:
+	<jstl:out value="${actor.surname}" />
 	<br>
-	
-	<spring:message code="profile.photo" />: <jstl:out
-							value="${actor.photo}" />
+
+	<spring:message code="profile.photo" />
+	:
+	<jstl:out value="${actor.photo}" />
 	<br>
-	
-	<spring:message code="profile.email" />: <jstl:out
-							value="${actor.email}" />
+
+	<spring:message code="profile.email" />
+	:
+	<jstl:out value="${actor.email}" />
 	<br>
-	
-	<spring:message code="profile.phoneNumber" />: <jstl:out
-							value="${actor.phoneNumber}" />
+
+	<spring:message code="profile.phoneNumber" />
+	:
+	<jstl:out value="${actor.phoneNumber}" />
 	<br>
-	
-	<spring:message code="profile.address" />: <jstl:out
-							value="${actor.address}" />
+
+	<spring:message code="profile.address" />
+	:
+	<jstl:out value="${actor.address}" />
 	<br>
-	
-	<spring:message code="profile.isBanned" />?: <jstl:out
-							value="${actor.isBanned}" />
-	<br>
-	
-	<security:authorize access="hasRole('CUSTOMER')"> 
-	<a href ="fixUpTask/customer/list.do">Fix-Up Tasks</a>
+
+	<security:authorize access="hasRole('HANDY_WORKER')">
+		<spring:message code="profile.make"/>
+		: 
+		<jstl:out value="${handyWorker.make" />
+		<br>
 	</security:authorize>
-	
-	<security:authorize access="hasRole('HANDY_WORKER')"> 
-	<a href ="fixUpTask/handyWorker/list.do">Fix-Up Tasks</a>
+	<spring:message code="profile.isBanned" />
+	?:
+	<jstl:if test="${actor.isBanned == false }">
+		<spring:message code='profile.isBannedTestNo' />
+	</jstl:if>
+
+
+	<jstl:if test="${actor.isBanned == true}"><spring:message code='profile.isBannedTestYes' /></jstl:if>
+	<br>
+
+
+
+
+	<security:authorize access="hasRole('CUSTOMER')">
+		<a href="fixUpTask/customer/list.do">Fix-Up Tasks</a>
+	</security:authorize>
+
+	<security:authorize access="hasRole('HANDY_WORKER')">
+	<br>
+	<br>
+		<a href="fixUpTask/handyWorker/list.do">Fix-Up Tasks</a>
 	</security:authorize>
 </div>

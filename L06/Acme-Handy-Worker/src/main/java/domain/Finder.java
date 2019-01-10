@@ -81,7 +81,7 @@ public class Finder extends DomainEntity {
 	// Relationship access methods --------------------------------------------
 
 	@Valid
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
 	public HandyWorker getHandyWorker() {
 		return this.handyWorker;
 	}

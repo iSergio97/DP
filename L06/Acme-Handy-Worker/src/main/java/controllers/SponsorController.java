@@ -10,9 +10,8 @@
 
 package controllers;
 
-import domain.Customer;
-import domain.MessageBox;
-import domain.Sponsor;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,13 +19,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 import security.UserAccount;
 import security.UserAccountRepository;
 import services.MessageBoxService;
 import services.SponsorService;
-
-import java.util.ArrayList;
-import java.util.Collection;
+import domain.MessageBox;
+import domain.Sponsor;
 
 @Controller
 @RequestMapping("/sponsor")
@@ -34,7 +33,7 @@ public class SponsorController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 	@Autowired
-	private SponsorService sponsorService;
+	private SponsorService			sponsorService;
 	@Autowired
 	private MessageBoxService		messageBoxService;
 	@Autowired
@@ -65,7 +64,6 @@ public class SponsorController extends AbstractController {
 
 		if (!binding.hasErrors()) {
 			UserAccount userAccount = sponsor.getUserAccount();
-			final Collection<MessageBox> messageBoxes = sponsor.getMessageBoxes();
 			sponsor = this.sponsorService.save(sponsor);
 
 			final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
@@ -75,7 +73,7 @@ public class SponsorController extends AbstractController {
 			sponsor = this.sponsorService.save(sponsor);
 
 			final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
-			for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
+			for (MessageBox messageBox : sponsor.getMessageBoxes()) {
 				messageBox.setActor(sponsor);
 				messageBox = this.messageBoxService.save(messageBox);
 				savedMessageBoxes.add(messageBox);

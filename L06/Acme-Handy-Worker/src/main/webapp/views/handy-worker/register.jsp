@@ -32,7 +32,8 @@
 		<form:hidden path="messagesSent" />
 		<form:hidden path="messagesReceived" />
 		<form:hidden path="notes" />
-		
+		<form:hidden path="finder" />
+		<form:hidden path="curriculum" />
 
 		<!-- Campos de entrada -->
 
@@ -114,6 +115,14 @@
 			</form:label>
 			<form:input path="photo" />
 			<form:errors path="photo" />
+		</div>
+		<br>
+		
+		<div>
+		<form:label path="make">
+		<spring:message code="security.make" />
+		<form:input path="make"/>
+		</form:label>
 		</div>
 		<br>
 

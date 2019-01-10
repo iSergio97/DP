@@ -12,6 +12,8 @@ package controllers;
 
 import java.util.ArrayList;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -27,8 +29,6 @@ import services.CustomerService;
 import services.MessageBoxService;
 import domain.Customer;
 import domain.MessageBox;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/customer")
@@ -50,7 +50,6 @@ public class CustomerController extends AbstractController {
 	}
 
 	// Register ---------------------------------------------------------------
-	//Rehacer con this.createModelAndView
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView registerGet() {
 		ModelAndView result;
@@ -60,7 +59,7 @@ public class CustomerController extends AbstractController {
 		result.addObject("customer", customer);
 		return result;
 	}
-	//Rehacer con this.createModelAndView
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView registerPost(@Valid Customer customer, final BindingResult binding) {
 		ModelAndView result;

@@ -78,8 +78,16 @@
 			</security:authorize>
 
 			<security:authorize access="isAnonymous()">
-				<li><a class="fNiv" href="customer/register.do"><spring:message
-							code="master.page.register" /></a></li>
+				<li><a class="fNiv" href="actor/registerAs.do"><spring:message
+							code="master.page.register" /></a>
+							<ul>
+							<li class="arrow"></li>
+							<li> <a href="customer/register.do"><spring:message code="master.page.customer"/></a></li>
+							<li> <a href="handy-worker/register.do"><spring:message code="master.page.handyWorker"/></a></li>
+							<li> <a href="sponsor/register.do"><spring:message code="master.page.sponsor"/></a></li>
+							
+							</ul>
+							</li>
 			</security:authorize>
 
 			<security:authorize access="isAuthenticated()">
@@ -105,7 +113,7 @@
 				<li><a class="fNiv"> <spring:message
 							code="master.page.messages" />
 				</a>
-				<ul>
+					<ul>
 						<li class="arrow"></li>
 						<li><a href="message/sendMessage.do"><spring:message
 									code="master.page.messages.send" /></a></li>
@@ -117,8 +125,6 @@
 									code="master.page.messagebox.trashbox" /></a></li>
 						<li><a href="message-box/show.do?name=SpamBox"><spring:message
 									code="master.page.messagebox.spambox" /></a></li>
-						<li><a href="message-box/list.do"><spring:message
-									code="master.page.messagebox.list" /></a></li>
 					</ul></li>
 			</security:authorize>
 		</ul>
@@ -129,3 +135,34 @@
 	</div>
 
 </div>
+
+<script type="text/javascript">
+	function changeLanguageToEsp() {
+		var actualPage = window.location.href;
+		if (actualPage.includes("language=en")) {
+			actualPage = actualPage.replace("language=en", "language=es");
+		} else if (actualPage.includes("?")) {
+			actualPage = window.location.href + "&language=es";
+		} else {
+			actualPage = window.location.href + "?language=es";
+		}
+		window.location.href = actualPage;
+
+	}
+</script>
+
+<script type="text/javascript">
+	function changeLanguageToEng() {
+		var actualPage = window.location.href;
+		if (actualPage.includes("language=es")) {
+			actualPage = actualPage.replace("language=es", "language=en");
+		} else if (actualPage.includes("?")) {
+			actualPage = window.location.href + "&language=en";
+
+		} else {
+			actualPage = window.location.href + "?language=en";
+		}
+		window.location.href = actualPage;
+
+	}
+</script>
