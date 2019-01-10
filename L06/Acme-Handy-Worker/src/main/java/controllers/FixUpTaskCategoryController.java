@@ -14,16 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
-import services.ActorService;
 import services.FixUpTaskCategoryService;
-import services.FixUpTaskService;
-import domain.Actor;
-import domain.FixUpTask;
 import domain.FixUpTaskCategory;
 
 @Controller
-@RequestMapping("/fixUpTaskCategory")
+@RequestMapping("/fixUpTaskCategory/administrator")
 public class FixUpTaskCategoryController extends AbstractController {
 
 	//Services----------------------------------------------
@@ -31,35 +26,31 @@ public class FixUpTaskCategoryController extends AbstractController {
 	@Autowired
 	private FixUpTaskCategoryService	futCatService;
 
-	@Autowired
-	private FixUpTaskService			futService;
 
-	@Autowired
-	private ActorService				actorService;
+	//	@Autowired
+	//	private FixUpTaskService			futService;
 
+	//	@Autowired
+	//	private ActorService				actorService;
 
 	//List-------------------------------------------------
 
-	@RequestMapping(value = "/admin/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<FixUpTaskCategory> categories;
 		result = new ModelAndView("fixUpTaskCategory/list");
 
-		// Add logged admin
-		final Actor admin = this.actorService.findPrincipal();
-		Assert.isTrue(admin.getUserAccount().getAuthorities().contains(Authority.ADMIN));
 		categories = this.futCatService.findAll();
 		result.addObject("categories", categories);
-		result.addObject("admin", admin);
-		result.addObject("requestURI", "fixUpTaskCategory/admin/list.do");
+		result.addObject("requestURI", "fixUpTaskCategory/administrator/list.do");
 
 		return result;
 	}
 
 	//Show------------------------------------------------
 
-	@RequestMapping(value = "/admin/show", method = RequestMethod.GET)
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int fixUpTaskCategoryId) {
 		ModelAndView result;
 		FixUpTaskCategory futCat;
@@ -72,7 +63,7 @@ public class FixUpTaskCategoryController extends AbstractController {
 
 	//Create---------------------------------------------
 
-	@RequestMapping(value = "/admin/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
 		FixUpTaskCategory futCat;
@@ -84,7 +75,7 @@ public class FixUpTaskCategoryController extends AbstractController {
 
 	//Edit---------------------------------------------
 
-	@RequestMapping(value = "/admin/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int fixUpTaskCategoryId) {
 		ModelAndView result;
 		FixUpTaskCategory futCat;
@@ -97,7 +88,7 @@ public class FixUpTaskCategoryController extends AbstractController {
 
 	//Save--------------------------------------------
 
-	@RequestMapping(value = "/admin/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final FixUpTaskCategory futCat, final BindingResult binding) {
 		ModelAndView result;
 
@@ -115,7 +106,7 @@ public class FixUpTaskCategoryController extends AbstractController {
 
 	//Delete----------------------------------------
 
-	@RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int fixUpTaskCategoryId) {
 		ModelAndView result;
 		FixUpTaskCategory futCat;
@@ -140,12 +131,13 @@ public class FixUpTaskCategoryController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final FixUpTaskCategory fixUpTaskCategory, final String messageCode) {
 		ModelAndView result;
-		Collection<FixUpTask> futs;
+		Collection<FixUpTaskCategory> parents;
 
-		futs = this.futService.findAll();
+		parents = this.futCatService.findAll();
+
 		result = new ModelAndView("fixUpTaskCategory/edit");
 		result.addObject("fixUpTaskCategory", fixUpTaskCategory);
-		result.addObject("fixUpTasks", futs);
+		result.addObject("parents", parents);
 		result.addObject("message", messageCode);
 
 		return result;

@@ -41,6 +41,8 @@
 									code="master.page.administrator.suspicious" /></a></li>
 						<li><a href="warranty/administrator/list.do"><spring:message
 									code="master.page.administrator.warranties" /></a></li>
+						<li><a href="fixUpTaskCategory/administrator/list.do"><spring:message
+									code="master.page.administrator.categories" /></a></li>
 					</ul></li>
 			</security:authorize>
 

@@ -40,7 +40,7 @@ public class FixUpTaskCategoryServiceTest extends AbstractTest {
 		Assert.isTrue(futCat.getName().equals(""));
 		Assert.isTrue(futCat.getFixUpTasks().isEmpty());
 		Assert.isTrue(futCat.getFixUpTaskCategoryChildren().isEmpty());
-		Assert.isNull(futCat.getFixUpTaskCategoryParent());
+		Assert.isTrue(futCat.getFixUpTaskCategoryParent() != null);
 
 		//---------Initialise object-------------
 		futCat.setName("Roofing");
