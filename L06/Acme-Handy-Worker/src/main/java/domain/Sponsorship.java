@@ -5,7 +5,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -62,7 +61,7 @@ public class Sponsorship extends DomainEntity {
 		this.creditCard = creditCard;
 	}
 
-	@OneToOne(mappedBy = "sponsorship")
+	@ManyToOne
 	public Tutorial getTutorial() {
 		return this.tutorial;
 	}

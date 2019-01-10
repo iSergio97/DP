@@ -82,6 +82,21 @@ public class WarrantyController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/save", method = RequestMethod.GET)
+	public ModelAndView saveDraft(@RequestParam final int warrantyId) {
+		ModelAndView result;
+		Warranty warranty;
+		warranty = this.warrantyService.findById(warrantyId);
+		warranty.setDraft(false);
+		this.warrantyService.save(warranty);
+		result = new ModelAndView("warranty/show");
+		Warranty warranty2;
+		warranty2 = this.warrantyService.findById(warrantyId);
+		result.addObject("warranty", warranty2);
+
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int warrantyId) {
 		ModelAndView result;
@@ -133,9 +148,11 @@ public class WarrantyController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Warranty warranty, final String messageCode) {
 		final ModelAndView result;
+		final Integer s = warranty.getApplicableLaws().size() - 1;
 		result = new ModelAndView("warranty/edit");
 		result.addObject("warranty", warranty);
 		result.addObject("message", messageCode);
+		result.addObject("size", s);
 		return result;
 
 	}

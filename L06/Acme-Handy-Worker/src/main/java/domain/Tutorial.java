@@ -12,7 +12,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -26,16 +25,16 @@ public class Tutorial extends DomainEntity {
 
 	// Fields -----------------------------------------------------------------
 
-	private String				title;
-	private Date				lastUpdated;
-	private String				summary;
-	private Collection<String>	pictures;
+	private String					title;
+	private Date					lastUpdated;
+	private String					summary;
+	private Collection<String>		pictures;
 
 	// Relationships ----------------------------------------------------------
 
-	private Collection<Section>	sections;
-	private HandyWorker			handyWorker;
-	private Sponsorship			sponsorship;
+	private Collection<Section>		sections;
+	private HandyWorker				handyWorker;
+	private Collection<Sponsorship>	sponsorships;
 
 
 	// Field access methods ---------------------------------------------------
@@ -99,12 +98,12 @@ public class Tutorial extends DomainEntity {
 	}
 
 	@Valid
-	@OneToOne
-	public Sponsorship getSponsorship() {
-		return this.sponsorship;
+	@OneToMany(mappedBy = "tutorial")
+	public Collection<Sponsorship> getSponsorships() {
+		return this.sponsorships;
 	}
 
-	public void setSponsorship(final Sponsorship sponsorship) {
-		this.sponsorship = sponsorship;
+	public void setSponsorships(final Collection<Sponsorship> sponsorships) {
+		this.sponsorships = sponsorships;
 	}
 }

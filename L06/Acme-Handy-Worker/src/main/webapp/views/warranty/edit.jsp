@@ -25,9 +25,15 @@
 <br/>
 
 
-<form:label path="applicableLaws"><spring:message code="warranty.laws" /></form:label>
-<form:input path="applicableLaws" />
-<form:errors cssClass="error" path="title"></form:errors>
+
+
+
+
+<jstl:forEach begin="0" end ="${size}" var="x" >
+	<form:label path="applicableLaws"><spring:message code="warranty.laws" />${x}</form:label>
+    <form:input path="applicableLaws[${x}]" />
+    <form:errors cssClass="error" path="applicableLaws"></form:errors>
+</jstl:forEach>
 <br/>
 
 <form:label path="terms"><spring:message code="warranty.terms" /></form:label>

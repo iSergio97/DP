@@ -14,6 +14,7 @@ import repositories.TutorialRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Section;
+import domain.Sponsorship;
 import domain.Tutorial;
 
 @Service
@@ -50,7 +51,7 @@ public class TutorialService {
 		tutorial.setPictures(new ArrayList<String>());
 		tutorial.setSections(new ArrayList<Section>());
 		tutorial.setSummary("");
-		tutorial.setSponsorship(this.sponsorshipService.create());
+		tutorial.setSponsorships(new ArrayList<Sponsorship>());
 		tutorial.setTitle("");
 
 		return tutorial;

@@ -93,12 +93,12 @@ public class TutorialController extends AbstractController {
 		ModelAndView result;
 		Tutorial tutorial;
 		tutorial = this.tutorialService.findById(tutorialId);
+
 		Assert.notNull(tutorial);
 		result = this.createEditModelAndView(tutorial);
 
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Tutorial tutorial, final BindingResult binding) {
 		ModelAndView result;
@@ -108,6 +108,7 @@ public class TutorialController extends AbstractController {
 		else
 			try {
 				this.tutorialService.save(tutorial);
+
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(tutorial, "tutorial.commit.error");

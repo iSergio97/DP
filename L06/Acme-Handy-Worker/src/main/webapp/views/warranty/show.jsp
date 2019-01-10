@@ -13,11 +13,11 @@
 <jstl:out value="Title: ${warranty.title}"/><br/>
 <jstl:out value="Laws: ${warranty.applicableLaws}"/><br/>
 <jstl:out value="Terms: ${warranty.terms}"/><br/>
-<jstl:out value="Terms: ${warranty.draft}"/><br/>
 
 
 
-<jstl:if test="${!warranty.draft}">
+
+<jstl:if test="${warranty.draft}">
 <a href="warranty/administrator/save.do?warrantyId=${warranty.id}">Save</a>
 <a href="warranty/administrator/edit.do?warrantyId=${warranty.id}">Edit</a>
 <a href="warranty/administrator/delete.do?warrantyId=${warranty.id}">Delete</a>
