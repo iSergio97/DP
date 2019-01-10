@@ -115,8 +115,21 @@ public class MessageBoxService {
 
 	// Other Methods ----------------------------------------------------------------
 
-	MessageBox[] getMessageBoxes(final Actor a) {
+	public MessageBox[] getMessageBoxes(final Actor a) {
 		return this.messageBoxRepository.getMessageBoxes(a.getId());
+	}
+
+	public List<MessageBox> getSystemBoxes(final Actor a) {
+		final List<MessageBox> systemBoxes = new ArrayList<>();
+		systemBoxes.add(this.messageBoxRepository.getInBox(a.getId()));
+		systemBoxes.add(this.messageBoxRepository.getOutBox(a.getId()));
+		systemBoxes.add(this.messageBoxRepository.getTrashBox(a.getId()));
+		systemBoxes.add(this.messageBoxRepository.getSpamBox(a.getId()));
+		return systemBoxes;
+	}
+
+	public MessageBox[] findByPrincipalAndId(final int id, final int messageBoxId) {
+		return this.messageBoxRepository.findByPrincipalAndId(id, messageBoxId);
 	}
 
 	public MessageBox[] findByPrincipalAndName(final int id, final String name) {

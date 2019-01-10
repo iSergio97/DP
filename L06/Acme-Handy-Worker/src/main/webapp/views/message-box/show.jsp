@@ -41,9 +41,9 @@
 			</jstl:when>
 		</jstl:choose>
 	</display:column>
-	<display:column titleKey="message.options">
+	<display:column titleKey="options.options">
 		<a href="message/show.do?id=<jstl:out value="${message.id}" />">
-			<spring:message code="message.open" />
+			<spring:message code="options.open" />
 		</a>
 	</display:column>
 </display:table>
@@ -51,9 +51,19 @@
 <br/>
 
 <jstl:if test="${messageBox.name != 'InBox' && messageBox.name != 'OutBox' && messageBox.name != 'TrashBox' && messageBox.name != 'SpamBox'}">
-	<a href="message-box/delete.do?name=<jstl:out value="${messageBox.name}" />">
-		<spring:message code="messageBox.delete" />
-	</a>
+	<form:form modelAttribute="messageBox" action="message-box/edit.do">
+		<form:hidden path="id" />
+		<form:hidden path="version" />
+		<input type="submit" name="delete" value="<spring:message code="options.delete" />" />
+		
+	</form:form>
+	
+	<!-- 
+		<a href="message-box/delete.do?name=<jstl:out value="${messageBox.id}" />">
+			<spring:message code="options.delete" />
+		</a>
+	 -->
+	
 </jstl:if>
 
 <!--
