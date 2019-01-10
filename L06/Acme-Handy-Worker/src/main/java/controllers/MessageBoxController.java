@@ -70,7 +70,7 @@ public class MessageBoxController {
 
 	// Create ----------------------------------------------------------------
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		final ModelAndView result;
 		final MessageBox messageBox;
