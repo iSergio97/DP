@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -75,4 +76,9 @@ public class PhaseService {
 
 	// Other methods ----------------------------------------------------------
 
+	//Este metodo devuelve las phases asociado a un id de un workplan
+	public Collection<Phase> findByWorkplanId(final int id) {
+
+		return this.phaseRepository.findByWorkplanId(id);
+	}
 }

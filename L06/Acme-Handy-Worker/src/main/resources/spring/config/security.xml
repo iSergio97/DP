@@ -68,6 +68,11 @@
 		<security:intercept-url pattern="/customer/handyWorker/**" access="hasRole('HANDY_WORKER')" />
 		<security:intercept-url pattern="/customer/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/tutorial/**" access="hasRole('HANDY_WORKER')" />
+		
+		<security:intercept-url pattern="/finder/handyWorker/**" access="hasRole('HANDY_WORKER')" /> 
+		
+		
+		 
 
 		<security:intercept-url pattern="/profile/show.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/edit.do" access="isAuthenticated()" /> 

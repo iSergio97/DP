@@ -71,6 +71,8 @@
 									code="master.page.fixUpTask.handyWorker" /></a></li>
 						<li><a href="tutorial/listhandyworker.do"><spring:message
 									code="master.page.tutorial.handyWorker" /></a></li>
+						<li><a href="finder/handyWorker/edit.do"><spring:message
+									code="master.page.finder.handyWorker" /></a></li>
 					</ul></li>
 			</security:authorize>
 

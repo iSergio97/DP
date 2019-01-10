@@ -49,7 +49,6 @@ public class HandyWorkerService {
 	//Methods
 
 	public HandyWorker create() {
-
 		final HandyWorker handyWorker = new HandyWorker();
 		final List<Authority> ls = new ArrayList<>();
 		final Authority authority = new Authority();
@@ -118,6 +117,12 @@ public class HandyWorkerService {
 
 	public List<HandyWorker> getTopComplaints() {
 		return this.handyWorkerRepository.getTopComplaints();
+	}
+
+	// Custom Methods-------------------------------------------------------------------
+
+	public HandyWorker getHandyWorkerbyUserAccountId(final int userAccountId) {
+		return this.handyWorkerRepository.getHandyWorkerbyUserAccountId(userAccountId);
 	}
 
 	//	public HandyWorker getHandyWorkerByUserAccountId(final int userAccountId) {

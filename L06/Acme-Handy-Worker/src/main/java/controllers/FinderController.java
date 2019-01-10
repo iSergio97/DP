@@ -11,25 +11,29 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.FinderService;
 import services.FixUpTaskCategoryService;
+import services.HandyWorkerService;
 import services.WarrantyService;
 import domain.Finder;
 import domain.FixUpTaskCategory;
+import domain.HandyWorker;
 import domain.Warranty;
 
 @Controller
 //Se especifica que esta clase es un controlador	
-@RequestMapping("/finder/handy-worker")
+@RequestMapping("/finder/handyWorker")
 //Un contrlador que sirve para las llamadas relacionadas con esta url
 public class FinderController extends AbstractController {
 
 	@Autowired
 	private FinderService				finderService;				//Vamos a requerir del servicio de finders
+
+	@Autowired
+	private HandyWorkerService			handyWorkerService;		//Servicio de los handy worker
 
 	@Autowired
 	private FixUpTaskCategoryService	fixUpTaskCategoryService;	//Necesitamos el servicio de categorias
@@ -38,8 +42,9 @@ public class FinderController extends AbstractController {
 	private WarrantyService				warrantyService;			//necesitamos el serivicio de warrantys
 
 
+	//TODO ARREGLAR
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView show() {
 
 		final ModelAndView result;
 		final Finder finder;
@@ -54,11 +59,13 @@ public class FinderController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int finderId) {
+	public ModelAndView edit() {
 		final ModelAndView result;
 		final Finder finder;
+		HandyWorker handyWorker;
 
-		finder = this.finderService.findById(finderId);
+		handyWorker = this.handyWorkerService.getHandyWorkerbyUserAccountId(LoginService.getPrincipal().getId());
+		finder = this.finderService.findByHandyWorkerId(handyWorker.getId());
 		Assert.notNull(finder);
 		result = this.createEditModelAndView(finder);
 		return result;
@@ -73,7 +80,7 @@ public class FinderController extends AbstractController {
 		else
 			try {
 				this.finderService.save(finder);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(finder, "finder.commit.error");
 			}
@@ -81,6 +88,21 @@ public class FinderController extends AbstractController {
 	}
 
 	/* Los finder no tienen metodo delete -------------------------------------- */
+
+	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	//	public ModelAndView delete(final Finder finder, final BindingResult binding) {
+	//
+	//		ModelAndView result;
+	//
+	//		try {
+	//			this.finderService.delete(finder);
+	//			result = new ModelAndView("redirect:list.do");
+	//		} catch (final Throwable oops) {
+	//			result = this.createEditModelAndView(finder, "finder.commit.error");
+	//		}
+	//
+	//		return result;
+	//	}
 
 	//Este metodo es un bypass a un segundo meodo con 2 valores de entrada
 	protected ModelAndView createEditModelAndView(final Finder finder) {
@@ -96,9 +118,11 @@ public class FinderController extends AbstractController {
 
 		final ModelAndView result;
 		FixUpTaskCategory category;
+		final Collection<FixUpTaskCategory> categories;
 		Warranty warranty;
 		Collection<Warranty> warranties;
 
+		categories = this.fixUpTaskCategoryService.findAll();
 		warranties = this.warrantyService.findAll();
 		if (finder.getWarranty() == null)
 			warranty = null;
@@ -108,9 +132,10 @@ public class FinderController extends AbstractController {
 			category = null;
 		else
 			category = finder.getFixUpTaskCategory();
-		result = new ModelAndView("finder/edit");
+		result = new ModelAndView("finder/handyWorker/edit");
+		result.addObject("finder", finder);
 		result.addObject("warranties", warranties);
-		result.addObject("category", category);
+		result.addObject("categories", categories);
 		result.addObject("message", messageCode);
 
 		return result;

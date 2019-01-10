@@ -14,4 +14,5 @@ public interface FinderRepository extends JpaRepository<Finder, Integer> {
 
 	@Query("select f from Finder f where f.handyWorker.id = ?1")
 	Finder findByHandyWorkerId(int handyWorkerId);
+
 }

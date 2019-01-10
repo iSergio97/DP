@@ -20,7 +20,9 @@ public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Intege
 	@Query("select a.handyWorker from Application a group by a.handyWorker order by sum(a.fixUpTask.complaints.size)")
 	List<HandyWorker> getTopComplaints();
 
-//	@Query("select hw from HandyWorker hw where hw.userAccount.id=?1")
-//	HandyWorker findByUserAccountId(int userAccountId);
+	//	@Query("select hw from HandyWorker hw where hw.userAccount.id=?1")
+	//	HandyWorker findByUserAccountId(int userAccountId);
 
+	@Query("select h from HandyWorker h where h.userAccount.id =?1")
+	HandyWorker getHandyWorkerbyUserAccountId(int userAccountId);
 }

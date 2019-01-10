@@ -111,4 +111,5 @@ public class FinderService {
 
 		return this.finderRepository.findByHandyWorkerId(id);
 	}
+
 }
