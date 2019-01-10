@@ -87,9 +87,9 @@
 							code="master.page.register" /></a>
 							<ul>
 							<li class="arrow"></li>
-							<li> <a href="customer/register.do"><spring:message code="master.page.customer"/></a></li>
-							<li> <a href="handy-worker/register.do"><spring:message code="master.page.handyWorker"/></a></li>
-							<li> <a href="sponsor/register.do"><spring:message code="master.page.sponsor"/></a></li>
+							<li> <a href="customer/register.do"><spring:message code="master.page.customer2"/></a></li>
+							<li> <a href="handy-worker/register.do"><spring:message code="master.page.handyWorker2"/></a></li>
+							<li> <a href="sponsor/register.do"><spring:message code="master.page.sponsor2"/></a></li>
 							
 							</ul>
 							</li>
