@@ -82,21 +82,6 @@ public class FinderController extends AbstractController {
 
 	/* Los finder no tienen metodo delete -------------------------------------- */
 
-	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	//	public ModelAndView delete(final Finder finder, final BindingResult binding) {
-	//
-	//		ModelAndView result;
-	//
-	//		try {
-	//			this.finderService.delete(finder);
-	//			result = new ModelAndView("redirect:list.do");
-	//		} catch (final Throwable oops) {
-	//			result = this.createEditModelAndView(finder, "finder.commit.error");
-	//		}
-	//
-	//		return result;
-	//	}
-
 	//Este metodo es un bypass a un segundo meodo con 2 valores de entrada
 	protected ModelAndView createEditModelAndView(final Finder finder) {
 
@@ -115,16 +100,14 @@ public class FinderController extends AbstractController {
 		Collection<Warranty> warranties;
 
 		warranties = this.warrantyService.findAll();
-		if (finder.getWarranty() == null) {
+		if (finder.getWarranty() == null)
 			warranty = null;
-		} else {
+		else
 			warranty = finder.getWarranty();
-		}
-		if (finder.getFixUpTaskCategory() == null) {
+		if (finder.getFixUpTaskCategory() == null)
 			category = null;
-		} else {
+		else
 			category = finder.getFixUpTaskCategory();
-		}
 		result = new ModelAndView("finder/edit");
 		result.addObject("warranties", warranties);
 		result.addObject("category", category);

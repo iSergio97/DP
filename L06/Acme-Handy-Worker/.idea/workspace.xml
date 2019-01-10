@@ -11,11 +11,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controllers/CustomerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="58" column="40" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="40" />
+            <state relative-caret-position="180">
+              <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/HandyWorkerController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="87" column="58" selection-start-line="87" selection-start-column="58" selection-end-line="87" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/SponsorController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="138">
+              <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -85,8 +103,6 @@
         <option value="$PROJECT_DIR$/src/main/java/converters/StringToMessageBoxConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/converters/UserAccountToStringConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/converters/StringToUserAccountConverter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controllers/SponsorController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controllers/HandyWorkerController.java" />
         <option value="$PROJECT_DIR$/src/main/java/converters/AdminToStringConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/converters/StringToAdminConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/converters/CurriculumToStringConverter.java" />
@@ -123,9 +139,11 @@
         <option value="$PROJECT_DIR$/src/main/java/converters/StringToTutorialConverter.java" />
         <option value="$PROJECT_DIR$/src/main/resources/PopulateDatabase.xml" />
         <option value="$PROJECT_DIR$/src/main/java/services/MessageBoxService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controllers/CustomerController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/views/message/sendMessage.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/views/customer/register.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/controllers/CustomerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controllers/HandyWorkerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controllers/SponsorController.java" />
       </list>
     </option>
   </component>
@@ -294,7 +312,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.30257186" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30257186" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -337,20 +355,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/4.0.0.RELEASE/spring-core-4.0.0.RELEASE-sources.jar!/org/springframework/core/convert/converter/Converter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="38" column="6" selection-start-line="38" selection-start-column="6" selection-end-line="38" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/converters/PhaseToStringConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/converters/ProfessionalRecordToStringConverter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -695,8 +699,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/CustomerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="58" column="40" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="40" />
+        <state relative-caret-position="180">
+          <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/HandyWorkerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="87" column="58" selection-start-line="87" selection-start-column="58" selection-end-line="87" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/SponsorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
         </state>
       </provider>
     </entry>

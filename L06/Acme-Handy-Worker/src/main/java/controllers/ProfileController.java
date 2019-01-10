@@ -12,19 +12,25 @@ package controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
 import security.LoginService;
 import services.ActorService;
+import services.CustomerService;
 import services.HandyWorkerService;
+import services.SponsorService;
 import domain.Actor;
+import domain.Customer;
 import domain.HandyWorker;
+import domain.Sponsor;
 
 @Controller
 @RequestMapping("/profile")
@@ -37,6 +43,12 @@ public class ProfileController extends AbstractController {
 
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
+
+	@Autowired
+	private CustomerService		customerService;
+
+	@Autowired
+	private SponsorService		sponsorService;
 
 
 	// Show -------------------------------------------------------------------
@@ -58,26 +70,45 @@ public class ProfileController extends AbstractController {
 
 		return result;
 	}
-	// Edit -------------------------------------------------------------------
+	// Edit GET -------------------------------------------------------------------
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView edit(@RequestParam(value = "id") final int id) {
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView editGet() {
 		ModelAndView result;
 
+		final int id = LoginService.getPrincipal().getId();
 		final Actor actor = this.actorService.findByUserAccountId(id);
 
 		result = new ModelAndView("profile/edit");
-
 		result.addObject("actor", actor);
-
 		return result;
 	}
 
-	// Action-3 ---------------------------------------------------------------		
+	//Edit POST
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView editPost(@Valid final Actor a, final BindingResult binding) {
+		ModelAndView result;
 
-	@RequestMapping("/action-3")
-	public ModelAndView action3() {
-		throw new RuntimeException("Oops! An *expected* exception was thrown. This is normal behaviour.");
+		if (!binding.hasErrors()) {
+			final List<Authority> au = (List<Authority>) a.getUserAccount().getAuthorities();
+			final String authority = au.get(0).getAuthority();
+			final int id = a.getId();
+			if (authority.equals("CUSTOMER")) {
+				final Customer customer = this.customerService.findById(id);
+				this.customerService.save(customer);
+			} else if (authority.equals("HANDY_WORKER")) {
+				final HandyWorker hw = this.handyWorkerService.findById(id);
+				this.handyWorkerService.save(hw);
+			} else {
+				final Sponsor sp = this.sponsorService.findById(id);
+				this.sponsorService.save(sp);
+			}
+			result = new ModelAndView("redirect:show");
+		} else {
+			result = new ModelAndView("redirect:edit");
+			result.addObject("actor", a);
+			result.addObject("errors", binding);
+		}
+		return result;
 	}
-
 }

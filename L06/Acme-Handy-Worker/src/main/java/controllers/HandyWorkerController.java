@@ -20,15 +20,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
 import security.UserAccountRepository;
-import services.FinderService;
 import services.HandyWorkerService;
 import services.MessageBoxService;
-import domain.Finder;
 import domain.HandyWorker;
 import domain.MessageBox;
 
@@ -45,9 +42,6 @@ public class HandyWorkerController extends AbstractController {
 
 	@Autowired
 	private UserAccountRepository	userAccountRepository;
-
-	@Autowired
-	private FinderService			finderService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -91,47 +85,12 @@ public class HandyWorkerController extends AbstractController {
 			handyWorker.setMessageBoxes(savedMessageBoxes);
 			handyWorker = this.handyWorkerService.save(handyWorker);
 
-			result = new ModelAndView("redirect:register-finder");
+			result = new ModelAndView("redirect:../welcome");
 		} else {
 			result = new ModelAndView("handy-worker/register");
 			result.addObject("handyWorker", handyWorker);
 			result.addObject("showError", binding);
 		}
-
-		return result;
-	}
-	@RequestMapping(value = "/register-finder", method = RequestMethod.GET)
-	public ModelAndView registerFinder() {
-		final ModelAndView result;
-		Finder finder;
-		finder = this.finderService.create();
-		result = new ModelAndView("handy-worker/registerFinder");
-		result.addObject("finder", finder);
-		return result;
-	}
-
-	@RequestMapping(value = "/register-finder", method = RequestMethod.POST)
-	public ModelAndView registerFinder(@Valid final Finder finder, final BindingResult results) {
-		final ModelAndView result;
-		if (!results.hasErrors()) {
-			this.finderService.save(finder);
-			result = new ModelAndView("redirect:register-curriculim.do");
-		} else {
-			result = new ModelAndView("handy-worker/register-finder");
-			result.addObject("finder", finder);
-			result.addObject("showError", results);
-		}
-		return result;
-	}
-
-	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int handyWorkerId) {
-		// Create result object
-		ModelAndView result;
-		HandyWorker handyWorker;
-		result = new ModelAndView("handy-worker/show");
-		handyWorker = this.handyWorkerService.findById(handyWorkerId);
-		result.addObject("handyWorker", handyWorker);
 
 		return result;
 	}

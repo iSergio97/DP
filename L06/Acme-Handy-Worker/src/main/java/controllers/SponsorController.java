@@ -12,6 +12,8 @@ package controllers;
 
 import java.util.ArrayList;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -59,29 +61,29 @@ public class SponsorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView registerPost(Sponsor sponsor, final BindingResult binding) {
+	public ModelAndView registerPost(@Valid Sponsor sponsor, final BindingResult binding) {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			UserAccount userAccount = sponsor.getUserAccount();
-			sponsor = this.sponsorService.save(sponsor);
+				UserAccount userAccount = sponsor.getUserAccount();
+				sponsor = this.sponsorService.save(sponsor);
 
-			final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
-			userAccount.setPassword(password);
-			userAccount = this.userAccountRepository.save(userAccount);
-			sponsor.setUserAccount(userAccount);
-			sponsor = this.sponsorService.save(sponsor);
+				final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
+				userAccount.setPassword(password);
+				userAccount = this.userAccountRepository.save(userAccount);
+				sponsor.setUserAccount(userAccount);
+				sponsor = this.sponsorService.save(sponsor);
 
-			final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
-			for (MessageBox messageBox : sponsor.getMessageBoxes()) {
-				messageBox.setActor(sponsor);
-				messageBox = this.messageBoxService.save(messageBox);
-				savedMessageBoxes.add(messageBox);
-			}
-			sponsor.setMessageBoxes(savedMessageBoxes);
-			sponsor = this.sponsorService.save(sponsor);
+				final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
+				for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
+					messageBox.setActor(sponsor);
+					messageBox = this.messageBoxService.save(messageBox);
+					savedMessageBoxes.add(messageBox);
+				}
+				sponsor.setMessageBoxes(savedMessageBoxes);
+				sponsor = this.sponsorService.save(sponsor);
 
-			result = new ModelAndView("redirect:show.do");
+				result = new ModelAndView("redirect:../welcome");
 		} else {
 			result = new ModelAndView("customer/register");
 			result.addObject("sponsor", sponsor);

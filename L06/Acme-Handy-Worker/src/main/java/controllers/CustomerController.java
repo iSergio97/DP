@@ -65,25 +65,25 @@ public class CustomerController extends AbstractController {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			UserAccount userAccount = customer.getUserAccount();
-			customer = this.customerService.save(customer);
+				UserAccount userAccount = customer.getUserAccount();
+				customer = this.customerService.save(customer);
 
-			final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
-			userAccount.setPassword(password);
-			userAccount = this.userAccountRepository.save(userAccount);
-			customer.setUserAccount(userAccount);
-			customer = this.customerService.save(customer);
+				final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
+				userAccount.setPassword(password);
+				userAccount = this.userAccountRepository.save(userAccount);
+				customer.setUserAccount(userAccount);
+				customer = this.customerService.save(customer);
 
-			final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
-			for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
-				messageBox.setActor(customer);
-				messageBox = this.messageBoxService.save(messageBox);
-				savedMessageBoxes.add(messageBox);
-			}
-			customer.setMessageBoxes(savedMessageBoxes);
-			customer = this.customerService.save(customer);
+				final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
+				for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
+					messageBox.setActor(customer);
+					messageBox = this.messageBoxService.save(messageBox);
+					savedMessageBoxes.add(messageBox);
+				}
+				customer.setMessageBoxes(savedMessageBoxes);
+				customer = this.customerService.save(customer);
 
-			result = new ModelAndView("redirect:index");
+				result = new ModelAndView("redirect:../welcome");
 		} else {
 			result = new ModelAndView("customer/register");
 			result.addObject("customer", customer);

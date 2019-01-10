@@ -57,13 +57,6 @@
 	:
 	<jstl:out value="${actor.address}" />
 	<br>
-
-	<security:authorize access="hasRole('HANDY_WORKER')">
-		<spring:message code="profile.make"/>
-		: 
-		<jstl:out value="${handyWorker.make" />
-		<br>
-	</security:authorize>
 	<spring:message code="profile.isBanned" />
 	?:
 	<jstl:if test="${actor.isBanned == false }">
@@ -71,19 +64,25 @@
 	</jstl:if>
 
 
-	<jstl:if test="${actor.isBanned == true}"><spring:message code='profile.isBannedTestYes' /></jstl:if>
+	<jstl:if test="${actor.isBanned == true}">
+		<spring:message code='profile.isBannedTestYes' />
+	</jstl:if>
 	<br>
 
-
-
+		<a href="profile/edit.do">Editar perfil</a>
 
 	<security:authorize access="hasRole('CUSTOMER')">
+		<br>
+		<a href="fixUpTask/customer/list.do">Fix-Up Tasks</a>
+	</security:authorize>
+
+	<security:authorize access="hasRole('SPONSOR')">
+		<br>
 		<a href="fixUpTask/customer/list.do">Fix-Up Tasks</a>
 	</security:authorize>
 
 	<security:authorize access="hasRole('HANDY_WORKER')">
-	<br>
-	<br>
+		<br>
 		<a href="fixUpTask/handyWorker/list.do">Fix-Up Tasks</a>
 	</security:authorize>
 </div>

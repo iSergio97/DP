@@ -18,8 +18,8 @@
 		<value>/views/misc/tiles.xml</value>
 		<value>/views/security/tiles.xml</value>
 		<value>/views/welcome/tiles.xml</value>
+		
 		<value>/views/handy-worker/tiles.xml</value>
-
 		<value>/views/administrator/tiles.xml</value>
 		<value>/views/application/tiles.xml</value>
 		<value>/views/customer/tiles.xml</value>
@@ -29,6 +29,7 @@
 		<value>/views/message-box/tiles.xml</value>
 		<value>/views/warranty/tiles.xml</value>
 		<value>/views/tutorial/tiles.xml</value>
+		<value>/views/sponsor/tiles.xml</value>
 		
 	</util:list>
 

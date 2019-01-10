@@ -19,9 +19,5 @@
 		<put-attribute name="title" value="Registrando un buscador para ti" />
 		<put-attribute name="body" value="/views/handy-worker/register-finder.jsp" />
 	</definition>
-	
-	<definition name="handy-worker/show" extends="master.page">
-		<put-attribute name="title" value="Ver Trabajador" />
-		<put-attribute name="body" value="/views/handy-worker/show.jsp" />
-	</definition>
+
 </tiles-definitions>
