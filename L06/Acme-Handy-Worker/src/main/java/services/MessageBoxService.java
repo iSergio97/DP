@@ -40,9 +40,6 @@ public class MessageBoxService {
 		mb.setActor(this.actorService.findPrincipal());
 		mb.setName("");
 		mb.setMessages(new ArrayList<Message>());
-
-		this.messageBoxRepository.save(mb);
-
 		return mb;
 	}
 
