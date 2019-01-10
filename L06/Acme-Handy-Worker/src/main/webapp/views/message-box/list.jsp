@@ -18,13 +18,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table name="messageBoxes" id="messageBox">
-	<display:column titleKey="options.blank">
-		<a href="message-box/show.do?name=<jstl:out value="${messageBox.name}" />">
-			<spring:message code="options.edit"/>
-		</a>
-	</display:column>
 	<display:column titleKey="messageBox.name">
 		<jstl:out value="${messageBox.name}" />
+	</display:column>
+	<display:column titleKey="options.blank">
+		<a href="message-box/edit.do?id=<jstl:out value="${messageBox.id}" />">
+			<spring:message code="options.edit"/>
+		</a>
 	</display:column>
 </display:table>
 
