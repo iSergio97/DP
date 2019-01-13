@@ -54,11 +54,13 @@
 				<spring:message code="application.open" />
 			</a>
 			<jstl:if test = "${row.status == 'PENDING'}">
-				<form action="application/customer.do" method="POST">
-					<input type="hidden" name="id" value="<jstl:out value="${row.id}" />">
-					<input type="submit" name="accept" value='<spring:message code="application.accept" />' />
-					<input type="submit" name="reject" value='<spring:message code="application.reject" />' />
-				</form>
+				<jstl:if test = "${row.fixUpTask.timeLimit < currentDate}">
+					<form action="application/customer.do" method="POST">
+						<input type="hidden" name="id" value="<jstl:out value="${row.id}" />">
+						<input type="submit" name="accept" value='<spring:message code="application.accept" />' />
+						<input type="submit" name="reject" value='<spring:message code="application.reject" />' />
+					</form>
+				</jstl:if>
 			</jstl:if>
 		</div>
 	</display:column>

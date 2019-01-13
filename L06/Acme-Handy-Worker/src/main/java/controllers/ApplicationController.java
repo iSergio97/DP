@@ -12,6 +12,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +115,7 @@ public class ApplicationController extends AbstractController {
 			applications.addAll(f.getApplications());
 		result = new ModelAndView("application/customer");
 		result.addObject("applications", applications);
+		result.addObject("currentDate", new Date());
 
 		return result;
 	}
@@ -127,6 +129,8 @@ public class ApplicationController extends AbstractController {
 		customer = this.customerService.findPrincipal();
 
 		Assert.isTrue(application.getFixUpTask().getCustomer().equals(customer));
+		Assert.isTrue(application.getStatus().equals("PENDING"));
+		Assert.isTrue(application.getFixUpTask().getTimeLimit().before(new Date()));
 
 		application.setStatus("ACCEPTED");
 		this.applicationService.save(application);
@@ -143,6 +147,8 @@ public class ApplicationController extends AbstractController {
 		customer = this.customerService.findPrincipal();
 
 		Assert.isTrue(application.getFixUpTask().getCustomer().equals(customer));
+		Assert.isTrue(application.getStatus().equals("PENDING"));
+		Assert.isTrue(application.getFixUpTask().getTimeLimit().before(new Date()));
 
 		application.setStatus("REJECTED");
 		this.applicationService.save(application);
@@ -163,6 +169,7 @@ public class ApplicationController extends AbstractController {
 
 		result = new ModelAndView("application/handyworker");
 		result.addObject("applications", applications);
+		result.addObject("currentDate", new Date());
 
 		return result;
 	}
