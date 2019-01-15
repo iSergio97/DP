@@ -87,12 +87,6 @@ public class HandyWorkerController extends AbstractController {
 			userAccount = this.userAccountRepository.save(userAccount);
 			handyWorker.setUserAccount(userAccount);
 			handyWorker = this.handyWorkerService.save(handyWorker);
-			Finder finder = handyWorker.getFinder();
-			Warranty warranty = finder.getWarranty();
-			warranty = this.warrantyService.save(warranty);
-			finder.setWarranty(warranty);
-			finder = this.finderService.save(finder);
-			handyWorker.setFinder(finder);
 
 			final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
 			for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
@@ -101,6 +95,13 @@ public class HandyWorkerController extends AbstractController {
 				savedMessageBoxes.add(messageBox);
 			}
 			handyWorker.setMessageBoxes(savedMessageBoxes);
+			Finder finder = this.finderService.create();
+			Warranty warranty = this.warrantyService.create();
+			warranty = this.warrantyService.save(warranty);
+			finder.setWarranty(warranty);
+			finder.setHandyWorker(handyWorker);
+			finder = this.finderService.save(finder);
+			handyWorker.setFinder(finder);
 			handyWorker = this.handyWorkerService.save(handyWorker);
 			result = new ModelAndView("redirect:..welcome/index");
 		} else {

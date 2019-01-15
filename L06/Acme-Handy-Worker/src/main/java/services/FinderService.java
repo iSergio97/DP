@@ -61,6 +61,8 @@ public class FinderService {
 
 		finder.setFixUpTasks(this.fixUpTaskService.findAll());
 		finder.setWarranty(this.warrantyService.create());
+		finder.setMinimumPrice(0);
+		finder.setMaximumPrice(100000);
 
 		return finder;
 	}

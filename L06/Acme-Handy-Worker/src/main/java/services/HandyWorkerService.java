@@ -64,7 +64,7 @@ public class HandyWorkerService {
 		final Collection<MessageBox> mbls = this.messageBoxService.createSystemBoxes();
 		handyWorker.setMessageBoxes(mbls);
 		handyWorker.setApplications(new ArrayList<Application>());
-		handyWorker.setFinder(null);
+		handyWorker.setFinder(this.finderService.create());
 		handyWorker.setCurriculum(null);
 		handyWorker.setTutorials(new ArrayList<Tutorial>());
 		handyWorker.setNotes(new ArrayList<Note>());
@@ -82,7 +82,6 @@ public class HandyWorkerService {
 		handyWorker.setName("");
 		handyWorker.setSurname("");
 		handyWorker.setMake("");
-		handyWorker.setFinder(this.finderService.create());
 
 		return handyWorker;
 	}
