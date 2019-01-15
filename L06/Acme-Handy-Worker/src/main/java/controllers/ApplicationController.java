@@ -129,6 +129,7 @@ public class ApplicationController extends AbstractController {
 		customer = this.customerService.findPrincipal();
 
 		Assert.isTrue(application.getFixUpTask().getCustomer().equals(customer));
+		Assert.isTrue(customer.getCreditCard() != null);
 		Assert.isTrue(application.getStatus().equals("PENDING"));
 		Assert.isTrue(application.getFixUpTask().getTimeLimit().before(new Date()));
 
