@@ -51,9 +51,17 @@ public class MessageController {
 		lsActors.remove(a);
 		Message mesage;
 		mesage = this.messageService.create();
+
 		result = new ModelAndView("message/sendMessage");
+		//final List<MessageBox> ls = new ArrayList<>();
+		//ls.add((MessageBox) a.getMessageBoxes().toArray()[0]);
+		final MessageBox[] outBoxes = this.messageBoxService.findByPrincipalAndName(a.getId(), "OutBox");
+		final MessageBox outBox = outBoxes[0];
+
 		final List<MessageBox> ls = new ArrayList<>();
-		ls.add((MessageBox) a.getMessageBoxes().toArray()[0]);
+		ls.add(outBox);
+		mesage.setMessageBoxes(ls);
+		outBox.getMessages().add(mesage);
 		mesage.setMessageBoxes(ls);
 		result.addObject("domainMessage", mesage);
 		result.addObject("actors", lsActors);
@@ -72,12 +80,21 @@ public class MessageController {
 
 			Collection<Actor> recipients;
 			recipients = mesage.getRecipients();
+
 			this.messageBoxService.save(sender.getMessageBoxes());
 			mesage = this.messageService.save(mesage);
 			sender.getMessagesSent().add(mesage);
-			//this.messageService.save(mesage);
+			//Añadido ahora
+			final MessageBox[] outBoxes = this.messageBoxService.findByPrincipalAndName(sender.getId(), "OutBox");
+			final MessageBox outBox = outBoxes[0];
+			final List<MessageBox> ls = new ArrayList<>();
+			ls.add(outBox);
+			mesage.setMessageBoxes(ls);
+			outBox.getMessages().add(mesage);
+			this.messageService.save(mesage);
+			this.messageBoxService.save(outBox);
+
 			for (final Actor a : recipients) {
-				//TODO REVISAR PORQUÉ SÓLO SE AÑADE A UN ACTOR (POSIBLE RANDOM)
 				final MessageBox[] inBoxes = this.messageBoxService.findByPrincipalAndName(a.getId(), "InBox");
 				a.getMessagesReceived().add(mesage);
 				final MessageBox inBox = inBoxes[0];
@@ -85,10 +102,12 @@ public class MessageController {
 				ls1.add(inBox);
 				mesage.setMessageBoxes(ls1);
 				inBox.getMessages().add(mesage);
+				//TODO AÑADIDO AHORA
+				this.messageService.save(mesage);
 				this.messageBoxService.save(inBox);
 				//this.messageService.save(mesage);
 			}
-			result = new ModelAndView("redirect: show");
+			result = new ModelAndView("redirect: ..welcome/index");
 
 		} else {
 			for (int i = 0; i < bindingResult.getErrorCount(); i++)
