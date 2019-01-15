@@ -26,8 +26,10 @@
 		<value>/views/administrator/messages</value>
 		<value>/views/application/messages</value>
 		<value>/views/customer/messages</value>
+		<value>/views/complaint/messages</value>
 		<value>/views/profile/messages</value>
 		<value>/views/fix-up-task/messages</value>
+		<value>/views/fixUpTaskCategory/messages</value>
 		<value>/views/message/messages</value>
 		<value>/views/message-box/messages</value>
 		<value>/views/warranty/messages</value>

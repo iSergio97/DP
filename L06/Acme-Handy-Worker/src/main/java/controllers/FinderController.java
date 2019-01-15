@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +18,7 @@ import services.FixUpTaskCategoryService;
 import services.HandyWorkerService;
 import services.WarrantyService;
 import domain.Finder;
+import domain.FixUpTask;
 import domain.FixUpTaskCategory;
 import domain.HandyWorker;
 import domain.Warranty;
@@ -66,7 +66,7 @@ public class FinderController extends AbstractController {
 
 		handyWorker = this.handyWorkerService.getHandyWorkerbyUserAccountId(LoginService.getPrincipal().getId());
 		finder = this.finderService.findByHandyWorkerId(handyWorker.getId());
-		Assert.notNull(finder);
+		//Assert.notNull(finder);
 		result = this.createEditModelAndView(finder);
 		return result;
 	}
@@ -137,6 +137,23 @@ public class FinderController extends AbstractController {
 		result.addObject("warranties", warranties);
 		result.addObject("categories", categories);
 		result.addObject("message", messageCode);
+
+		return result;
+	}
+
+	@RequestMapping(value = "finder/handyWorker/listfixuptasks")
+	public ModelAndView getFinder() {
+
+		final ModelAndView result;
+		final Finder finder;
+
+		finder = this.finderService.findByHandyWorkerId(LoginService.getPrincipal().getId());
+		final Collection<FixUpTask> fut = finder.getFixUpTasks();
+
+		result = new ModelAndView("finder/listfixuptasks");
+		result.addObject("fixuptasks", fut);
+		result.addObject("finder", finder);
+		result.addObject("requestURI", "finder/handyWorker/listfixuptasks");
 
 		return result;
 	}
