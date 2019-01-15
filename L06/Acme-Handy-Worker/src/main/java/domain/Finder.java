@@ -1,6 +1,9 @@
 
 package domain;
 
+import org.joda.time.format.DateTimeFormatter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -61,6 +64,7 @@ public class Finder extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getMinimumDate() {
 		return this.minimumDate;
 	}
@@ -70,6 +74,7 @@ public class Finder extends DomainEntity {
 	}
 
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getMaximumDate() {
 		return this.maximumDate;
 	}

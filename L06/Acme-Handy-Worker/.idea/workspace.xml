@@ -1,7 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="982e3b84-572b-4048-8fc1-21ae291e4fae" name="Default Changelist" comment="Prueba de subida con IntellIj" />
+    <list default="true" id="982e3b84-572b-4048-8fc1-21ae291e4fae" name="Default Changelist" comment="Prueba de subida con IntellIj">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdministratorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AdministratorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/WelcomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/WelcomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Actor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Actor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/CreditCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/CreditCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Finder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Finder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/FixUpTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/FixUpTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/MessageBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/MessageBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Sponsorship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Sponsorship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/SystemConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/SystemConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Tutorial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Tutorial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Warranty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Warranty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/ActorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/ActorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/ApplicationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/ApplicationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/ComplaintRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/ComplaintRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/EducationalRecordRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/EducationalRecordRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/EndorsementRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/EndorsementRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/EndorserRecordRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/EndorserRecordRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/FinderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/FinderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/FixUpTaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/FixUpTaskRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/HandyWorkerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/HandyWorkerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/MessageBoxRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/MessageBoxRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/MessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/MessageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/MiscellaneousRecordRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/MiscellaneousRecordRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/PersonalRecordRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/PersonalRecordRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/PhaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/PhaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/ProfessionalRecordRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/ProfessionalRecordRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/ReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/ReportRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/SocialProfileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/SocialProfileRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/TutorialRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/TutorialRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/WorkPlanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/WorkPlanRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ActorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ActorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ApplicationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ComplaintService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ComplaintService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/CurriculumService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CurriculumService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/EducationalRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/EducationalRecordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/EndorsementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/EndorsementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/EndorserRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/EndorserRecordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/FinderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/FinderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/FixUpTaskCategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/FixUpTaskCategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/FixUpTaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/FixUpTaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/HandyWorkerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/HandyWorkerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/MessageBoxService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MessageBoxService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/MessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/MiscellaneousRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MiscellaneousRecordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/NoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/NoteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/PersonalRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/PersonalRecordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/PhaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/PhaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ProfessionalRecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ProfessionalRecordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/RefereeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/RefereeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ReportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/SectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/SectionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/SocialProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/SocialProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/SponsorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/SponsorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/SponsorshipService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/SponsorshipService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/SystemConfigurationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/SystemConfigurationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/TutorialService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/TutorialService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/WarrantyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WarrantyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/WorkPlanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/WorkPlanService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Entities.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Entities.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/PopulateDatabase.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PopulateDatabase.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spring/config/converters.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring/config/converters.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spring/config/data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring/config/data.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spring/config/i18n-l10n.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring/config/i18n-l10n.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spring/config/security.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring/config/security.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spring/config/tiles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring/config/tiles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/Thumbs.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/images/Thumbs.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/administrator/action-1.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/administrator/action-2.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/administrator/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/administrator/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/administrator/messages_es.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/administrator/messages_es.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/administrator/tiles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/administrator/tiles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/administrator/tiles_es.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/administrator/tiles_es.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/customer/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/customer/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/customer/messages_es.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/customer/messages_es.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/customer/tiles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/customer/tiles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/customer/tiles_es.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/customer/tiles_es.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/master-page/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/master-page/header.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/master-page/layout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/master-page/layout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/master-page/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/master-page/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/master-page/messages_es.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/master-page/messages_es.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/profile/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/profile/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/profile/messages_es.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/profile/messages_es.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/profile/tiles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/profile/tiles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/profile/tiles_es.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/profile/tiles_es.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/security/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/security/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/security/messages_es.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/security/messages_es.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/security/tiles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/security/tiles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/CustomerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/CustomerServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/EducationalRecordServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/EducationalRecordServiceTest.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -9,31 +108,60 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Acme-Handy-Worker" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/CustomerController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/services/FinderService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
+            <state relative-caret-position="300">
+              <caret line="60" column="47" selection-start-line="60" selection-start-column="47" selection-end-line="60" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/HandyWorkerController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/domain/Finder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="87" column="58" selection-start-line="87" selection-start-column="58" selection-end-line="87" selection-end-column="58" />
+            <state relative-caret-position="291">
+              <caret line="66" column="43" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/SponsorController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controllers/HandyWorkerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
+            <state relative-caret-position="268">
+              <caret line="83" column="43" lean-forward="true" selection-start-line="83" selection-start-column="43" selection-end-line="83" selection-end-column="43" />
+              <folding>
+                <element signature="e#1729#1730#0" expanded="true" />
+                <element signature="e#1743#1744#0" expanded="true" />
+                <element signature="e#3107#3119#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/domain/HandyWorker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="173">
+              <caret line="52" column="56" selection-start-line="52" selection-start-column="56" selection-end-line="52" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/services/WarrantyService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="40" column="32" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -50,7 +178,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>din</find>
       <find>sponsor</find>
       <find>handyWorker</find>
       <find>&lt;!-- C</find>
@@ -80,6 +207,7 @@
       <find>edit</find>
       <find>createE</find>
       <find>op</find>
+      <find>finder</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -93,10 +221,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/services/SponsorshipService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/services/TutorialService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/services/WarrantyService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/services/WorkPlanService.java" />
         <option value="$PROJECT_DIR$/src/main/java/converters/AuthorityToStringConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/converters/MessageBoxToStringConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/converters/a.java" />
@@ -142,8 +266,12 @@
         <option value="$PROJECT_DIR$/src/main/webapp/views/message/sendMessage.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/views/customer/register.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/CustomerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controllers/HandyWorkerController.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/SponsorController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/services/WarrantyService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controllers/HandyWorkerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/services/FinderService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/domain/Finder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/domain/HandyWorker.java" />
       </list>
     </option>
   </component>
@@ -170,6 +298,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -208,7 +337,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -310,15 +438,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30257186" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.30711043" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.24962178" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Favorites" order="6" side_tool="true" weight="0.32980332" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32991454" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.32991454" />
@@ -355,34 +482,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/converters/ProfessionalRecordToStringConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="20" column="54" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/converters/SectionToStringConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/converters/ReportToStringConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/converters/RefereeToStringConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/converters/SponsorToStringConverter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -697,6 +796,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/SponsorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controllers/CustomerController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -704,17 +810,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/HandyWorkerController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/services/WarrantyService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="87" column="58" selection-start-line="87" selection-start-column="58" selection-end-line="87" selection-end-column="58" />
+        <state relative-caret-position="360">
+          <caret line="40" column="32" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/SponsorController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/services/FinderService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
+        <state relative-caret-position="300">
+          <caret line="60" column="47" selection-start-line="60" selection-start-column="47" selection-end-line="60" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/domain/Finder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="66" column="43" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/domain/HandyWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="52" column="56" selection-start-line="52" selection-start-column="56" selection-end-line="52" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controllers/HandyWorkerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="83" column="43" lean-forward="true" selection-start-line="83" selection-start-column="43" selection-end-line="83" selection-end-column="43" />
+          <folding>
+            <element signature="e#1729#1730#0" expanded="true" />
+            <element signature="e#1743#1744#0" expanded="true" />
+            <element signature="e#3107#3119#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

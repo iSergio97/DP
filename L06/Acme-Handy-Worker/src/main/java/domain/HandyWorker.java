@@ -50,7 +50,7 @@ public class HandyWorker extends Actor {
 		this.applications = applications;
 	}
 
-	@OneToOne(mappedBy = "handyWorker", optional = true)
+	@OneToOne(mappedBy = "handyWorker", optional = false)
 	public Finder getFinder() {
 		return this.finder;
 	}

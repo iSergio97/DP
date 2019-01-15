@@ -87,7 +87,7 @@
 			</security:authorize>
 
 			<security:authorize access="isAnonymous()">
-				<li><a class="fNiv" href="actor/registerAs.do"><spring:message
+				<li><a class="fNiv"><spring:message
 							code="master.page.register" /></a>
 							<ul>
 							<li class="arrow"></li>
