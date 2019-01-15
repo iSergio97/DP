@@ -34,6 +34,8 @@
 		</jstl:when>
 		<jstl:when test = "${application.status == 'ACCEPTED'}">
 			<spring:message code="application.status.accepted" />
+			<jstl:out value="${application.fixUpTask.workPlan.id}"></jstl:out>
+			<a href="phase/handyWorker/list.do?workPlanId=${application.fixUpTask.workPlan.id}">Work Plan</a>
 		</jstl:when>
 		<jstl:when test = "${application.status == 'REJECTED'}">
 			<spring:message code="application.status.rejected" />

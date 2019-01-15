@@ -35,6 +35,7 @@
 		<value>/views/warranty/messages</value>
 		<value>/views/tutorial/messages</value>
 		<value>/views/finder/messages</value>
+		<value>/views/phase/messages</value>
 	</util:list>
 
 </beans>

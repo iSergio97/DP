@@ -70,7 +70,8 @@
 		<security:intercept-url pattern="/tutorial/**" access="hasRole('HANDY_WORKER')" />
 		
 		<security:intercept-url pattern="/finder/handyWorker/**" access="hasRole('HANDY_WORKER')" /> 
-		
+		<security:intercept-url pattern="/phase/handyWorker/**" access="hasRole('HANDY_WORKER')" />
+		<security:intercept-url pattern="/workPlan/handyWorker/**" access="hasRole('HANDY_WORKER')" />
 		
 		 
 

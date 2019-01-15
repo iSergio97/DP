@@ -10,41 +10,54 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.FixUpTaskService;
 import services.PhaseService;
 import services.WorkPlanService;
+import domain.FixUpTask;
 import domain.Phase;
 import domain.WorkPlan;
 
 @Controller
-@RequestMapping("/Workplan/HandyWorker")
+@RequestMapping("/workPlan/handyWorker")
 public class WorkplanController extends AbstractController {
 
 	@Autowired
-	private WorkPlanService	workplanService;
+	private WorkPlanService		workPlanService;
 
 	@Autowired
-	private PhaseService	phaseService;
+	private PhaseService		phaseService;
+
+	@Autowired
+	private FixUpTaskService	fixUpTaskService;
 
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int workplanId) {
+	public ModelAndView show(@RequestParam final int workPlanId) {
+		// Create result object
 		ModelAndView result;
+		Collection<Phase> phases;
 
-		WorkPlan workplan;
+		result = new ModelAndView("phase/list");
 
-		workplan = this.workplanService.findById(workplanId);
-
-		result = this.createEditModelAndView(workplan);
+		final WorkPlan workPlan = this.workPlanService.findById(2779);
+		phases = workPlan.getPhases();
+		result.addObject("phases", phases);
+		result.addObject("workPlan", workPlan);
+		result.addObject("requestURI", "phase/handyWorker/list.do");
 
 		return result;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam final int fixUpTaskId) {
 		final ModelAndView result;
 		WorkPlan workplan;
+		final FixUpTask fixUpTask = this.fixUpTaskService.findById(fixUpTaskId);
+		workplan = this.workPlanService.create();
+		workplan.setFixUpTask(fixUpTask);
+		fixUpTask.setWorkPlan(workplan);
+		this.fixUpTaskService.save(fixUpTask);
 
-		workplan = this.workplanService.create();
 		result = this.createEditModelAndView(workplan);
 
 		return result;
@@ -66,13 +79,10 @@ public class WorkplanController extends AbstractController {
 
 		Collection<Phase> phases;
 
-		if (workplan.getPhases() == null)
-			phases = null;
-		else
-			phases = workplan.getPhases();
+		phases = workplan.getPhases();
 
-		result = new ModelAndView("phase/show");
-		result.addObject("workplan", workplan);
+		result = new ModelAndView("phase/list");
+		result.addObject("workPlan", workplan);
 		result.addObject("phases", phases);
 
 		return result;
