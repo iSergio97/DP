@@ -127,7 +127,7 @@
 		<br>
 		<input type="button" name="cancel"
 			value="<spring:message code='security.cancel' />"
-			onclick="javascript: relativeRedir('security/login.do');" />
+			onclick="javascript: relativeRedir('welcome/index.do');" />
 
 
 	</form:form>

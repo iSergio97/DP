@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,11 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.FinderRepository;
-import security.LoginService;
-import security.UserAccount;
 import domain.Finder;
-import domain.FixUpTask;
-import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -56,21 +51,15 @@ public class FinderService {
 		finder.setKeyword("");
 
 		final Date dateMin = new Date();
-		dateMin.setTime(dateMin.getMonth() + 1);
+		dateMin.setTime(dateMin.getMonth());
 		finder.setMinimumDate(dateMin);
 
 		Date dateMax;
 		dateMax = new Date();
-		dateMax.setTime(dateMax.getMonth() + 3);
+		dateMax.setYear(dateMax.getYear() + 3);
 		finder.setMaximumDate(dateMax);
 
-		final UserAccount login = LoginService.getPrincipal();
-		HandyWorker handyWorker;
-		handyWorker = this.handyWorkerService.findById(login.getId());
-		finder.setHandyWorker(handyWorker);
-
-		finder.setFixUpTasks(new ArrayList<FixUpTask>());
-
+		finder.setFixUpTasks(this.fixUpTaskService.findAll());
 		finder.setWarranty(this.warrantyService.create());
 
 		return finder;

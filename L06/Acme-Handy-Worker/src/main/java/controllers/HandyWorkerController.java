@@ -25,10 +25,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
 import security.UserAccountRepository;
+import services.FinderService;
 import services.HandyWorkerService;
 import services.MessageBoxService;
+import services.WarrantyService;
+import domain.Finder;
 import domain.HandyWorker;
 import domain.MessageBox;
+import domain.Warranty;
 
 @Controller
 @RequestMapping("/handy-worker")
@@ -43,6 +47,12 @@ public class HandyWorkerController extends AbstractController {
 
 	@Autowired
 	private UserAccountRepository	userAccountRepository;
+
+	@Autowired
+	private FinderService			finderService;
+
+	@Autowired
+	private WarrantyService			warrantyService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -63,6 +73,7 @@ public class HandyWorkerController extends AbstractController {
 		return result;
 	}
 
+	//TODO Añadir Finder vacío
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView registerPost(@Valid HandyWorker handyWorker, final BindingResult binding) {
 		ModelAndView result;
@@ -76,6 +87,12 @@ public class HandyWorkerController extends AbstractController {
 			userAccount = this.userAccountRepository.save(userAccount);
 			handyWorker.setUserAccount(userAccount);
 			handyWorker = this.handyWorkerService.save(handyWorker);
+			Finder finder = handyWorker.getFinder();
+			Warranty warranty = finder.getWarranty();
+			warranty = this.warrantyService.save(warranty);
+			finder.setWarranty(warranty);
+			finder = this.finderService.save(finder);
+			handyWorker.setFinder(finder);
 
 			final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
 			for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
@@ -85,8 +102,7 @@ public class HandyWorkerController extends AbstractController {
 			}
 			handyWorker.setMessageBoxes(savedMessageBoxes);
 			handyWorker = this.handyWorkerService.save(handyWorker);
-
-			result = new ModelAndView("redirect:../welcome");
+			result = new ModelAndView("redirect:..welcome/index");
 		} else {
 			result = new ModelAndView("handy-worker/register");
 			result.addObject("handyWorker", handyWorker);

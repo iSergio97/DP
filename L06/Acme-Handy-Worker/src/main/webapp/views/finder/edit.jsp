@@ -80,8 +80,9 @@
 		<input type="submit" name="save"
 			value="<spring:message code="finder.save" />" />
 
-		<input type="submit" name="cancel"
-			value="<spring:message code="finder.cancel" />" />
+		<input type="button" name="cancel"
+			value="<spring:message code='security.cancel' />"
+			onclick="javascript: relativeRedir('welcome/index.do');" />
 	</form:form>
 	
 	<a href="finder/handyWorker/listfixuptasks.do"> Prueba </a>

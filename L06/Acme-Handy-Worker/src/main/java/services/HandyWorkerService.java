@@ -45,6 +45,9 @@ public class HandyWorkerService {
 	@Autowired
 	private UserAccountRepository	userAccountRepository;
 
+	@Autowired
+	private FinderService			finderService;
+
 
 	//Methods
 
@@ -79,6 +82,7 @@ public class HandyWorkerService {
 		handyWorker.setName("");
 		handyWorker.setSurname("");
 		handyWorker.setMake("");
+		handyWorker.setFinder(this.finderService.create());
 
 		return handyWorker;
 	}
