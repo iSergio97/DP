@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -45,6 +47,7 @@ public class MessageBoxController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		final ModelAndView result;
+		System.out.println(LoginService.getPrincipal().getId());
 		final int id = LoginService.getPrincipal().getId();
 		Actor actor;
 		actor = this.actorService.findByUserAccountId(id);
@@ -88,16 +91,35 @@ public class MessageBoxController {
 		ModelAndView result;
 		MessageBox messageBox;
 
-		messageBox = messageBoxService.findById(id);
+		messageBox = this.messageBoxService.findById(id);
 		Assert.notNull(messageBox);
-		
-		result = createEditModelAndView(messageBox);
 
-//		result = new ModelAndView("message-box/edit");
-//		result.addObject("messageBox", messageBox);
+		result = this.createEditModelAndView(messageBox);
 
 		return result;
 	}
+
+	// Save ------------------------------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final MessageBox messageBox, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			System.out.println(binding.getAllErrors());
+			result = this.createEditModelAndView(messageBox);
+		} else
+			try {
+				this.messageBoxService.save(messageBox);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(messageBox, "messageBox.commit.error");
+			}
+
+		return result;
+	}
+
+	// Delete ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final MessageBox messageBox, final BindingResult binding) {
@@ -105,9 +127,9 @@ public class MessageBoxController {
 
 		try {
 			this.messageBoxService.delete(messageBox);
-			result = new ModelAndView("redirect::list.do");
+			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-
+			result = this.createEditModelAndView(messageBox, "messageBox.commit.error");
 		}
 
 		return result;
@@ -118,26 +140,32 @@ public class MessageBoxController {
 		//		this.messageBoxService.delete(messageBox);
 	}
 
+	// Show ------------------------------------------------------------------
+
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam(value = "name") final String name) {
+		ModelAndView result;
+		Actor actor;
 		MessageBox messageBox;
+		Collection<Message> messages;
 
-		final int id = LoginService.getPrincipal().getId();
-		final Actor actor = this.actorService.findByUserAccountId(id);
+		actor = this.actorService.findByUserAccountId(LoginService.getPrincipal().getId());
+		messageBox = this.messageBoxService.findByPrincipalAndName(actor.getId(), name);
+		messages = messageBox.getMessages();
+		Assert.notNull(messageBox);
 
-		final MessageBox[] messageBoxes = this.messageBoxService.findByPrincipalAndName(actor.getId(), name);
-		if (messageBoxes.length == 0)
-			messageBox = null;
-		else
-			messageBox = messageBoxes[0];
-
-		//messageBox = (MessageBox) actor.getMessageBoxes().toArray()[1];
-
-		final ModelAndView result = new ModelAndView("message-box/show");
+		result = new ModelAndView("message-box/show");
 		result.addObject("messageBox", messageBox);
+		result.addObject("name", name);
+		result.addObject("actor", actor);
+		result.addObject("messages", messages);
+
+		result.addObject("messageCode", null);
 
 		return result;
 	}
+
+	// CreateEditModelAndView ------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final MessageBox messageBox) {
 		ModelAndView result;

@@ -55,10 +55,10 @@ public class MessageBoxService {
 
 	public void delete(final MessageBox messageBox) {
 		Assert.isTrue(messageBox != null);
-		Assert.isTrue(!messageBox.getName().equals("inBox"));
-		Assert.isTrue(!messageBox.getName().equals("outBox"));
-		Assert.isTrue(!messageBox.getName().equals("trashBox"));
-		Assert.isTrue(!messageBox.getName().equals("spamBox"));
+		Assert.isTrue(!messageBox.getName().equals("InBox"));
+		Assert.isTrue(!messageBox.getName().equals("OutBox"));
+		Assert.isTrue(!messageBox.getName().equals("TrashBox"));
+		Assert.isTrue(!messageBox.getName().equals("SpamBox"));
 
 		this.messageBoxRepository.delete(messageBox);
 	}
@@ -130,7 +130,7 @@ public class MessageBoxService {
 		return this.messageBoxRepository.findByPrincipalAndId(id, messageBoxId);
 	}
 
-	public MessageBox[] findByPrincipalAndName(final int id, final String name) {
+	public MessageBox findByPrincipalAndName(final int id, final String name) {
 		return this.messageBoxRepository.findByPrincipalAndName(id, name);
 	}
 

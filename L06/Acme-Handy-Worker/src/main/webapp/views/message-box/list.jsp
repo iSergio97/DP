@@ -17,7 +17,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="messageBoxes" id="messageBox">
+<display:table name="messageBoxes" id="messageBox" pagesize="5" requestURI="message-box/edit.do" class="displaytag">
 	<display:column titleKey="messageBox.name">
 		<jstl:out value="${messageBox.name}" />
 	</display:column>
@@ -31,12 +31,3 @@
 <a href="message-box/create.do">
 	<spring:message code="options.create"/>
 </a>
-
-<!-- 
-<jstl:forEach items="${messageBoxes}" var="messageBox">
-	<p>
-		<jstl:out value="${messageBox.name}" />
-	</p>
-</jstl:forEach>
- -->
-

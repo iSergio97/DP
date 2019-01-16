@@ -17,18 +17,45 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<spring:message code="messageBox.messages" />:
+<jstl:if test="${messageBox.name != 'InBox' && messageBox.name != 'OutBox' && messageBox.name != 'TrashBox' && messageBox.name != 'SpamBox'}">
+	<h2><spring:message code="options.editData"/>:</h2>
+	<form:form modelAttribute="messageBox" action="message-box/edit.do">
+		<form:hidden path="id" />
+		<form:hidden path="version" />
+		
+		<form:label path="name">
+			<strong><spring:message code="messageBox.name"/>:</strong>
+		</form:label>
+		<form:input path="name"/>
+		<form:errors cssClass="error" path="name" />
+		<br/><br/>
+		
+		<form:hidden path="actor"/>
+		<form:hidden path="messages"/>
+		
+		<input type="submit" name="save" value="<spring:message code="options.save" />" />
+		<input type="submit" name="delete" value="<spring:message code="options.delete" />" />
+		<input type="button" name="cancel" value="<spring:message code="options.cancel" />"
+				onclick="javascript:relativeRedir('message-box/list.do');" />
+	</form:form>
+</jstl:if>
+
+<jstl:if test="${!(messageBox.name != 'InBox' && messageBox.name != 'OutBox' && messageBox.name != 'TrashBox' && messageBox.name != 'SpamBox')}">
+	<h2><spring:message code="messageBox.name"/>: <em><jstl:out value="${name}"></jstl:out></em></h2>
+</jstl:if>
 <br/>
-<display:table name="messageBox.messages" id="message">
+
+<h2><spring:message code="messageBox.messages" />:</h2>
+<display:table name="messageBox.messages" id="message" pagesize="10" class="displaytag">
 	<display:column titleKey="message.subject">
 		<jstl:out value="${message.subject}" />
 	</display:column>
 	<display:column titleKey="message.sender">
 		<jstl:out value="${message.sender.name}" />
-		<jstl:out value=" " />
-		<jstl:out value="${message.sender.middleName}" />
-		<jstl:out value=" " />
-		<jstl:out value="${message.sender.surname}" />
+				<jstl:out value=" " />
+				<jstl:out value="${message.sender.middleName}" />
+				<jstl:out value=" " />
+				<jstl:out value="${message.sender.surname}" />
 	</display:column>
 	<display:column titleKey="message.priority">
 		<jstl:choose>
@@ -49,40 +76,3 @@
 		</a>
 	</display:column>
 </display:table>
-<br/><br/>
-
-<jstl:if test="${messageBox.name != 'InBox' && messageBox.name != 'OutBox' && messageBox.name != 'TrashBox' && messageBox.name != 'SpamBox'}">
-	<spring:message code="options.editData"/>:
-	<form:form modelAttribute="messageBox" action="message-box/edit.do">
-		<form:hidden path="id" />
-		<form:hidden path="version" />
-		
-		<form:label path="name">
-			<spring:message code="messageBox.name"/>:
-		</form:label>
-		<form:input path="name"/>
-		<br/>
-		
-		<input type="button" name="cancel" value="<spring:message code="options.cancel" />"
-				onclick="javascript:relativeRedir('message-box/list.do');" />
-		<input type="submit" name="save" value="<spring:message code="options.save" />" />
-		<input type="submit" name="delete" value="<spring:message code="options.delete" />" />
-	</form:form>
-	
-	<!-- 
-		<a href="message-box/delete.do?name=<jstl:out value="${messageBox.id}" />">
-			<spring:message code="options.delete" />
-		</a>
-	 -->
-	
-</jstl:if>
-
-<!--
-<br/> <br/>
-<display:table name="messageBox.name" id="pepitorcaja">
-	<jstl:forEach items="${messageBox.messages}" var="message">
-		<jstl:out value = "${message.body}"/>
-	</jstl:forEach>
-</display:table>
-  -->
-
