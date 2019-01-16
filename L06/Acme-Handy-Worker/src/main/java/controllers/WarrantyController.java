@@ -148,10 +148,7 @@ public class WarrantyController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Warranty warranty, final String messageCode) {
 		final ModelAndView result;
-		Integer s = warranty.getApplicableLaws().size();
-		if (s <= 0)
-			s = 1;
-
+		final Integer s = warranty.getApplicableLaws().size() - 1;
 		result = new ModelAndView("warranty/edit");
 		result.addObject("warranty", warranty);
 		result.addObject("message", messageCode);

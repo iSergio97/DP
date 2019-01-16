@@ -58,6 +58,18 @@ public class PhaseController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int phaseId) {
+		// Create result object
+		ModelAndView result;
+		Phase phase;
+		result = new ModelAndView("phase/show");
+		phase = this.phaseService.findById(phaseId);
+		result.addObject("warranty", phase);
+
+		return result;
+	}
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int workPlanId) {
 		ModelAndView result;
@@ -65,7 +77,7 @@ public class PhaseController extends AbstractController {
 		final WorkPlan workPlan = this.workPlanService.findById(workPlanId);
 		phase = this.phaseService.create();
 		phase.setWorkPlan(workPlan);
-
+		workPlan.getPhases().add(phase);
 		result = this.createEditModelAndView(phase);
 
 		return result;
@@ -92,7 +104,7 @@ public class PhaseController extends AbstractController {
 			try {
 				this.phaseService.save(phase);
 				final Integer workPlanId = phase.getWorkPlan().getId();
-				result = new ModelAndView("redirect:list.do?workPlanId=" + workPlanId);
+				result = new ModelAndView("redirect:list.do?workPlainId=" + workPlanId);
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(phase, "phase.commit.error");
 			}
@@ -106,9 +118,8 @@ public class PhaseController extends AbstractController {
 		Phase phase;
 		phase = this.phaseService.findById(phaseId);
 		try {
-			final Integer workPlanId = phase.getWorkPlan().getId();
 			this.phaseService.delete(phase);
-			result = new ModelAndView("redirect:list.do?workPlanId=" + workPlanId);
+			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(phase, "phase.commit.error");
 		}

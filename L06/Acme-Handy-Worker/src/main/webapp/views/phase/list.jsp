@@ -17,8 +17,7 @@
 	<display:column property="description" titleKey="phase.description" />
 	<display:column property="startMoment" titleKey="phase.start" />
 	<display:column property="endMoment" titleKey="phase.end" />
-	<display:column> <a href="phase/handyWorker/edit.do?phaseId=${row.id}"> <spring:message code="phase.edit" /></a> </display:column>
-	<display:column> <a href="phase/handyWorker/delete.do?phaseId=${row.id}"> <spring:message code="phase.delete" /></a> </display:column>
+	<display:column> <a href="phase/handyWorker/edit.do?phaseId=${row.id}"> <jstl:out value="Edit"/></a> </display:column>
 </display:table>
 
-<a href="phase/handyWorker/create.do?workPlanId=${workPlan.id}"><spring:message code="phase.new" /></a>
+<a href="phase/handyWorker/create.do?workPlanId=${workPlan.id}">New</a>

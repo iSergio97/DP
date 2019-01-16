@@ -15,7 +15,7 @@
 	<display:column property="title" titleKey="warranty.title" />
 	<display:column property="terms" titleKey="warranty.terms" />
 	<display:column property="applicableLaws" titleKey="warranty.laws" />
-	<display:column> <a href="warranty/administrator/show.do?warrantyId=${row.id}"> <spring:message code="warranty.show" /></a> </display:column>
+	<display:column> <a href="warranty/administrator/show.do?warrantyId=${row.id}"> <jstl:out value="Show"/></a> </display:column>
 </display:table>
 
 <display:table name="warranties" id="row"
@@ -24,7 +24,7 @@
 	<display:column property="title" titleKey="warranty.title" />
 	<display:column property="terms" titleKey="warranty.terms" />
 	<display:column property="applicableLaws" titleKey="warranty.laws" />
-	<display:column> <a href="warranty/administrator/show.do?warrantyId=${row.id}"> <spring:message code="warranty.show" /></a> </display:column>
+	<display:column> <a href="warranty/administrator/show.do?warrantyId=${row.id}"> <jstl:out value="Show"/></a> </display:column>
 </display:table>
 
-<a href="warranty/administrator/create.do"><spring:message code="warranty.new" /></a>
+<a href="warranty/administrator/create.do">New</a>

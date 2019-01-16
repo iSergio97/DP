@@ -35,13 +35,6 @@ public class WarrantyService {
 	public Warranty create() {
 		final Warranty warranty = new Warranty();
 		final List<String> applicableLaws = new ArrayList<>();
-		applicableLaws.add("");
-		applicableLaws.add("");
-		applicableLaws.add("");
-		applicableLaws.add("");
-		applicableLaws.add("");
-		applicableLaws.add("");
-		applicableLaws.add("");
 		warranty.setApplicableLaws(applicableLaws);
 		warranty.setTerms("Example terms");
 		warranty.setTitle("Example title");
