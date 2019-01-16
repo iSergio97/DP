@@ -12,7 +12,7 @@
 
 <form:form action="phase/handyWorker/edit.do" modelAttribute="phase">
 
-<input type="button" name="cancel" value ="<spring:message code="phase.cancel" />" onclick="javascript:relativeRedir('workPlan/handyWorker/list.do?workPlanId=${phase.workPlan.id}');"/><br/>
+
 <form:hidden path="id"/>
 <form:errors cssClass="error" path="id"></form:errors>
 <form:hidden path="version"/>
@@ -45,5 +45,5 @@
 
 
 <input type="submit" name="save" value="<spring:message code="phase.save" />" />
-
+<input type="button" name="cancel" value ="<spring:message code="phase.cancel" />" onclick="javascript:relativeRedir('phase/handyWorker/list.do?workPlanId=${phase.workPlan.id}');"/><br/>
 </form:form>

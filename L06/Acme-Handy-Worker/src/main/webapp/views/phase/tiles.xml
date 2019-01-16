@@ -17,7 +17,7 @@
 <tiles-definitions>
 
 	<definition name="phase/list" extends="master.page">
-		<put-attribute name="title" value="phases" />
+		<put-attribute name="title" value="Work Plan" />
 		<put-attribute name="body" value="/views/phase/list.jsp" />
 	</definition>
 	

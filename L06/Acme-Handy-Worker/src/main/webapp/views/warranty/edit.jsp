@@ -29,7 +29,7 @@
 
 
 
-<jstl:forEach begin="0" end ="${size}" var="x" >
+<jstl:forEach begin="1" end ="${size}" var="x" >
 	<form:label path="applicableLaws"><spring:message code="warranty.laws" />${x}</form:label>
     <form:input path="applicableLaws[${x}]" />
     <form:errors cssClass="error" path="applicableLaws"></form:errors>
