@@ -9,37 +9,31 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="fixUpTaskCategory/administrator/edit.do" modelAttribute="fixUpTaskCategory">
+<form:form modelAttribute="fixUpTaskCategory" action="fixUpTaskCategory/administrator/edit.do">
 
-<input type="button" name="cancel" value ="<spring:message code="fixUpTaskCategory.cancel" />" onclick="javascript:RelativeRedir('fixUpTaskCategory/administrator/list.do');"/>
+<!-- Hidden Fields -->
 <form:hidden path="id"/>
-<form:errors cssClass="error" path="id"></form:errors>
-<br/>
 <form:hidden path="version"/>
-<form:errors cssClass="error" path="version"></form:errors>
-<br/>
-<form:hidden path="name"/>
-<form:errors cssClass="error" path="name"></form:errors>
-<br/>
-
-<form:hidden path="fixUpTaskCategoryParent"/>
-<form:errors cssClass="error" path="fixUpTaskCategoryParent"></form:errors>
-<br/>
+<form:hidden path="fixUpTaskCategoryChildren"/>
 
 
+<!-- Editable Fields -->
 
 
-<form:label path="name">Name:</form:label>
+<form:label path="name"><spring:message code="fixUpTaskCategory.name" /></form:label>
 <form:input path="name" />
 <form:errors cssClass="error" path="name"></form:errors>
 <br/>
 
 
 <form:select id="parents" path="fixUpTaskCategory">
-<form:options items="${parents.name}" itemLabel = "name" itemValue="id"/>
-<form:option value="0" label="---"/>
+<form:options items="${parents}" itemLabel = "name" itemValue="id"/>
+<form:option label="----" value="0" />
 </form:select>
 
-<input type="submit" name="save" value="<spring:message code="fixUpTaskCategory.update" />" />
+<!--  Control  -->
+
+<input type="submit" name="save" value="<spring:message code="fixUpTaskCategory.save" />" />
+<input type="button" name="cancel" value ="<spring:message code="security.cancel"/>" onclick="javascript:RelativeRedir('/fixUpTaskCategory/administrator/list.do');"/>
 
 </form:form>
