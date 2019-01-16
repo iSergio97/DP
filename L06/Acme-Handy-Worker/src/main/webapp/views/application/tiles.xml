@@ -43,10 +43,5 @@
 		<put-attribute name="title" value="Application" />
 		<put-attribute name="body" value="/views/application/display.jsp" />
 	</definition>
-	
-	<definition name="application/add-credit-card" extends="master.page">
-		<put-attribute name="title" value="Add Credit Card" />
-		<put-attribute name="body" value="/views/application/add-credit-card.jsp" />
-	</definition>
 
 </tiles-definitions>

@@ -58,7 +58,7 @@
 	<jstl:out value="${actor.address}" />
 	<br>
 	<spring:message code="profile.isBanned" />
-	:
+	?:
 	<jstl:if test="${actor.isBanned == false }">
 		<spring:message code='profile.isBannedTestNo' />
 	</jstl:if>
@@ -67,23 +67,6 @@
 	<jstl:if test="${actor.isBanned == true}">
 		<spring:message code='profile.isBannedTestYes' />
 	</jstl:if>
-	<br>
-	<security:authorize access="hasRole('CUSTOMER')">
-		<spring:message code='profile.creditCard' />:
-		<br/>
-		<spring:message code='profile.creditCard.holder' />: <jstl:out value="${actor.creditCard.holder}"/>
-		<br/>
-		<spring:message code='profile.creditCard.brand' />: <jstl:out value="${actor.creditCard.brand}"/>
-		<br/>
-		<spring:message code='profile.creditCard.number' />: <jstl:out value="${actor.creditCard.number}"/>
-		<br/>
-		<spring:message code='profile.creditCard.expirationMonth' />: <jstl:out value="${actor.creditCard.expirationMonth}"/>
-		<br/>
-		<spring:message code='profile.creditCard.expirationYear' />: <jstl:out value="${actor.creditCard.expirationYear}"/>
-		<br/>
-		<spring:message code='profile.creditCard.CVV' />: <jstl:out value="${actor.creditCard.CVV}"/>
-		<br/>
-	</security:authorize>
 	<br>
 
 		<a href="profile/edit.do">Editar perfil</a>

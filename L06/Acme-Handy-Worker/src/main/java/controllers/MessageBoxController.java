@@ -48,6 +48,7 @@ public class MessageBoxController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		final ModelAndView result;
+		System.out.println(LoginService.getPrincipal().getId());
 		final int id = LoginService.getPrincipal().getId();
 		Actor actor;
 		actor = this.actorService.findByUserAccountId(id);
@@ -105,14 +106,15 @@ public class MessageBoxController {
 	public ModelAndView save(@Valid @ModelAttribute("messageBox") final MessageBox messageBox, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
+			System.out.println(binding.getAllErrors());
 			result = this.createEditModelAndView(messageBox, "message-box/edit");
-		else
+		} else
 			try {
 				this.messageBoxService.save(messageBox);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(messageBox, "messageBox.commit.error", "message-box/edit");
+				result = this.createEditModelAndView(messageBox, "messageBox.commit.error");
 			}
 
 		return result;
@@ -122,13 +124,13 @@ public class MessageBoxController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final MessageBox messageBox, final BindingResult binding) {
-		ModelAndView result;
+		ModelAndView result = null;
 
 		try {
 			this.messageBoxService.delete(messageBox);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(messageBox, "messageBox.commit.error", "message-box/edit");
+			result = this.createEditModelAndView(messageBox, "messageBox.commit.error");
 		}
 
 		return result;

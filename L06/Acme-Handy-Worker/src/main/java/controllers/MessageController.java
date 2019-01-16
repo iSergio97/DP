@@ -28,19 +28,25 @@ import domain.MessageBox;
 @RequestMapping("/message")
 public class MessageController {
 
-	@Autowired
-	private MessageService		messageService;
-
-	@Autowired
-	private MessageBoxService	messageBoxService;
+	// Services ---------------------------------------------------------------
 
 	@Autowired
 	private ActorService		actorService;
+	@Autowired
+	private MessageBoxService	messageBoxService;
+	@Autowired
+	private MessageService		messageService;
+	@Autowired
+	private SystemConfigurationService	systemConfigurationService;
 
+
+	// Constructors ----------------------------------------------------------------
 
 	public MessageController() {
 		super();
 	}
+
+	// Send message ----------------------------------------------------------------
 
 	@RequestMapping(value = "/sendMessage", method = RequestMethod.GET)
 	public ModelAndView sendMessageGet() {
@@ -53,15 +59,14 @@ public class MessageController {
 		mesage = this.messageService.create();
 
 		result = new ModelAndView("message/sendMessage");
-		//final List<MessageBox> ls = new ArrayList<>();
-		//ls.add((MessageBox) a.getMessageBoxes().toArray()[0]);
 		final MessageBox outBox = this.messageBoxService.findByPrincipalAndName(a.getId(), "OutBox");
-
 		final List<MessageBox> ls = new ArrayList<>();
 		ls.add(outBox);
 		mesage.setMessageBoxes(ls);
 		outBox.getMessages().add(mesage);
 		mesage.setMessageBoxes(ls);
+		a.getMessagesSent().add(mesage);
+		a.getMessageBoxes().add(outBox);
 		result.addObject("domainMessage", mesage);
 		result.addObject("actors", lsActors);
 
@@ -84,11 +89,12 @@ public class MessageController {
 			mesage = this.messageService.save(mesage);
 			sender.getMessagesSent().add(mesage);
 			//Añadido ahora
-			final MessageBox outBox = this.messageBoxService.findByPrincipalAndName(sender.getId(), "OutBox");
+			final MessageBox outBox = this.messageBoxService.findByPrincipalAndName(sender.getId(), "outBox");
 			final List<MessageBox> ls = new ArrayList<>();
 			ls.add(outBox);
 			mesage.setMessageBoxes(ls);
 			outBox.getMessages().add(mesage);
+			sender.getMessageBoxes().add(outBox);
 			this.messageService.save(mesage);
 			this.messageBoxService.save(outBox);
 
@@ -96,15 +102,25 @@ public class MessageController {
 				final MessageBox inBox = this.messageBoxService.findByPrincipalAndName(a.getId(), "InBox");
 				a.getMessagesReceived().add(mesage);
 				final List<MessageBox> ls1 = new ArrayList<>();
-				ls1.add(inBox);
-				mesage.setMessageBoxes(ls1);
-				inBox.getMessages().add(mesage);
-				//TODO AÑADIDO AHORA
+				final MessageBox spamBox = this.messageBoxService.findByPrincipalAndName(a.getId(), "SpamBox");
+				if (this.spam(mesage)) {
+					ls1.add(spamBox);
+					ls1.add(outBox);
+					spamBox.getMessages().add(mesage);
+					mesage.setMessageBoxes(ls1);
+				} else {
+					ls1.add(inBox);
+					ls1.add(outBox);
+					inBox.getMessages().add(mesage);
+					mesage.setMessageBoxes(ls1);
+				}
 				this.messageService.save(mesage);
 				this.messageBoxService.save(inBox);
-				//this.messageService.save(mesage);
 			}
-			result = new ModelAndView("redirect: ..welcome/index");
+			sender.getMessagesSent().add(mesage);
+			outBox.getMessages().add(mesage);
+			this.messageBoxService.save(outBox);
+			result = new ModelAndView("redirect:../welcome/index.do");
 
 		} else {
 			for (int i = 0; i < bindingResult.getErrorCount(); i++)
@@ -120,6 +136,9 @@ public class MessageController {
 		}
 		return result;
 	}
+
+	// Display box -----------------------------------------------------------------
+
 	@RequestMapping(value = "/displaybox", method = RequestMethod.GET)
 	public ModelAndView displayBox(@RequestParam(value = "id") final int id) {
 		ModelAndView result;
@@ -132,6 +151,8 @@ public class MessageController {
 
 		return result;
 	}
+
+	// Move ------------------------------------------------------------------------
 
 	@RequestMapping(value = "/move", method = RequestMethod.GET)
 	public ModelAndView move(@RequestParam(value = "messageId") final int messageId, @RequestParam(value = "fromMessageBoxId") final int fromMessageBoxId, @RequestParam(value = "toMessageBoxId") final int toMessageBoxId) {
@@ -161,6 +182,16 @@ public class MessageController {
 		toMessageBox = this.messageBoxService.save(toMessageBox);
 
 		return this.displayBox(toMessageBox.getId());
+	}
+
+	// Spam ------------------------------------------------------------------------
+
+	private boolean spam(final Message message) {
+		final List<String> spamWords = this.systemConfigurationService.getSystemConfiguration().getSpamWords();
+		for (int i = 0; i < spamWords.size(); i++)
+			if (message.getBody().contains(spamWords.get(i)) || message.getSubject().contains(spamWords.get(i)) || message.getTags().contains(spamWords.get(i)))
+				return true;
+		return false;
 	}
 
 }
