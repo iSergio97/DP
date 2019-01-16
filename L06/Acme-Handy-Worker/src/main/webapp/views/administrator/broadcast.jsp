@@ -65,5 +65,8 @@
 		</div>
 		<br>
 
+		<input type="submit" name="save"
+			value="<spring:message code="broadcast"/>" />
+
 	</form:form>
 </div>

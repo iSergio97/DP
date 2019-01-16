@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -430,14 +431,32 @@ public class AdministratorController extends AbstractController {
 	public ModelAndView broadcast(Message message, final BindingResult binding) {
 		final ModelAndView result;
 
-		if (!binding.hasErrors()) {
+		if (binding.hasErrors()) {
 			result = new ModelAndView("administrator/broadcast");
 			result.addObject("message", message);
+			result.addObject("errors", binding);
+			for (final ObjectError oe : binding.getAllErrors()) {
+				System.out.println(oe.getCode());
+				System.out.println(oe.getDefaultMessage());
+			}
 		} else {
-			result = new ModelAndView("redirect:showMessage.do");// TODO: corregir redirect
-			message.setSender(this.actorService.findPrincipal());
-			message.setRecipients(this.actorService.findAll());
+			result = new ModelAndView("redirect:showMessage.do");
+			final Actor sender = this.actorService.findPrincipal();
+			final List<Actor> recipients = this.actorService.findAll();
+			final List<MessageBox> messageBoxes = new ArrayList<>();
+			messageBoxes.add(this.messageBoxService.findByPrincipalAndName(sender.getId(), "OutBox"));
+			for (final Actor recipient : recipients)
+				messageBoxes.add(this.messageBoxService.findByPrincipalAndName(recipient.getId(), "InBox"));
+			message.setSender(sender);
+			message.setRecipients(recipients);
+			message.setMessageBoxes(messageBoxes);
 			message = this.messageService.save(message);
+			for (final MessageBox messageBox : messageBoxes) {
+				final Collection<Message> messages = messageBox.getMessages();
+				messages.add(message);
+				messageBox.setMessages(messages);
+				this.messageBoxService.save(messageBox);
+			}
 		}
 
 		return result;
