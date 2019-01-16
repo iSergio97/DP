@@ -98,6 +98,10 @@ public class RefereeService {
 		return this.refereeRepository.findOne(id);
 	}
 
+	public Referee findByUserAccountId(final int id) {
+		return this.refereeRepository.findByUserAccountId(id);
+	}
+
 	public List<Referee> findAll() {
 		return this.refereeRepository.findAll();
 	}

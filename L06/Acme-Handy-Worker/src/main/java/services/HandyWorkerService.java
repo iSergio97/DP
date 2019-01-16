@@ -124,14 +124,8 @@ public class HandyWorkerService {
 
 	// Custom Methods-------------------------------------------------------------------
 
-	public HandyWorker getHandyWorkerbyUserAccountId(final int userAccountId) {
-		return this.handyWorkerRepository.getHandyWorkerbyUserAccountId(userAccountId);
+	public HandyWorker findByUserAccountId(final int userAccountId) {
+		return this.handyWorkerRepository.findByUserAccountId(userAccountId);
 	}
-
-	//	public HandyWorker getHandyWorkerByUserAccountId(final int userAccountId) {
-	//		HandyWorker hw;
-	//		hw = this.handyWorkerRepository.findByUserAccountId(userAccountId);
-	//		return hw;
-	//	}
 
 }

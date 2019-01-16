@@ -64,7 +64,7 @@ public class FinderController extends AbstractController {
 		final Finder finder;
 		HandyWorker handyWorker;
 
-		handyWorker = this.handyWorkerService.getHandyWorkerbyUserAccountId(LoginService.getPrincipal().getId());
+		handyWorker = this.handyWorkerService.findByUserAccountId(LoginService.getPrincipal().getId());
 		finder = this.finderService.findByHandyWorkerId(handyWorker.getId());
 		//Assert.notNull(finder);
 		result = this.createEditModelAndView(finder);

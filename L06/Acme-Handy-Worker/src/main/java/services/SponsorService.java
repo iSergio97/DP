@@ -80,6 +80,10 @@ public class SponsorService {
 		return this.sponsorRepository.findOne(id);
 	}
 
+	public Sponsor findByUserAccountId(final int id) {
+		return this.sponsorRepository.findByUserAccountId(id);
+	}
+
 	public List<Sponsor> findAll() {
 		return this.sponsorRepository.findAll();
 	}

@@ -101,6 +101,10 @@ public class AdminService {
 		return this.adminRepository.findAll();
 	}
 
+	public Admin findByUserAccountId(final int id) {
+		return this.adminRepository.findByUserAccountId(id);
+	}
+
 	// Specific Methods ----------------------------------------------------------------
 
 }

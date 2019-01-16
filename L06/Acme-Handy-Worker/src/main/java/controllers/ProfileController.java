@@ -17,19 +17,26 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
 import security.LoginService;
+import security.UserAccount;
+import security.UserAccountRepository;
 import services.ActorService;
+import services.AdminService;
 import services.CustomerService;
 import services.HandyWorkerService;
+import services.RefereeService;
 import services.SponsorService;
 import domain.Actor;
+import domain.Admin;
 import domain.Customer;
 import domain.HandyWorker;
+import domain.Referee;
 import domain.Sponsor;
 
 @Controller
@@ -39,16 +46,19 @@ public class ProfileController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private ActorService		actorService;
-
+	private ActorService			actorService;
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
-
+	private AdminService			adminService;
 	@Autowired
-	private CustomerService		customerService;
-
+	private CustomerService			customerService;
 	@Autowired
-	private SponsorService		sponsorService;
+	private HandyWorkerService		handyWorkerService;
+	@Autowired
+	private RefereeService			refereeService;
+	@Autowired
+	private SponsorService			sponsorService;
+	@Autowired
+	private UserAccountRepository	userAccountRepository;
 
 
 	// Show -------------------------------------------------------------------
@@ -86,29 +96,87 @@ public class ProfileController extends AbstractController {
 
 	//Edit POST
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView editPost(@Valid final Actor a, final BindingResult binding) {
+	public ModelAndView editPost(@Valid final Actor actor, final BindingResult binding) {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			final List<Authority> au = (List<Authority>) a.getUserAccount().getAuthorities();
-			final String authority = au.get(0).getAuthority();
-			final int id = a.getId();
-			if (authority.equals("CUSTOMER")) {
-				final Customer customer = this.customerService.findById(id);
-				this.customerService.save(customer);
-			} else if (authority.equals("HANDY_WORKER")) {
-				final HandyWorker hw = this.handyWorkerService.findById(id);
-				this.handyWorkerService.save(hw);
-			} else {
-				final Sponsor sp = this.sponsorService.findById(id);
-				this.sponsorService.save(sp);
+			final UserAccount userAccount = this.userAccountRepository.findOne(actor.getUserAccount().getId());
+			final String authority = userAccount.getAuthorities().toArray(new Authority[1])[0].getAuthority();
+			switch (authority) {
+			case Authority.ADMIN:
+				Admin admin = this.adminService.findByUserAccountId(userAccount.getId());
+				admin.setName(actor.getName());
+				admin.setMiddleName(actor.getMiddleName());
+				admin.setSurname(actor.getSurname());
+				admin.setPhoto(actor.getPhoto());
+				admin.setEmail(actor.getEmail());
+				admin.setPhoneNumber(actor.getPhoneNumber());
+				admin.setAddress(actor.getAddress());
+				admin.setIsBanned(actor.getIsBanned());
+				admin = this.adminService.save(admin);
+				break;
+			case Authority.CUSTOMER:
+				Customer customer = this.customerService.findByUserAccountId(userAccount.getId());
+				customer.setName(actor.getName());
+				customer.setMiddleName(actor.getMiddleName());
+				customer.setSurname(actor.getSurname());
+				customer.setPhoto(actor.getPhoto());
+				customer.setEmail(actor.getEmail());
+				customer.setPhoneNumber(actor.getPhoneNumber());
+				customer.setAddress(actor.getAddress());
+				customer.setIsBanned(actor.getIsBanned());
+				customer = this.customerService.save(customer);
+				break;
+			case Authority.HANDY_WORKER:
+				HandyWorker handyWorker = this.handyWorkerService.findByUserAccountId(userAccount.getId());
+				handyWorker.setName(actor.getName());
+				handyWorker.setMiddleName(actor.getMiddleName());
+				handyWorker.setSurname(actor.getSurname());
+				handyWorker.setPhoto(actor.getPhoto());
+				handyWorker.setEmail(actor.getEmail());
+				handyWorker.setPhoneNumber(actor.getPhoneNumber());
+				handyWorker.setAddress(actor.getAddress());
+				handyWorker.setIsBanned(actor.getIsBanned());
+				handyWorker = this.handyWorkerService.save(handyWorker);
+				break;
+			case Authority.REFEREE:
+				Referee referee = this.refereeService.findByUserAccountId(userAccount.getId());
+				referee.setName(actor.getName());
+				referee.setMiddleName(actor.getMiddleName());
+				referee.setSurname(actor.getSurname());
+				referee.setPhoto(actor.getPhoto());
+				referee.setEmail(actor.getEmail());
+				referee.setPhoneNumber(actor.getPhoneNumber());
+				referee.setAddress(actor.getAddress());
+				referee.setIsBanned(actor.getIsBanned());
+				referee = this.refereeService.save(referee);
+				break;
+			case Authority.SPONSOR:
+				Sponsor sponsor = this.sponsorService.findByUserAccountId(userAccount.getId());
+				sponsor.setName(actor.getName());
+				sponsor.setMiddleName(actor.getMiddleName());
+				sponsor.setSurname(actor.getSurname());
+				sponsor.setPhoto(actor.getPhoto());
+				sponsor.setEmail(actor.getEmail());
+				sponsor.setPhoneNumber(actor.getPhoneNumber());
+				sponsor.setAddress(actor.getAddress());
+				sponsor.setIsBanned(actor.getIsBanned());
+				sponsor = this.sponsorService.save(sponsor);
+				break;
+			default:
 			}
-			result = new ModelAndView("redirect:show");
+			result = this.show();
 		} else {
-			result = new ModelAndView("redirect:edit");
-			result.addObject("actor", a);
+			result = new ModelAndView("profile/edit");
+			result.addObject("actor", actor);
 			result.addObject("errors", binding);
+			for (final ObjectError oe : binding.getAllErrors()) {
+				System.out.println(oe.getCode());
+				System.out.println(oe.getDefaultMessage());
+			}
 		}
+
 		return result;
 	}
+
 }
