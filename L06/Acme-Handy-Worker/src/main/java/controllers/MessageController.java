@@ -53,15 +53,14 @@ public class MessageController {
 		mesage = this.messageService.create();
 
 		result = new ModelAndView("message/sendMessage");
-		//final List<MessageBox> ls = new ArrayList<>();
-		//ls.add((MessageBox) a.getMessageBoxes().toArray()[0]);
 		final MessageBox outBox = this.messageBoxService.findByPrincipalAndName(a.getId(), "OutBox");
-
 		final List<MessageBox> ls = new ArrayList<>();
 		ls.add(outBox);
 		mesage.setMessageBoxes(ls);
 		outBox.getMessages().add(mesage);
 		mesage.setMessageBoxes(ls);
+		a.getMessagesSent().add(mesage);
+		a.getMessageBoxes().add(outBox);
 		result.addObject("domainMessage", mesage);
 		result.addObject("actors", lsActors);
 
@@ -84,11 +83,12 @@ public class MessageController {
 			mesage = this.messageService.save(mesage);
 			sender.getMessagesSent().add(mesage);
 			//Añadido ahora
-			final MessageBox outBox = this.messageBoxService.findByPrincipalAndName(sender.getId(), "OutBox");
+			final MessageBox outBox = this.messageBoxService.findByPrincipalAndName(sender.getId(), "outBox");
 			final List<MessageBox> ls = new ArrayList<>();
 			ls.add(outBox);
 			mesage.setMessageBoxes(ls);
 			outBox.getMessages().add(mesage);
+			sender.getMessageBoxes().add(outBox);
 			this.messageService.save(mesage);
 			this.messageBoxService.save(outBox);
 
@@ -104,7 +104,11 @@ public class MessageController {
 				this.messageBoxService.save(inBox);
 				//this.messageService.save(mesage);
 			}
-			result = new ModelAndView("redirect: ..welcome/index");
+			sender.getMessagesSent().add(mesage);
+			mesage.setMessageBoxes(ls);
+			outBox.getMessages().add(mesage);
+			this.messageBoxService.save(outBox);
+			result = new ModelAndView("redirect:../welcome/index.do");
 
 		} else {
 			for (int i = 0; i < bindingResult.getErrorCount(); i++)
