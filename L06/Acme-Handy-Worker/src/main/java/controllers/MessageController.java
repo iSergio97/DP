@@ -55,8 +55,7 @@ public class MessageController {
 		result = new ModelAndView("message/sendMessage");
 		//final List<MessageBox> ls = new ArrayList<>();
 		//ls.add((MessageBox) a.getMessageBoxes().toArray()[0]);
-		final MessageBox[] outBoxes = this.messageBoxService.findByPrincipalAndName(a.getId(), "OutBox");
-		final MessageBox outBox = outBoxes[0];
+		final MessageBox outBox = this.messageBoxService.findByPrincipalAndName(a.getId(), "OutBox");
 
 		final List<MessageBox> ls = new ArrayList<>();
 		ls.add(outBox);
@@ -85,8 +84,7 @@ public class MessageController {
 			mesage = this.messageService.save(mesage);
 			sender.getMessagesSent().add(mesage);
 			//Añadido ahora
-			final MessageBox[] outBoxes = this.messageBoxService.findByPrincipalAndName(sender.getId(), "OutBox");
-			final MessageBox outBox = outBoxes[0];
+			final MessageBox outBox = this.messageBoxService.findByPrincipalAndName(sender.getId(), "OutBox");
 			final List<MessageBox> ls = new ArrayList<>();
 			ls.add(outBox);
 			mesage.setMessageBoxes(ls);
@@ -95,9 +93,8 @@ public class MessageController {
 			this.messageBoxService.save(outBox);
 
 			for (final Actor a : recipients) {
-				final MessageBox[] inBoxes = this.messageBoxService.findByPrincipalAndName(a.getId(), "InBox");
+				final MessageBox inBox = this.messageBoxService.findByPrincipalAndName(a.getId(), "InBox");
 				a.getMessagesReceived().add(mesage);
-				final MessageBox inBox = inBoxes[0];
 				final List<MessageBox> ls1 = new ArrayList<>();
 				ls1.add(inBox);
 				mesage.setMessageBoxes(ls1);
