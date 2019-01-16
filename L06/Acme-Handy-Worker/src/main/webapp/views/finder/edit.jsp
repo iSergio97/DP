@@ -84,5 +84,3 @@
 			value="<spring:message code='security.cancel' />"
 			onclick="javascript: relativeRedir('welcome/index.do');" />
 	</form:form>
-	
-	<a href="finder/handyWorker/listfixuptasks.do"> Prueba </a>
