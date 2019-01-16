@@ -440,7 +440,7 @@ public class AdministratorController extends AbstractController {
 				System.out.println(oe.getDefaultMessage());
 			}
 		} else {
-			result = new ModelAndView("redirect:broadcast.do");
+			result = new ModelAndView("redirect:showMessage.do");
 			final Actor sender = this.actorService.findPrincipal();
 			final List<Actor> recipients = this.actorService.findAll();
 			final List<MessageBox> messageBoxes = new ArrayList<>();

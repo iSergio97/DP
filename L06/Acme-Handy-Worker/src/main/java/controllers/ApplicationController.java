@@ -18,6 +18,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,7 @@ import services.FixUpTaskService;
 import services.HandyWorkerService;
 import domain.Actor;
 import domain.Application;
+import domain.CreditCard;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
@@ -50,10 +52,6 @@ public class ApplicationController extends AbstractController {
 	private FixUpTaskService	fixUpTaskService;
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
-	@Autowired
-	private MessageBoxService	messageBoxService;
-	@Autowired
-	private MessageService		messageService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -126,46 +124,32 @@ public class ApplicationController extends AbstractController {
 
 	@RequestMapping(value = "/customer", method = RequestMethod.POST, params = "accept")
 	public ModelAndView customerAccept(@RequestParam(value = "id") final int id) {
-		Application application;
-		Customer customer;
+		ModelAndView result;
+
+		final Application application;
+		final Customer customer;
 
 		application = this.applicationService.findById(id);
 		customer = this.customerService.findPrincipal();
+		if (customer.getCreditCard() == null) {
+			result = new ModelAndView("redirect:add-credit-card.do");
+			result.addObject(application);
+		} else {
+			Assert.isTrue(application.getFixUpTask().getCustomer().equals(customer));
+			Assert.isTrue(customer.getCreditCard() != null);
+			Assert.isTrue(application.getStatus().equals("PENDING"));
+			Assert.isTrue(application.getFixUpTask().getTimeLimit().before(new Date()));
 
-		Assert.isTrue(application.getFixUpTask().getCustomer().equals(customer));
-		Assert.isTrue(customer.getCreditCard() != null);
-		Assert.isTrue(application.getStatus().equals("PENDING"));
-		Assert.isTrue(application.getFixUpTask().getTimeLimit().before(new Date()));
-
-		application.setStatus("ACCEPTED");
-		application = this.applicationService.save(application);
-		
-		Message message = this.messageService.create();
-		message.setPriority("HIGH");
-		message.setSubject("Application accepted");
-		message.setBody("Application accepted");
-		message.setSender(customer);
-		List<Actor> recipients = new ArrayList<>();
-		recipients.add(application.getHandyWorker());
-		message.setRecipients(recipients);
-		List<MessageBox> messageBoxes = new ArrayList<>();
-		messageBoxes.add(this.messageBoxService.findByPrincipalAndName(customer.getId(), "OutBox"));
-		messageBoxes.add(this.messageBoxService.findByPrincipalAndName(application.getHandyWorker().getId(), "InBox"));
-		message.setMessageBoxes(messageBoxes);
-		message = this.messageService.save(message);
-		for (final MessageBox messageBox : messageBoxes) {
-			final Collection<Message> messages = messageBox.getMessages();
-			messages.add(message);
-			messageBox.setMessages(messages);
-			this.messageBoxService.save(messageBox);
-
-		return this.customer();
+			application.setStatus("ACCEPTED");
+			this.applicationService.save(application);
+			result = this.customer();
+		}
+		return result;
 	}
-
 	@RequestMapping(value = "/customer", method = RequestMethod.POST, params = "reject")
 	public ModelAndView customerReject(@RequestParam(value = "id") final int id) {
-		Application application;
-		Customer customer;
+		final Application application;
+		final Customer customer;
 
 		application = this.applicationService.findById(id);
 		customer = this.customerService.findPrincipal();
@@ -175,26 +159,7 @@ public class ApplicationController extends AbstractController {
 		Assert.isTrue(application.getFixUpTask().getTimeLimit().before(new Date()));
 
 		application.setStatus("REJECTED");
-		application = this.applicationService.save(application);
-
-		Message message = this.messageService.create();
-		message.setPriority("HIGH");
-		message.setSubject("Application rejected");
-		message.setBody("Application rejected");
-		message.setSender(customer);
-		List<Actor> recipients = new ArrayList<>();
-		recipients.add(application.getHandyWorker());
-		message.setRecipients(recipients);
-		List<MessageBox> messageBoxes = new ArrayList<>();
-		messageBoxes.add(this.messageBoxService.findByPrincipalAndName(customer.getId(), "OutBox"));
-		messageBoxes.add(this.messageBoxService.findByPrincipalAndName(application.getHandyWorker().getId(), "InBox"));
-		message.setMessageBoxes(messageBoxes);
-		message = this.messageService.save(message);
-		for (final MessageBox messageBox : messageBoxes) {
-			final Collection<Message> messages = messageBox.getMessages();
-			messages.add(message);
-			messageBox.setMessages(messages);
-			this.messageBoxService.save(messageBox);
+		this.applicationService.save(application);
 
 		return this.customer();
 	}
@@ -264,4 +229,51 @@ public class ApplicationController extends AbstractController {
 		return result;
 	}
 
+	// Add CreditCard -----------------------------------------------------------------
+
+	@RequestMapping(value = "/add-credit-card", method = RequestMethod.GET)
+	public ModelAndView createCreditCard(final Application application, final BindingResult binding) {
+		ModelAndView result;
+		CreditCard creditCard;
+
+		creditCard = new CreditCard();
+		Assert.notNull(creditCard);
+
+		result = new ModelAndView("application/add-credit-card");
+		result.addObject("creditCard", creditCard);
+
+		result.addObject("messageCode", null);
+
+		return result;
+	}
+	@RequestMapping(value = "/add-credit-card", method = RequestMethod.POST, params = "submit")
+	public ModelAndView saveCreditCard(final CreditCard creditCard, final BindingResult binding) {
+		ModelAndView result;
+		Customer customer;
+
+		customer = this.customerService.findPrincipal();
+
+		if (binding.hasErrors()) {
+			result = new ModelAndView("application/add-credit-card");
+			result.addObject("customer", customer);
+			result.addObject("creditCard", creditCard);
+			result.addObject("messageCode", null);
+			System.out.println("El binding tiene errores");
+		} else
+			try {
+				customer.setCreditCard(creditCard);
+				this.customerService.save(customer);
+
+				result = new ModelAndView("redirect:customer.do");
+
+			} catch (final Throwable oops) {
+				result = new ModelAndView("application/add-credit-card");
+				result.addObject("customer", customer);
+				result.addObject("creditCard", creditCard);
+				result.addObject("messageCode", "creditCard.commit.error");
+				System.out.println("Excepción: " + binding.getAllErrors());
+				System.out.println(oops.getMessage());
+			}
+		return result;
+	}
 }

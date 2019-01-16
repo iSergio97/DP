@@ -65,25 +65,25 @@ public class SponsorController extends AbstractController {
 		ModelAndView result;
 
 		if (!binding.hasErrors()) {
-			UserAccount userAccount = sponsor.getUserAccount();
-			sponsor = this.sponsorService.save(sponsor);
+				UserAccount userAccount = sponsor.getUserAccount();
+				sponsor = this.sponsorService.save(sponsor);
 
-			final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
-			userAccount.setPassword(password);
-			userAccount = this.userAccountRepository.save(userAccount);
-			sponsor.setUserAccount(userAccount);
-			sponsor = this.sponsorService.save(sponsor);
+				final String password = new Md5PasswordEncoder().encodePassword(userAccount.getPassword(), null);
+				userAccount.setPassword(password);
+				userAccount = this.userAccountRepository.save(userAccount);
+				sponsor.setUserAccount(userAccount);
+				sponsor = this.sponsorService.save(sponsor);
 
-			final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
-			for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
-				messageBox.setActor(sponsor);
-				messageBox = this.messageBoxService.save(messageBox);
-				savedMessageBoxes.add(messageBox);
-			}
-			sponsor.setMessageBoxes(savedMessageBoxes);
-			sponsor = this.sponsorService.save(sponsor);
+				final ArrayList<MessageBox> savedMessageBoxes = new ArrayList<MessageBox>();
+				for (MessageBox messageBox : this.messageBoxService.createSystemBoxes()) {
+					messageBox.setActor(sponsor);
+					messageBox = this.messageBoxService.save(messageBox);
+					savedMessageBoxes.add(messageBox);
+				}
+				sponsor.setMessageBoxes(savedMessageBoxes);
+				sponsor = this.sponsorService.save(sponsor);
 
-			result = new ModelAndView("redirect:../welcome/index.do");
+				result = new ModelAndView("redirect:../welcome");
 		} else {
 			result = new ModelAndView("customer/register");
 			result.addObject("sponsor", sponsor);

@@ -103,7 +103,7 @@ public class HandyWorkerController extends AbstractController {
 			finder = this.finderService.save(finder);
 			handyWorker.setFinder(finder);
 			handyWorker = this.handyWorkerService.save(handyWorker);
-			result = new ModelAndView("redirect:..welcome/index.do");
+			result = new ModelAndView("redirect:..welcome/index");
 		} else {
 			result = new ModelAndView("handy-worker/register");
 			result.addObject("handyWorker", handyWorker);
