@@ -25,9 +25,7 @@
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="isBanned" />
-		<form:hidden path="userAccount.authorities" />
-		<form:hidden path="userAccount.id" />
-		<form:hidden path="userAccount.version" />
+		<form:hidden path="userAccount" />
 		<form:hidden path="messageBoxes" />
 		<form:hidden path="socialProfiles" />
 		<form:hidden path="endorsedBy" />
@@ -68,7 +66,7 @@
 		<br>
 
 		<div>
-			<form:label path="MiddleName">
+			<form:label path="middleName">
 				<spring:message code="security.middleName" /> (*)
 			</form:label>
 			<form:input path="middleName" />
