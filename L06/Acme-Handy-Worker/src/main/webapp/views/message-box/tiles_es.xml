@@ -16,18 +16,18 @@
 
 <tiles-definitions>
 
-	<definition name="message/sendMessage" extends="master.page">
-		<put-attribute name="title" value="Enviar mensaje" />
-		<put-attribute name="body" value="/views/message/sendMessage.jsp" />
-	</definition>
-
 	<definition name="message-box/list" extends="master.page">
 		<put-attribute name="title" value="Lista de Cajas" />
 		<put-attribute name="body" value="/views/message-box/list.jsp" />
 	</definition>
 	
+	<definition name="message-box/create" extends="master.page">
+		<put-attribute name="title" value="Crear Caja" />
+		<put-attribute name="body" value="/views/message-box/edit.jsp" />
+	</definition>
+	
 	<definition name="message-box/edit" extends="master.page">
-		<put-attribute name="title" value="Editar Bandeja" />
+		<put-attribute name="title" value="Editar Caja" />
 		<put-attribute name="body" value="/views/message-box/edit.jsp" />
 	</definition>
 

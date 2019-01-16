@@ -71,7 +71,7 @@
 			<spring:message code="finder.fixUpTaskCategory" />
 		</form:label>
 		<form:select id="categories" path="fixUpTaskCategory">
-			<form:options items="${ categories}" itemLabel="name" itemValue="id" />
+			<form:options items="${categories}" itemLabel="name" itemValue="id" />
 			<form:option label="----" value="0" />
 		</form:select>
 		<br />

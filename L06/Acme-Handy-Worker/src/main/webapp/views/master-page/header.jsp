@@ -91,9 +91,9 @@
 							code="master.page.register" /></a>
 							<ul>
 							<li class="arrow"></li>
-							<li> <a href="customer/register.do"><spring:message code="master.page.customer2"/></a></li>
-							<li> <a href="handy-worker/register.do"><spring:message code="master.page.handyWorker2"/></a></li>
-							<li> <a href="sponsor/register.do"><spring:message code="master.page.sponsor2"/></a></li>
+							<li> <a href="customer/register.do"><spring:message code="master.page.register.customer"/></a></li>
+							<li> <a href="handy-worker/register.do"><spring:message code="master.page.register.handyWorker"/></a></li>
+							<li> <a href="sponsor/register.do"><spring:message code="master.page.register.sponsor"/></a></li>
 							
 							</ul>
 							</li>
@@ -111,8 +111,6 @@
 						<li><a
 							href="profile/edit.do?id=<security:authentication property="principal.id" />"><spring:message
 									code="master.page.profile.edit" /></a></li>
-						<li><a href="profile/action-3.do"><spring:message
-									code="master.page.profile.action.3" /></a></li>
 						<li><a href="j_spring_security_logout"><spring:message
 									code="master.page.logout" /> </a></li>
 					</ul></li>

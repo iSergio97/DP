@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,7 +80,7 @@ public class MessageBoxController {
 		final MessageBox messageBox;
 
 		messageBox = this.messageBoxService.create();
-		result = this.createEditModelAndView(messageBox);
+		result = this.createEditModelAndView(messageBox, "message-box/create");
 
 		return result;
 	}
@@ -94,7 +95,7 @@ public class MessageBoxController {
 		messageBox = this.messageBoxService.findById(id);
 		Assert.notNull(messageBox);
 
-		result = this.createEditModelAndView(messageBox);
+		result = this.createEditModelAndView(messageBox, "message-box/edit");
 
 		return result;
 	}
@@ -102,12 +103,12 @@ public class MessageBoxController {
 	// Save ------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final MessageBox messageBox, final BindingResult binding) {
+	public ModelAndView save(@Valid @ModelAttribute("messageBox") final MessageBox messageBox, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
 			System.out.println(binding.getAllErrors());
-			result = this.createEditModelAndView(messageBox);
+			result = this.createEditModelAndView(messageBox, "message-box/edit");
 		} else
 			try {
 				this.messageBoxService.save(messageBox);
@@ -133,11 +134,6 @@ public class MessageBoxController {
 		}
 
 		return result;
-
-		//		final MessageBox[] messageBoxes = this.messageBoxService.findByPrincipalAndId(actor.getId(), messageBoxId);
-		//		final MessageBox messageBox = messageBoxes[0];
-		//
-		//		this.messageBoxService.delete(messageBox);
 	}
 
 	// Show ------------------------------------------------------------------
@@ -147,35 +143,28 @@ public class MessageBoxController {
 		ModelAndView result;
 		Actor actor;
 		MessageBox messageBox;
-		Collection<Message> messages;
 
 		actor = this.actorService.findByUserAccountId(LoginService.getPrincipal().getId());
 		messageBox = this.messageBoxService.findByPrincipalAndName(actor.getId(), name);
-		messages = messageBox.getMessages();
 		Assert.notNull(messageBox);
 
-		result = new ModelAndView("message-box/show");
-		result.addObject("messageBox", messageBox);
-		result.addObject("name", name);
-		result.addObject("actor", actor);
-		result.addObject("messages", messages);
+		result = this.createEditModelAndView(messageBox, "message-box/show");
 
 		result.addObject("messageCode", null);
 
 		return result;
 	}
-
 	// CreateEditModelAndView ------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final MessageBox messageBox) {
+	protected ModelAndView createEditModelAndView(final MessageBox messageBox, final String viewName) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(messageBox, null);
+		result = this.createEditModelAndView(messageBox, null, viewName);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final MessageBox messageBox, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final MessageBox messageBox, final String messageCode, final String viewName) {
 		final ModelAndView result;
 		final String name;
 		final Actor actor;
@@ -186,7 +175,8 @@ public class MessageBoxController {
 		actor = this.actorService.findByUserAccountId(principalId);
 		messages = messageBox.getMessages();
 
-		result = new ModelAndView("message-box/edit");
+		// Ligera modificación por motivos de tiles.xml (<h1>)
+		result = new ModelAndView(viewName);
 		result.addObject("messageBox", messageBox);
 		result.addObject("name", name);
 		result.addObject("actor", actor);

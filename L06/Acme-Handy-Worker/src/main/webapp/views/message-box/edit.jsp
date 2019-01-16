@@ -17,7 +17,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jstl:if test="${messageBox.name != 'InBox' && messageBox.name != 'OutBox' && messageBox.name != 'TrashBox' && messageBox.name != 'SpamBox'}">
+<jstl:if test="${name != 'InBox' && name != 'OutBox' && name != 'TrashBox' && name != 'SpamBox'}">
 	<h2><spring:message code="options.editData"/>:</h2>
 	<form:form modelAttribute="messageBox" action="message-box/edit.do">
 		<form:hidden path="id" />
@@ -40,7 +40,7 @@
 	</form:form>
 </jstl:if>
 
-<jstl:if test="${!(messageBox.name != 'InBox' && messageBox.name != 'OutBox' && messageBox.name != 'TrashBox' && messageBox.name != 'SpamBox')}">
+<jstl:if test="${!(name != 'InBox' && name != 'OutBox' && name != 'TrashBox' && name != 'SpamBox')}">
 	<h2><spring:message code="messageBox.name"/>: <em><jstl:out value="${name}"></jstl:out></em></h2>
 </jstl:if>
 <br/>

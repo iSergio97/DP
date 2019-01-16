@@ -48,6 +48,11 @@
 	<spring:message code="application.offeredprice" />
 	<br>
 	<jstl:out value="${application.offeredPrice}" />
+			<spring:message code="application.price.euro"/>
+			<spring:message code="application.price.vat"/>
+			<jstl:out value="(${application.offeredPrice*1.21}"/>
+			<spring:message code="application.price.euro"/>
+			<jstl:out value=")"/>
 </p>
 <p>
 	<spring:message code="application.customer" />
