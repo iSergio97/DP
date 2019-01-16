@@ -28,19 +28,25 @@ import domain.MessageBox;
 @RequestMapping("/message")
 public class MessageController {
 
-	@Autowired
-	private MessageService		messageService;
-
-	@Autowired
-	private MessageBoxService	messageBoxService;
+	// Services ---------------------------------------------------------------
 
 	@Autowired
 	private ActorService		actorService;
+	@Autowired
+	private MessageBoxService	messageBoxService;
+	@Autowired
+	private MessageService		messageService;
+	@Autowired
+	private SystemConfigurationService	systemConfigurationService;
 
+
+	// Constructors ----------------------------------------------------------------
 
 	public MessageController() {
 		super();
 	}
+
+	// Send message ----------------------------------------------------------------
 
 	@RequestMapping(value = "/sendMessage", method = RequestMethod.GET)
 	public ModelAndView sendMessageGet() {
@@ -131,6 +137,8 @@ public class MessageController {
 		return result;
 	}
 
+	// Display box -----------------------------------------------------------------
+
 	@RequestMapping(value = "/displaybox", method = RequestMethod.GET)
 	public ModelAndView displayBox(@RequestParam(value = "id") final int id) {
 		ModelAndView result;
@@ -143,6 +151,8 @@ public class MessageController {
 
 		return result;
 	}
+
+	// Move ------------------------------------------------------------------------
 
 	@RequestMapping(value = "/move", method = RequestMethod.GET)
 	public ModelAndView move(@RequestParam(value = "messageId") final int messageId, @RequestParam(value = "fromMessageBoxId") final int fromMessageBoxId, @RequestParam(value = "toMessageBoxId") final int toMessageBoxId) {
@@ -174,21 +184,14 @@ public class MessageController {
 		return this.displayBox(toMessageBox.getId());
 	}
 
+	// Spam ------------------------------------------------------------------------
+
 	private boolean spam(final Message message) {
-		boolean spam = false;
-		final List<String> spamWords = new ArrayList<String>();
-		spamWords.add("sex");
-		spamWords.add("viagra");
-		spamWords.add("cialis");
-		spamWords.add("one million");
-		spamWords.add("you've been selected");
-		spamWords.add("Nigeria");
-		spamWords.add("sexo");
-		spamWords.add("un millon");
-		spamWords.add("has sido seleccionado");
+		final List<String> spamWords = this.systemConfigurationService.getSystemConfiguration().getSpamWords();
 		for (int i = 0; i < spamWords.size(); i++)
 			if (message.getBody().contains(spamWords.get(i)) || message.getSubject().contains(spamWords.get(i)) || message.getTags().contains(spamWords.get(i)))
-				spam = true;
-		return spam;
+				return true;
+		return false;
 	}
+
 }
