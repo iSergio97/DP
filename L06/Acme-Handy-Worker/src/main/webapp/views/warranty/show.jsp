@@ -8,17 +8,20 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<a href="warranty/administrator/list.do">Back</a><br/>
+<a href="warranty/administrator/list.do"><spring:message code="warranty.cancel" /></a><br/>
 
-<jstl:out value="Title: ${warranty.title}"/><br/>
-<jstl:out value="Laws: ${warranty.applicableLaws}"/><br/>
-<jstl:out value="Terms: ${warranty.terms}"/><br/>
+<spring:message code="warranty.title" />
+<jstl:out value=" ${warranty.title}"/><br/>
+<spring:message code="warranty.laws" />
+<jstl:out value="${warranty.applicableLaws}"/><br/>
+<spring:message code="warranty.terms" />
+<jstl:out value=" ${warranty.terms}"/><br/>
 
 
 
 
 <jstl:if test="${warranty.draft}">
-<a href="warranty/administrator/save.do?warrantyId=${warranty.id}">Save</a>
-<a href="warranty/administrator/edit.do?warrantyId=${warranty.id}">Edit</a>
-<a href="warranty/administrator/delete.do?warrantyId=${warranty.id}">Delete</a>
+<a href="warranty/administrator/save.do?warrantyId=${warranty.id}"><spring:message code="warranty.saveFinal" /></a>
+<a href="warranty/administrator/edit.do?warrantyId=${warranty.id}"><spring:message code="warranty.edit" /></a>
+<a href="warranty/administrator/delete.do?warrantyId=${warranty.id}"><spring:message code="warranty.delete" /></a>
 </jstl:if>
