@@ -39,6 +39,8 @@
 									code="master.page.administrator.register.referee" /></a></li>
 						<li><a href="administrator/suspicious.do"><spring:message
 									code="master.page.administrator.suspicious" /></a></li>
+						<li><a href="administrator/broadcast.do"><spring:message
+									code="master.page.administrator.broadcast" /></a></li>
 						<li><a href="warranty/administrator/list.do"><spring:message
 									code="master.page.administrator.warranties" /></a></li>
 						<li><a href="fixUpTaskCategory/administrator/list.do"><spring:message
