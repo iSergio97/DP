@@ -1477,7 +1477,7 @@
 	</bean>
 
 	<bean id="fixUpTaskCategory1" class="domain.FixUpTaskCategory">
-		<property name="name" value="Doors" />
+		<property name="name" value="Carpentry/Carpintería" />
 		<property name="fixUpTasks">
 			<list>
 				<ref bean="fixUpTask1" />
@@ -1490,7 +1490,7 @@
 	</bean>
 
 	<bean id="fixUpTaskCategory2" class="domain.FixUpTaskCategory">
-		<property name="name" value="Cleaning" />
+		<property name="name" value="Ceiling repair/Reparación de techo" />
 		<property name="fixUpTasks">
 			<list>
 			</list>
@@ -1502,7 +1502,7 @@
 	</bean>
 
 	<bean id="fixUpTaskCategory3" class="domain.FixUpTaskCategory">
-		<property name="name" value="Ceiling Repair" />
+		<property name="name" value="Cleaning/Limpieza" />
 		<property name="fixUpTasks">
 			<list>
 			</list>
@@ -1514,7 +1514,7 @@
 	</bean>
 
 	<bean id="fixUpTaskCategory4" class="domain.FixUpTaskCategory">
-		<property name="name" value="Plumbing Repairs" />
+		<property name="name" value="Concrete work/Trabajo concreto" />
 		<property name="fixUpTasks">
 			<list>
 				<ref bean="fixUpTask4" />
@@ -1527,7 +1527,7 @@
 	</bean>
 
 	<bean id="fixUpTaskCategory5" class="domain.FixUpTaskCategory">
-		<property name="name" value="Pest Control" />
+		<property name="name" value="Doors/Puertas" />
 		<property name="fixUpTasks">
 			<list>
 			</list>
@@ -1539,7 +1539,175 @@
 	</bean>
 
 	<bean id="fixUpTaskCategory6" class="domain.FixUpTaskCategory">
-		<property name="name" value="Roofing" />
+		<property name="name" value="Electrical wiring/Cableado eléctrico" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory7" class="domain.FixUpTaskCategory">
+		<property name="name" value="Fan installation/Instalación de ventilación" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory8" class="domain.FixUpTaskCategory">
+		<property name="name" value="Fence fixing/Reparaciones de puertas" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory9" class="domain.FixUpTaskCategory">
+		<property name="name" value="Home security systems/Sistemas de seguridad para el hogar" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory10" class="domain.FixUpTaskCategory">
+		<property name="name" value="Insulation installation/Instalación de aislamiento" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory11" class="domain.FixUpTaskCategory">
+		<property name="name" value="Lamp repairs/Reparaciónes de lámparas" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory12" class="domain.FixUpTaskCategory">
+		<property name="name" value="Moving/Mudanza" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory13" class="domain.FixUpTaskCategory">
+		<property name="name" value="Painting/Pintura" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory14" class="domain.FixUpTaskCategory">
+		<property name="name" value="Plumbing repairs/Reparaciones de fontanería" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory15" class="domain.FixUpTaskCategory">
+		<property name="name" value="Roofing/Techado" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory16" class="domain.FixUpTaskCategory">
+		<property name="name" value="Shelf installation/Montaje de estantería" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory17" class="domain.FixUpTaskCategory">
+		<property name="name" value="Solar panels/Paneles solares" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory18" class="domain.FixUpTaskCategory">
+		<property name="name" value="Soundproofing/Insonorización" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory19" class="domain.FixUpTaskCategory">
+		<property name="name" value="Sprinkler repair/Reparación de radiadores" />
+		<property name="fixUpTasks">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTaskCategoryParent" ref="fixUpTaskCategoryRoot" />
+		<property name="fixUpTaskCategoryChildren">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="fixUpTaskCategory20" class="domain.FixUpTaskCategory">
+		<property name="name" value="Window repair/Reparación de ventana" />
 		<property name="fixUpTasks">
 			<list>
 			</list>

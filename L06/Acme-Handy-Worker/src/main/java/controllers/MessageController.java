@@ -96,10 +96,18 @@ public class MessageController {
 				final MessageBox inBox = this.messageBoxService.findByPrincipalAndName(a.getId(), "InBox");
 				a.getMessagesReceived().add(mesage);
 				final List<MessageBox> ls1 = new ArrayList<>();
-				ls1.add(inBox);
-				ls1.add(outBox);
-				inBox.getMessages().add(mesage);
-				mesage.setMessageBoxes(ls1);
+				final MessageBox spamBox = this.messageBoxService.findByPrincipalAndName(a.getId(), "SpamBox");
+				if (this.spam(mesage)) {
+					ls1.add(spamBox);
+					ls1.add(outBox);
+					spamBox.getMessages().add(mesage);
+					mesage.setMessageBoxes(ls1);
+				} else {
+					ls1.add(inBox);
+					ls1.add(outBox);
+					inBox.getMessages().add(mesage);
+					mesage.setMessageBoxes(ls1);
+				}
 				this.messageService.save(mesage);
 				this.messageBoxService.save(inBox);
 			}
@@ -166,4 +174,21 @@ public class MessageController {
 		return this.displayBox(toMessageBox.getId());
 	}
 
+	private boolean spam(final Message message) {
+		boolean spam = false;
+		final List<String> spamWords = new ArrayList<String>();
+		spamWords.add("sex");
+		spamWords.add("viagra");
+		spamWords.add("cialis");
+		spamWords.add("one million");
+		spamWords.add("you've been selected");
+		spamWords.add("Nigeria");
+		spamWords.add("sexo");
+		spamWords.add("un millon");
+		spamWords.add("has sido seleccionado");
+		for (int i = 0; i < spamWords.size(); i++)
+			if (message.getBody().contains(spamWords.get(i)) || message.getSubject().contains(spamWords.get(i)) || message.getTags().contains(spamWords.get(i)))
+				spam = true;
+		return spam;
+	}
 }
