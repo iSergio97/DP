@@ -9,15 +9,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<<jstl:out value="${workPlan.id}"></jstl:out>
+<jstl:out value="${workPlan.id}" />
 <display:table name="phases" id="row"
 	requestURI="phases/handyWorker/list.do" pagesize="5"
 	class="displaytag">
-	<display:column property="title" titleKey="phase.tle" />
+	<display:column property="title" titleKey="phase.title" />
 	<display:column property="description" titleKey="phase.description" />
 	<display:column property="startMoment" titleKey="phase.start" />
 	<display:column property="endMoment" titleKey="phase.end" />
 	<display:column> <a href="phase/handyWorker/edit.do?phaseId=${row.id}"> <jstl:out value="Edit"/></a> </display:column>
 </display:table>
 
-<a href="phase/handyWorker/create.do?handyWorkerId=${workPlan.id}">New</a>
+<a href="phase/handyWorker/create.do?workPlanId=${workPlan.id}">New</a>

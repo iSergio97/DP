@@ -36,7 +36,7 @@ public class PhaseController extends AbstractController {
 
 	@Autowired
 	private PhaseService	phaseService;
-
+	@Autowired
 	private WorkPlanService	workPlanService;
 
 
@@ -69,6 +69,7 @@ public class PhaseController extends AbstractController {
 
 		return result;
 	}
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int workPlanId) {
 		ModelAndView result;
