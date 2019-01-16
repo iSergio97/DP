@@ -20,10 +20,9 @@
 	<spring:message code="complaint.edit" />
 </p>
 
-<form:form modelAttribute="editComplaint" action="complaint/edit.do">
+<form:form modelAttribute="complaint" action="complaint/edit.do">
     <form:hidden path="id"/>
     <form:hidden path="version" />
-	<input type="hidden" name="fixuptaskid" value="<jstl:out value="${fixUpTaskId}" />">
 	
     <security:authorize access="hasRole('customer')" >
 

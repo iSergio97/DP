@@ -57,6 +57,8 @@
 									code="master.page.customer.application" /></a></li>
 						<li><a href="fixUpTask/customer/list.do"><spring:message
 									code="master.page.fixUpTask.customer" /></a></li>
+						<li><a href="complaint/customer/list.do"><spring:message
+									code="master.page.customer.complaint" /></a></li>
 					</ul></li>
 			</security:authorize>
 

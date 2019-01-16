@@ -20,15 +20,8 @@
 	<spring:message code="complaint.list" />
 </p>
 
-<display:table name="complaints" id="row"
-	requestURI="complaint/customer/list.do" pagesize="5"
-	class="displaytag">
-	
-	<display:column property="ticker" titleKey="complaint.ticker" />
+<display:table name="complaints" id="complaint">
+	<display:column titleKey="complaint.ticker" />
 	<display:column property="moment" titleKey="complaint.moment" />
 	<display:column property="description" titleKey="complaint.description" />
-	<display:column> <a href="complaint/customer/show.do?complaintId=${row.id}"> <spring:message code="complaint.show" /></a> </display:column>
-	
 </display:table>
-
-<a href="complaint/customer/create.do"><spring:message code="complaint.new" /></a>

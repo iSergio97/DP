@@ -7,19 +7,17 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
 import services.ActorService;
 import services.ComplaintService;
 import services.CustomerService;
+import services.FixUpTaskService;
 import services.RefereeService;
-import domain.Actor;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
@@ -42,6 +40,9 @@ public class ComplaintController extends AbstractController {
 	@Autowired
 	private RefereeService		refereeService;
 
+	@Autowired
+	private FixUpTaskService	futService;
+
 
 	//-- Constructors --
 
@@ -49,27 +50,41 @@ public class ComplaintController extends AbstractController {
 		super();
 	}
 
-	// Display --------------------------------------------
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam(value = "id") final int id) {
+	// List --------------------------------------------
+	@RequestMapping(value = "/customer/list", method = RequestMethod.GET)
+	public ModelAndView list() {
 		final ModelAndView result;
-		Complaint complaint;
-		Actor actor;
+		Collection<Complaint> complaints;
 
-		complaint = this.complaintService.findById(id);
-		actor = this.actorService.findPrincipal();
+		final Customer c = this.customerService.findPrincipal();
+		complaints = this.complaintService.getComplaints(c);
 
-		Assert.isTrue(actor.getUserAccount().getAuthorities().contains("REFEREE") || actor.getUserAccount().getAuthorities().contains("CUSTOMER"));
-
-		result = new ModelAndView("complaint/display");
-		result.addObject("complaint", complaint);
+		result = new ModelAndView("complaint/customer/list");
+		result.addObject("complaints", complaints);
+		result.addObject("customer", c);
+		result.addObject("requestURI", "complaint/customer/list.do");
 
 		return result;
 	}
 
+	@RequestMapping(value = "/referee/list", method = RequestMethod.GET)
+	public ModelAndView listReferee() {
+		ModelAndView result;
+		Collection<Complaint> complaints;
+
+		complaints = this.complaintService.getUnassignedComplaints();
+		result = new ModelAndView("complaint/referee/list");
+
+		result.addObject("complaints", complaints);
+		result.addObject("requestURI", "complaint/referee/list.do");
+
+		return result;
+
+	}
+
 	//Create----------------------------------------------
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/customer/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
 		Complaint complaint;
@@ -99,25 +114,21 @@ public class ComplaintController extends AbstractController {
 		return result;
 	}
 
-	// List-----------------------------------------------
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	//Show----------------------------------------------
+	@RequestMapping(value = "/customer/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int complaintId) {
 		ModelAndView result;
-		Collection<Complaint> complaints;
-		Actor a;
-		Customer c;
+		Complaint complaint;
 
-		a = this.actorService.findPrincipal();
-		Assert.isTrue(a.getUserAccount().getAuthorities().contains(Authority.CUSTOMER));
-		c = this.customerService.findPrincipal();
+		result = new ModelAndView("complaint/customer/show");
+		complaint = this.complaintService.findById(complaintId);
 
-		complaints = this.complaintService.getComplaints(c);
-
-		result = new ModelAndView("complaint/list");
-		result.addObject("complaints", complaints);
+		result.addObject("complaint", complaint);
 
 		return result;
 	}
+
+	// List-----------------------------------------------
 
 	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	//	public ModelAndView listReferee() {
@@ -150,13 +161,13 @@ public class ComplaintController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Complaint complaint, final String messageCode) {
 		ModelAndView result;
-		FixUpTask fut;
+		Collection<FixUpTask> futs;
 
-		fut = complaint.getFixUpTask();
+		futs = this.futService.findAll();
 
 		result = new ModelAndView("complaint/edit");
 		result.addObject("complaint", complaint);
-		result.addObject("fixUpTask", fut);
+		result.addObject("fixUpTasks", futs);
 		result.addObject("message", messageCode);
 
 		return result;
