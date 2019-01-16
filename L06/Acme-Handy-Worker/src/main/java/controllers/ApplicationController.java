@@ -50,6 +50,10 @@ public class ApplicationController extends AbstractController {
 	private FixUpTaskService	fixUpTaskService;
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
+	@Autowired
+	private MessageBoxService	messageBoxService;
+	@Autowired
+	private MessageService		messageService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -122,8 +126,8 @@ public class ApplicationController extends AbstractController {
 
 	@RequestMapping(value = "/customer", method = RequestMethod.POST, params = "accept")
 	public ModelAndView customerAccept(@RequestParam(value = "id") final int id) {
-		final Application application;
-		final Customer customer;
+		Application application;
+		Customer customer;
 
 		application = this.applicationService.findById(id);
 		customer = this.customerService.findPrincipal();
@@ -134,15 +138,34 @@ public class ApplicationController extends AbstractController {
 		Assert.isTrue(application.getFixUpTask().getTimeLimit().before(new Date()));
 
 		application.setStatus("ACCEPTED");
-		this.applicationService.save(application);
+		application = this.applicationService.save(application);
+		
+		Message message = this.messageService.create();
+		message.setPriority("HIGH");
+		message.setSubject("Application accepted");
+		message.setBody("Application accepted");
+		message.setSender(customer);
+		List<Actor> recipients = new ArrayList<>();
+		recipients.add(application.getHandyWorker());
+		message.setRecipients(recipients);
+		List<MessageBox> messageBoxes = new ArrayList<>();
+		messageBoxes.add(this.messageBoxService.findByPrincipalAndName(customer.getId(), "OutBox"));
+		messageBoxes.add(this.messageBoxService.findByPrincipalAndName(application.getHandyWorker().getId(), "InBox"));
+		message.setMessageBoxes(messageBoxes);
+		message = this.messageService.save(message);
+		for (final MessageBox messageBox : messageBoxes) {
+			final Collection<Message> messages = messageBox.getMessages();
+			messages.add(message);
+			messageBox.setMessages(messages);
+			this.messageBoxService.save(messageBox);
 
 		return this.customer();
 	}
 
 	@RequestMapping(value = "/customer", method = RequestMethod.POST, params = "reject")
 	public ModelAndView customerReject(@RequestParam(value = "id") final int id) {
-		final Application application;
-		final Customer customer;
+		Application application;
+		Customer customer;
 
 		application = this.applicationService.findById(id);
 		customer = this.customerService.findPrincipal();
@@ -152,7 +175,26 @@ public class ApplicationController extends AbstractController {
 		Assert.isTrue(application.getFixUpTask().getTimeLimit().before(new Date()));
 
 		application.setStatus("REJECTED");
-		this.applicationService.save(application);
+		application = this.applicationService.save(application);
+
+		Message message = this.messageService.create();
+		message.setPriority("HIGH");
+		message.setSubject("Application rejected");
+		message.setBody("Application rejected");
+		message.setSender(customer);
+		List<Actor> recipients = new ArrayList<>();
+		recipients.add(application.getHandyWorker());
+		message.setRecipients(recipients);
+		List<MessageBox> messageBoxes = new ArrayList<>();
+		messageBoxes.add(this.messageBoxService.findByPrincipalAndName(customer.getId(), "OutBox"));
+		messageBoxes.add(this.messageBoxService.findByPrincipalAndName(application.getHandyWorker().getId(), "InBox"));
+		message.setMessageBoxes(messageBoxes);
+		message = this.messageService.save(message);
+		for (final MessageBox messageBox : messageBoxes) {
+			final Collection<Message> messages = messageBox.getMessages();
+			messages.add(message);
+			messageBox.setMessages(messages);
+			this.messageBoxService.save(messageBox);
 
 		return this.customer();
 	}
