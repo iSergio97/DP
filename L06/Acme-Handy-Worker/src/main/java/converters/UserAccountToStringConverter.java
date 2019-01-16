@@ -19,7 +19,7 @@ public class UserAccountToStringConverter implements Converter<UserAccount, Stri
 		if (userAccount == null)
 			result = null;
 		else
-			result = userAccount.getUsername();
+			result = String.valueOf(userAccount.getId());
 
 		return result;
 	}
