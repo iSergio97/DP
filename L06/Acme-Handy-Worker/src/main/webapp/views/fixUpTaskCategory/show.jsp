@@ -14,9 +14,12 @@
 <spring:message code="fixUpTaskCategory.fixUpTasks" />
 	<jstl:forEach items="${fixUpTaskCategory.fixUpTasks}" var="tasks">
 		<br>
-		<jstl:out value="${task.ticker}" />
+		<jstl:out value="${tasks.ticker}" />
+		<br/>
 		</jstl:forEach>
-<jstl:out value="Category Parent: ${fixUpTaskCategory.fixUpTaskCategoryParent.name}"/><br/>
+		<br/>
+<spring:message code="fixUpTaskCategory.fixUpTaskCategoryParent"/><br/>
+<jstl:out value="${fixUpTaskCategory.fixUpTaskCategoryParent.name}"/><br/>
 <spring:message code="fixUpTaskCategory.fixUpTaskCategoryChildren" />
 	<jstl:forEach items="${fixUpTaskCategory.fixUpTaskCategoryChildren}" var="children">
 		<br>
