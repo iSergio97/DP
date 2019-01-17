@@ -25,14 +25,14 @@
 <form:errors cssClass="error" path="name"></form:errors>
 <br/>
 
-
-<form:select id="parents" path="fixUpTaskCategory">
+<spring:message code="fixUpTaskCategory.fixUpTaskCategoryParent"/>
+<form:select id="parents" path="fixUpTaskCategoryParent">
 <form:options items="${parents}" itemLabel = "name" itemValue="id"/>
 <form:option label="----" value="0" />
 </form:select>
 
 <!--  Control  -->
-
+<br/>
 <input type="submit" name="save" value="<spring:message code="fixUpTaskCategory.save" />" />
 <input type="button" name="cancel" value ="<spring:message code="security.cancel"/>" onclick="javascript:RelativeRedir('/fixUpTaskCategory/administrator/list.do');"/>
 

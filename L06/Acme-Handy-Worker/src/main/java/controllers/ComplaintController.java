@@ -21,6 +21,7 @@ import services.RefereeService;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
+import domain.Report;
 
 @Controller
 @RequestMapping("/complaint")
@@ -119,11 +120,14 @@ public class ComplaintController extends AbstractController {
 	public ModelAndView show(@RequestParam final int complaintId) {
 		ModelAndView result;
 		Complaint complaint;
+		Collection<Report> reports;
 
 		result = new ModelAndView("complaint/customer/show");
 		complaint = this.complaintService.findById(complaintId);
+		reports = complaint.getReports();
 
 		result.addObject("complaint", complaint);
+		result.addObject("reports", reports);
 
 		return result;
 	}

@@ -18,9 +18,6 @@
 
 <a href="complaint/customer/list.do"><spring:message code="complaint.return" /></a><br/>
 
-<p>
-	<spring:message code="complaint.show" />
-</p>
 
 <p>
 	<spring:message code="complaint.ticker" />
@@ -51,54 +48,17 @@
 </p>
 
 <p>
-	<spring:message code="complaint.reports" />
-	<jstl:forEach items="${complaint.reports}" var="report">
-		<br>
-			<jstl:out value=": ${report.id}" />
-		
-	</jstl:forEach>
-</p>
-
-<p>
 	<spring:message code="complaint.fixUpTask" />
 	<br>
 	<jstl:out value=": ${complaint.fixUpTask.ticker}" />
 </p>
 
-<!--<display:table name="complaint.reports" id="report">
-	<display:column property="date" titleKey="report.date" />
+<p>
+<spring:message code="complaint.reports"/>
+<display:table name="reports" id="row">
+	<display:column property="id" titleKey="report.id"/>
+	<display:column property="moment" titleKey="report.moment" />
 	<display:column property="description" titleKey="report.description" />
-	<display:column titleKey="report.attachments">
-		<div>
-			<jstl:forEach items="${report.attachments}" var="attachment">
-				<br>
-				<a href="<jstl:out value='${attachment}' />">
-					<jstl:out value='${attachment}' />
-				</a>
-			</jstl:forEach>
-		</div>
-	</display:column>
-	<display:column titleKey="report.notes">
-		<div>
-			<jstl:forEach items="${report.notes}" var="note">
-				<br>
-				<a href="<jstl:out value='${note}' />">
-					<jstl:out value='${note}' />
-				</a>
-			</jstl:forEach>
-		</div>
-	</display:column>
-	<jstl:if test = "${complaint.report.referee.id == principalId}">
-		<display:column titleKey="report.options">
-			<div>
-				<a href="report/edit.do?reportId=${report.id}">
-					<spring:message code="report.edit" />
-				</a>
-				<form action="report/delete.do" method="POST">
-					<input type="hidden" name="reportid" value="<jstl:out value='${report.id}' />" />
-					<input type="submit" name="delete" value="<spring:message code='report.delete' />" />
-				</form>
-			</div>
-		</display:column>
-	</jstl:if>
-</display:table>-->
+</display:table>
+</p>
+	
