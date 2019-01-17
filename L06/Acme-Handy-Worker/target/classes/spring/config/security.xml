@@ -54,7 +54,7 @@
 		<security:intercept-url pattern="/warranty/administrator/**" access="hasRole('ADMIN')" />  
 		<security:intercept-url pattern="/fixUpTaskCategory/administrator/**" access="hasRole('ADMIN')" />  
 		
-		<security:intercept-url pattern="/complaint/edit.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/complaint/customer/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/customer/box.do" access="isAuthenticated()"/>
 
 		<security:intercept-url pattern="/application/**" access="isAuthenticated()" /> 
