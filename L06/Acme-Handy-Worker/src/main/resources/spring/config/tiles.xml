@@ -23,7 +23,6 @@
 		<value>/views/administrator/tiles.xml</value>
 		<value>/views/application/tiles.xml</value>
 		<value>/views/customer/tiles.xml</value>
-		<value>/views/complaint/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/fix-up-task/tiles.xml</value>
 		<value>/views/fixUpTaskCategory/tiles.xml</value>
@@ -34,6 +33,7 @@
 		<value>/views/sponsor/tiles.xml</value>
 		<value>/views/phase/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>
+		<value>/views/complaint/tiles.xml</value>
 	</util:list>
 
 </beans>

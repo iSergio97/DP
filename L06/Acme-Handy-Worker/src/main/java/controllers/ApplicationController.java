@@ -124,15 +124,18 @@ public class ApplicationController extends AbstractController {
 		for (final FixUpTask f : customer.getFixUpTasks())
 			applications.addAll(f.getApplications());
 		result = new ModelAndView("application/customer");
+		final Date expireTime = new Date();
+		expireTime.setDate(expireTime.getDay() + 2);
 		result.addObject("applications", applications);
 		result.addObject("currentDate", new Date());
+		result.addObject("expireTime", expireTime);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/customer", method = RequestMethod.POST, params = "accept")
 	public ModelAndView customerAccept(@RequestParam(value = "id") final int id) {
-		ModelAndView result;
+		final ModelAndView result;
 
 		Application application;
 		Customer customer;
@@ -151,6 +154,35 @@ public class ApplicationController extends AbstractController {
 
 			application.setStatus("ACCEPTED");
 			this.applicationService.save(application);
+
+			final List<Application> ap = (List<Application>) application.getFixUpTask().getApplications();
+			ap.remove(application);
+			for (final Application a : ap) {
+				a.setStatus("REJECTED");
+				this.applicationService.save(a);
+
+				Message message = this.messageService.create();
+				message.setPriority("HIGH");
+				message.setSubject("Application rejected");
+				message.setBody("Application rejected");
+				message.setSender(customer);
+				final List<Actor> recipients = new ArrayList<>();
+				recipients.add(a.getHandyWorker());
+				message.setRecipients(recipients);
+				final List<MessageBox> messageBoxes = new ArrayList<>();
+				messageBoxes.add(this.messageBoxService.findByPrincipalAndName(customer.getId(), "OutBox"));
+				messageBoxes.add(this.messageBoxService.findByPrincipalAndName(a.getHandyWorker().getId(), "InBox"));
+				message.setMessageBoxes(messageBoxes);
+				message = this.messageService.save(message);
+				for (final MessageBox messageBox : messageBoxes) {
+					final Collection<Message> messages = messageBox.getMessages();
+					messages.add(message);
+					messageBox.setMessages(messages);
+					this.messageBoxService.save(messageBox);
+				}
+			}
+			ap.add(application);
+
 			Message message = this.messageService.create();
 			message.setPriority("HIGH");
 			message.setSubject("Application accepted");
@@ -170,14 +202,18 @@ public class ApplicationController extends AbstractController {
 				messageBox.setMessages(messages);
 				this.messageBoxService.save(messageBox);
 			}
+
 			result = this.customer();
+
 		}
+
 		return result;
 	}
+
 	@RequestMapping(value = "/customer", method = RequestMethod.POST, params = "reject")
 	public ModelAndView customerReject(@RequestParam(value = "id") final int id) {
-		Application application;
-		Customer customer;
+		final Application application;
+		final Customer customer;
 
 		application = this.applicationService.findById(id);
 		customer = this.customerService.findPrincipal();
@@ -187,7 +223,7 @@ public class ApplicationController extends AbstractController {
 		Assert.isTrue(application.getFixUpTask().getTimeLimit().before(new Date()));
 
 		application.setStatus("REJECTED");
-		application = this.applicationService.save(application);
+		this.applicationService.save(application);
 
 		Message message = this.messageService.create();
 		message.setPriority("HIGH");
@@ -208,8 +244,10 @@ public class ApplicationController extends AbstractController {
 			messageBox.setMessages(messages);
 			this.messageBoxService.save(messageBox);
 		}
+
 		return this.customer();
 	}
+
 	// List handy worker applications -----------------------------------------
 
 	@RequestMapping(value = "/handyworker", method = RequestMethod.GET)
@@ -304,7 +342,6 @@ public class ApplicationController extends AbstractController {
 			result.addObject("customer", customer);
 			result.addObject("creditCard", creditCard);
 			result.addObject("messageCode", null);
-			System.out.println("El binding tiene errores");
 		} else
 			try {
 				customer.setCreditCard(creditCard);
@@ -317,9 +354,8 @@ public class ApplicationController extends AbstractController {
 				result.addObject("customer", customer);
 				result.addObject("creditCard", creditCard);
 				result.addObject("messageCode", "creditCard.commit.error");
-				System.out.println("Excepción: " + binding.getAllErrors());
-				System.out.println(oops.getMessage());
 			}
 		return result;
 	}
+
 }
