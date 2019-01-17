@@ -120,6 +120,19 @@ public class MessageController {
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int id) {
+		ModelAndView result;
+		Message message;
+
+		result = new ModelAndView("message/show");
+		message = this.messageService.findById(id);
+		result.addObject("message", message);
+
+		return result;
+	}
+
 	@RequestMapping(value = "/displaybox", method = RequestMethod.GET)
 	public ModelAndView displayBox(@RequestParam(value = "id") final int id) {
 		ModelAndView result;

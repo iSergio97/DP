@@ -42,7 +42,7 @@
 		</jstl:choose>
 	</display:column>
 	<display:column titleKey="options.options">
-		<a href="message/show.do?id=<jstl:out value="${message.id}" />">
+		<a href="message/show.do?messageId=<jstl:out value="${message.id}" />">
 			<spring:message code="options.open" />
 		</a>
 	</display:column>
