@@ -788,7 +788,6 @@
 		<property name="phoneNumber" value="+34 687245678" />
 		<property name="address" value="Avenida Reina Mercedes s/n" />
 		<property name="userAccount" ref="userAccountC1" />
-		<property name="creditCard" ref="creditCard1" />
 		<property name="messageBoxes">
 			<list>
 				<ref bean="inBoxC1" />
