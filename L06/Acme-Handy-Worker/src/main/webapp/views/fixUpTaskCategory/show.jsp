@@ -10,22 +10,25 @@
 
 <a href="fixUpTaskCategory/administrator/list.do"><spring:message code="fixUpTaskCategory.return" /></a>
 <br/>
-<jstl:out value="Name: ${fixUpTaskCategory.name}"/><br/>
-<spring:message code="fixUpTaskCategory.fixUpTasks" />
+<strong><spring:message code="fixUpTaskCategory.name"/></strong>
+<jstl:out value=": ${fixUpTaskCategory.name}"/><br/>
+<strong><spring:message code="fixUpTaskCategory.fixUpTasks" /></strong>
 	<jstl:forEach items="${fixUpTaskCategory.fixUpTasks}" var="tasks">
 		<br>
 		<jstl:out value="${tasks.ticker}" />
 		<br/>
 		</jstl:forEach>
-		<br/>
-<spring:message code="fixUpTaskCategory.fixUpTaskCategoryParent"/><br/>
+<strong><spring:message code="fixUpTaskCategory.fixUpTaskCategoryParent"/><br/></strong>
 <jstl:out value="${fixUpTaskCategory.fixUpTaskCategoryParent.name}"/><br/>
-<spring:message code="fixUpTaskCategory.fixUpTaskCategoryChildren" />
+<strong><spring:message code="fixUpTaskCategory.fixUpTaskCategoryChildren" /></strong>
 	<jstl:forEach items="${fixUpTaskCategory.fixUpTaskCategoryChildren}" var="children">
 		<br>
 		<jstl:out value="${children.name}" />
 	</jstl:forEach>
 
 <br/>
+<jstl:if test="${fixUpTaskCategory.name != 'CATEGORY'}">
 <a href="fixUpTaskCategory/administrator/edit.do?fixUpTaskCategoryId=${fixUpTaskCategory.id}">Edit</a>
+
 <a href="fixUpTaskCategory/administrator/delete.do?fixUpTaskCategoryId=${fixUpTaskCategory.id}">Delete</a>
+</jstl:if>
