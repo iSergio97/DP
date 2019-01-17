@@ -1,16 +1,34 @@
-﻿Changelog 10/01/2019
+﻿Changelog 17/01/2019
 
--Añadidos controladores y convertidores
+- Añadidos convertidores
 
--Actualizados Servicios y Repositorios
+Se han añadido convertidores para todas las entidades del modelo de dominio.
 
--Actualizadas y añadidas vistas
+- Añadidas vistas y controladores
 
--Añadidos y actualizados tests
+Se han añadido vistas y controladores para los casos de uso del sistema.
 
--Actualizado PopulateDatabase.xml
+- Añadidos y actualizados tests
 
--CreditCard: Los campos de valor int se han cambiado a Integer para permitir los valores nulos y poder guardar usuarios sin tarjeta de crédito
+Se han añadido nuevas pruebas.
 
--Todos los repositorios: Reemplazado "like '%?1%'" por "like concat('%', ?1, '%')"
+- Actualizado PopulateDatabase.xml
+
+Se han añadido nuevas entidades para poder realizar más pruebas en el sistema.
+
+- CreditCard: Los campos de valor int se han cambiado a Integer para permitir los valores nulos y poder guardar usuarios sin tarjeta de crédito
+
+Al guardar un actor sin una tarjeta de crédito el sistema fallaba ya que los campos se inicializaban a null por defecto y las primitivas no pueden ser nulas, por lo que se han cambiado estos campos a objetos para poder guardar actores sin tarjeta de crédito.
+
+- Todos los repositorios: Reemplazado "like '%?1%'" por "like concat('%', ?1, '%')"
+
+La comprobación de que si string contiene otro usando "like '%?1%'" fallaba ya que las cadenas de argumento ya se embeben en la query usando comillas, así que usamos la función concat para añadir los símbolos a la cadena y realizar la comparación correctamente.
+
+- Actor: Se ha eliminado la cualidad abstracta de la clase
+
+Para poder crear método de editar perfil genérico para todas las clases de actor se necesitaba poder instanciar al actor con los datos de formulario, y de esta manera se puede instanciar a actor y crear un método de editar perfil válido para todos los tipos de actores.
+
+- Repositorios y servicios de clases que extienden a actor: Añadidos métodos de findByUserAccountId()
+
+Se han añadido estos métodos en las clases donde faltaban para poder buscar a actores de cualquier tipo con solo la id de una cuenta de usuario.
 
